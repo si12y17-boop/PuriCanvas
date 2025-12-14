@@ -6,7 +6,7 @@
     <title>プリクラ印刷レイアウトツール</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600&family=Dancing+Script:wght@400;700&family=Pacifico&family=Sacramento&family=Satisfy&family=Great+Vibes&family=Caveat:wght@400;700&family=Klee+One&family=Zen+Kurenaido&family=Yomogi&family=Yusei+Magic&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <style>
         /* =====================================================
@@ -37,7 +37,7 @@
            ===================================================== */
         .app-header {
             text-align: center;
-            padding: 20px 0;
+            padding: 20px;
             color: white;
         }
 
@@ -56,155 +56,7 @@
             opacity: 0.9;
         }
 
-        .app-header {
-            position: relative;
-        }
 
-        .help-btn {
-            position: absolute;
-            top: 20px;
-            right: 0;
-            width: 40px;
-            height: 40px;
-            border: 2px solid rgba(255,255,255,0.5);
-            border-radius: 50%;
-            background: rgba(255,255,255,0.1);
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .help-btn:hover {
-            background: rgba(255,255,255,0.2);
-            border-color: white;
-        }
-
-        /* ヘルプモーダル */
-        .help-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.6);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1200;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s;
-        }
-
-        .help-modal.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .help-modal-content {
-            background: #fff;
-            width: 95%;
-            max-width: 500px;
-            max-height: 85vh;
-            border-radius: 16px;
-            overflow: hidden;
-            transform: scale(0.9);
-            transition: transform 0.3s;
-        }
-
-        .help-modal.show .help-modal-content {
-            transform: scale(1);
-        }
-
-        .help-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .help-modal-header h3 {
-            font-size: 1rem;
-            font-weight: 500;
-        }
-
-        .help-modal-header h3 i {
-            margin-right: 8px;
-        }
-
-        .close-help-btn {
-            width: 36px;
-            height: 36px;
-            border: none;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.2);
-            color: white;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .close-help-btn:hover {
-            background: rgba(255,255,255,0.3);
-        }
-
-        .help-modal-body {
-            padding: 20px;
-            overflow-y: auto;
-            max-height: calc(85vh - 70px);
-        }
-
-        .help-section {
-            margin-bottom: 20px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .help-section:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
-
-        .help-section h4 {
-            font-size: 0.95rem;
-            color: #4a5568;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .help-section h4 i {
-            color: #667eea;
-        }
-
-        .help-section p {
-            font-size: 0.85rem;
-            color: #718096;
-            line-height: 1.6;
-        }
-
-        .help-section ul {
-            font-size: 0.85rem;
-            color: #718096;
-            line-height: 1.8;
-            padding-left: 20px;
-            margin: 0;
-        }
-
-        .help-section kbd {
-            display: inline-block;
-            padding: 2px 6px;
-            background: #f0f4f8;
-            border: 1px solid #cbd5e0;
-            border-radius: 4px;
-            font-family: monospace;
-            font-size: 0.8rem;
-        }
 
         /* =====================================================
            プレビューセクション
@@ -635,6 +487,42 @@
             transform: translateX(20px);
         }
 
+        /* 適用対象トグルボタン */
+        .apply-target-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            border: 2px solid #cbd5e0;
+            border-radius: 8px;
+            background: #f7fafc;
+            color: #718096;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .apply-target-btn:hover {
+            border-color: #a0aec0;
+            background: #edf2f7;
+        }
+
+        .apply-target-btn.active {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        .apply-target-btn i {
+            font-size: 0.9rem;
+        }
+
+        .apply-target-btn input {
+            display: none;
+        }
+
         /* コメントオプション */
         .comment-options {
             margin-top: 12px;
@@ -673,6 +561,19 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-color: transparent;
             color: #fff;
+        }
+
+        .lock-btn:disabled {
+            background: #f0f4f8;
+            border-color: #e2e8f0;
+            color: #a0aec0;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .lock-btn:disabled:hover {
+            border-color: #e2e8f0;
+            color: #a0aec0;
         }
 
         .lock-btn i {
@@ -782,6 +683,13 @@
             color: #667eea;
         }
 
+        /* 一括スタイル設定 */
+        .batch-style-options {
+            padding: 16px;
+            background: #f7fafc;
+            border-radius: 10px;
+        }
+
         /* ダウンロードボタン */
         .download-buttons {
             display: grid;
@@ -831,58 +739,6 @@
 
         .clear-btn i {
             margin-right: 8px;
-        }
-
-        /* 保存・読み込みボタン */
-        .save-load-buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .save-btn, .load-btn {
-            padding: 12px 16px;
-            border: 2px solid #48bb78;
-            border-radius: 10px;
-            background: #fff;
-            color: #48bb78;
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .save-btn:hover {
-            background: #48bb78;
-            color: #fff;
-        }
-
-        .load-btn {
-            border-color: #4299e1;
-            color: #4299e1;
-        }
-
-        .load-btn:hover {
-            background: #4299e1;
-            color: #fff;
-        }
-
-        .save-hint {
-            font-size: 0.75rem;
-            color: #718096;
-            margin-top: 10px;
-            display: flex;
-            align-items: flex-start;
-            gap: 6px;
-        }
-
-        .save-hint i {
-            margin-top: 2px;
-            color: #667eea;
         }
 
         /* =====================================================
@@ -998,6 +854,7 @@
         .edit-preview-container {
             position: relative;
             display: inline-block;
+            overflow: visible;
         }
 
         /* トリミング表示用のオーバーレイ */
@@ -1064,22 +921,23 @@
 
         .crop-label {
             position: absolute;
-            bottom: -24px;
+            bottom: -28px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: #667eea;
             white-space: nowrap;
             background: rgba(255,255,255,0.9);
             padding: 2px 8px;
             border-radius: 4px;
+            z-index: 10;
         }
 
         .edit-preview-hint {
             text-align: center;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: #667eea;
-            margin-top: 8px;
+            margin-top: 36px;
             font-weight: 500;
         }
 
@@ -1298,6 +1156,211 @@
             margin: 0;
         }
 
+        /* 要素選択UI */
+        .element-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            padding: 8px;
+            background: #f7fafc;
+            border-radius: 8px;
+        }
+
+        .element-select-btn {
+            flex: 1;
+            padding: 10px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            background: #fff;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #718096;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .element-select-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .element-select-btn.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        .element-select-btn.selected i {
+            color: #fff;
+        }
+
+        .element-select-btn i {
+            color: #667eea;
+        }
+
+        .element-select-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #e2e8f0;
+            background: #f0f4f8;
+            color: #a0aec0;
+        }
+
+        .element-select-btn:disabled:hover {
+            border-color: #e2e8f0;
+            color: #a0aec0;
+        }
+
+        .element-select-btn:disabled i {
+            color: #a0aec0;
+        }
+
+        /* 選択要素用コントロールパネル */
+        .selected-element-controls {
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .selected-element-controls.hidden {
+            display: none;
+        }
+
+        .selected-element-controls h4 {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #4a5568;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .selected-element-controls h4 i {
+            color: #667eea;
+        }
+
+        .scale-rotation-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .scale-control-row, .rotation-control-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .scale-control-row label, .rotation-control-row label {
+            min-width: 50px;
+            font-size: 0.8rem;
+            color: #718096;
+            margin-bottom: 0;
+        }
+
+        .scale-control-row input[type="range"], .rotation-control-row input[type="range"] {
+            flex: 1;
+            height: 6px;
+        }
+
+        .scale-control-row span, .rotation-control-row span {
+            min-width: 45px;
+            text-align: right;
+            font-size: 0.8rem;
+            color: #4a5568;
+            margin-top: 0;
+        }
+
+        .snap-btn {
+            padding: 6px 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            background: #fff;
+            font-size: 0.75rem;
+            color: #718096;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .snap-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .snap-btn.active {
+            border-color: #667eea;
+            background: #667eea;
+            color: #fff;
+        }
+
+        /* 回転ハンドルオーバーレイ */
+        .rotation-handle {
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            background: #fff;
+            border: 2px solid #667eea;
+            border-radius: 50%;
+            cursor: grab;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 100;
+            transition: transform 0.1s, background 0.2s;
+            touch-action: none;
+        }
+
+        .rotation-handle:hover {
+            transform: scale(1.1);
+            background: #f0f4ff;
+        }
+
+        .rotation-handle:active {
+            cursor: grabbing;
+            transform: scale(1.15);
+            background: #e0e7ff;
+        }
+
+        .rotation-handle i {
+            font-size: 12px;
+            color: #667eea;
+        }
+
+        .rotation-handle.date-handle {
+            border-color: #48bb78;
+        }
+
+        .rotation-handle.date-handle i {
+            color: #48bb78;
+        }
+
+        .rotation-handle.date-handle:hover {
+            background: #f0fff4;
+        }
+
+        /* 選択中の要素ハイライト */
+        .element-highlight {
+            position: absolute;
+            pointer-events: none;
+            border: 2px solid #667eea;
+            border-radius: 4px;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+            z-index: 90;
+        }
+
+        .element-highlight.date-highlight {
+            border-color: #48bb78;
+            box-shadow: 0 0 0 3px rgba(72, 187, 120, 0.2);
+        }
+
         /* 日付オプション */
         .date-options {
             margin-top: 12px;
@@ -1495,9 +1558,6 @@
         <header class="app-header">
             <h1><i class="fas fa-images"></i> プリクラ印刷レイアウト</h1>
             <p class="subtitle">写真をプリクラサイズで印刷用にレイアウト</p>
-            <button class="help-btn" id="helpBtn" title="ヘルプを表示">
-                <i class="fas fa-question-circle"></i>
-            </button>
         </header>
 
         <!-- プレビューエリア -->
@@ -1597,6 +1657,16 @@
                             <option value="serif">明朝体</option>
                             <option value="sans-serif">ゴシック体</option>
                             <option value="monospace">等幅</option>
+                            <option value="Dancing Script">Dancing Script</option>
+                            <option value="Pacifico">Pacifico</option>
+                            <option value="Sacramento">Sacramento</option>
+                            <option value="Satisfy">Satisfy</option>
+                            <option value="Great Vibes">Great Vibes</option>
+                            <option value="Caveat">Caveat</option>
+                            <option value="Klee One">クレー One</option>
+                            <option value="Zen Kurenaido">ZEN紅道</option>
+                            <option value="Yomogi">よもぎ</option>
+                            <option value="Yusei Magic">油性マジック</option>
                         </select>
                     </div>
                     <div class="date-option-row">
@@ -1636,6 +1706,72 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- コメント・日付スタイル一括設定 -->
+            <div class="panel-section">
+                <h3><i class="fas fa-paint-brush"></i> スタイル一括設定</h3>
+                <div class="batch-style-options">
+                    <div class="comment-option-row">
+                        <label>フォント:</label>
+                        <select id="batchFont">
+                            <option value="Noto Sans JP">Noto Sans JP</option>
+                            <option value="serif">明朝体</option>
+                            <option value="sans-serif">ゴシック体</option>
+                            <option value="monospace">等幅</option>
+                            <option value="Dancing Script">Dancing Script</option>
+                            <option value="Pacifico">Pacifico</option>
+                            <option value="Sacramento">Sacramento</option>
+                            <option value="Satisfy">Satisfy</option>
+                            <option value="Great Vibes">Great Vibes</option>
+                            <option value="Caveat">Caveat</option>
+                            <option value="Klee One">クレー One</option>
+                            <option value="Zen Kurenaido">ZEN紅道</option>
+                            <option value="Yomogi">よもぎ</option>
+                            <option value="Yusei Magic">油性マジック</option>
+                        </select>
+                    </div>
+                    <div class="comment-option-row">
+                        <label>サイズ:</label>
+                        <select id="batchSize">
+                            <option value="small">小</option>
+                            <option value="medium" selected>中</option>
+                            <option value="large">大</option>
+                        </select>
+                    </div>
+                    <div class="comment-option-row">
+                        <label>色:</label>
+                        <input type="color" id="batchColor" value="#ffffff">
+                        <select id="batchColorPreset">
+                            <option value="#ffffff">白</option>
+                            <option value="#000000">黒</option>
+                            <option value="#ffcc00">黄色</option>
+                            <option value="#ff6b6b">赤</option>
+                            <option value="#4ecdc4">水色</option>
+                            <option value="#ff9ff3">ピンク</option>
+                        </select>
+                    </div>
+                    <div class="comment-option-row" style="margin-top: 12px;">
+                        <label style="min-width: auto;">適用対象:</label>
+                        <label class="apply-target-btn active" id="batchApplyCommentBtn">
+                            <input type="checkbox" id="batchApplyComment" checked>
+                            <i class="fas fa-check"></i>
+                            <span>コメント</span>
+                        </label>
+                        <label class="apply-target-btn active" id="batchApplyDateBtn">
+                            <input type="checkbox" id="batchApplyDate" checked>
+                            <i class="fas fa-check"></i>
+                            <span>日付</span>
+                        </label>
+                    </div>
+                    <button class="download-btn" id="applyBatchStyle" style="width: 100%; margin-top: 12px;">
+                        <i class="fas fa-sync-alt"></i> 全写真に一括適用
+                    </button>
+                    <div class="date-info" style="margin-top: 8px;">
+                        <i class="fas fa-info-circle"></i>
+                        選択したスタイルを全ての写真のコメント・日付に一括で反映します。
+                    </div>
+                </div>
+            </div>
 
             <!-- 出力 -->
             <div class="panel-section">
@@ -1648,24 +1784,6 @@
                         <i class="fas fa-file-image"></i> JPEG
                     </button>
                 </div>
-            </div>
-
-            <!-- 保存・読み込み -->
-            <div class="panel-section">
-                <h3><i class="fas fa-save"></i> 編集状態の保存</h3>
-                <div class="save-load-buttons">
-                    <button class="save-btn" id="saveProject">
-                        <i class="fas fa-save"></i> 保存
-                    </button>
-                    <button class="load-btn" id="loadProject">
-                        <i class="fas fa-folder-open"></i> 読み込み
-                    </button>
-                    <input type="file" id="loadProjectInput" accept=".pklayout,.json" hidden>
-                </div>
-                <p class="save-hint">
-                    <i class="fas fa-info-circle"></i>
-                    編集中の状態を保存して後で再開できます
-                </p>
             </div>
 
             <!-- クリアボタン -->
@@ -1739,36 +1857,64 @@
                     <div class="edit-preview">
                         <div class="edit-preview-container" id="editPreviewContainer">
                             <canvas id="editCanvas"></canvas>
-                            <div class="crop-overlay">
-                                <div class="crop-corner top-left"></div>
-                                <div class="crop-corner top-right"></div>
-                                <div class="crop-corner bottom-left"></div>
-                                <div class="crop-corner bottom-right"></div>
-                            </div>
                             <div class="crop-label" id="cropLabel">印刷範囲</div>
                         </div>
-                        <p class="edit-preview-hint"><i class="fas fa-hand-pointer"></i> ドラッグで位置、ピンチでズームを調整</p>
+                        <p class="edit-preview-hint"><i class="fas fa-hand-pointer"></i> 要素をタップして選択、下のスライダーでサイズ・回転を調整</p>
                     </div>
                     <div class="edit-controls">
-                        <div class="control-group">
-                            <label>ズーム</label>
-                            <div class="zoom-control-row">
-                                <input type="range" id="zoomSlider" min="50" max="300" value="100">
-                                <span id="zoomValue">100%</span>
-                                <button class="reset-zoom-btn" id="resetZoom" title="100%にリセット">
-                                    <i class="fas fa-sync-alt"></i>
-                                </button>
-                            </div>
+                        <!-- 要素選択ボタン -->
+                        <div class="element-selector">
+                            <button class="element-select-btn selected" id="selectImage" data-element="image">
+                                <i class="fas fa-image"></i> 写真
+                            </button>
+                            <button class="element-select-btn" id="selectComment" data-element="comment">
+                                <i class="fas fa-comment"></i> コメント
+                            </button>
+                            <button class="element-select-btn" id="selectDate" data-element="date">
+                                <i class="fas fa-calendar"></i> 日付
+                            </button>
                         </div>
-                        <div class="control-group">
-                            <label>回転</label>
-                            <div class="rotate-buttons">
-                                <button class="rotate-btn" id="rotateLeft">
-                                    <i class="fas fa-undo"></i> -90°
-                                </button>
-                                <button class="rotate-btn" id="rotateRight">
-                                    <i class="fas fa-redo"></i> +90°
-                                </button>
+                        
+                        <!-- 選択要素用コントロールパネル -->
+                        <div class="selected-element-controls" id="selectedElementControls">
+                            <h4 id="selectedElementTitle"><i class="fas fa-image"></i> 写真の調整</h4>
+                            <div class="scale-rotation-controls">
+                                <!-- 写真用ズームコントロール -->
+                                <div class="scale-control-row" id="imageZoomControl">
+                                    <label>ズーム</label>
+                                    <input type="range" id="zoomSlider" min="50" max="300" value="100">
+                                    <span id="zoomValue">100%</span>
+                                    <button class="reset-zoom-btn" id="resetZoom">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </button>
+                                </div>
+                                <!-- 写真用回転コントロール -->
+                                <div class="rotation-control-row" id="imageRotationControl">
+                                    <label>回転</label>
+                                    <div class="rotate-buttons" style="flex: 1;">
+                                        <button class="rotate-btn" id="rotateLeft">
+                                            <i class="fas fa-undo"></i> -90°
+                                        </button>
+                                        <button class="rotate-btn" id="rotateRight">
+                                            <i class="fas fa-redo"></i> +90°
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- コメント/日付用サイズコントロール -->
+                                <div class="scale-control-row" id="elementScaleControl" style="display: none;">
+                                    <label>サイズ</label>
+                                    <input type="range" id="elementScaleSlider" min="50" max="200" value="100">
+                                    <span id="elementScaleValue">100%</span>
+                                </div>
+                                <!-- コメント/日付用回転コントロール -->
+                                <div class="rotation-control-row" id="elementRotationControl" style="display: none;">
+                                    <label>回転</label>
+                                    <input type="range" id="elementRotationSlider" min="-180" max="180" value="0">
+                                    <span id="elementRotationValue">0°</span>
+                                    <button class="snap-btn" id="snapRotationBtn" title="90度単位にスナップ">
+                                        <i class="fas fa-magnet"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         
@@ -1776,13 +1922,17 @@
                         <div class="control-group">
                             <label>ロック</label>
                             <div class="lock-controls-edit" style="display: flex; gap: 8px; flex-wrap: wrap;">
-                                <button class="lock-btn" id="lockImageBtn" title="写真の移動・ズームをロック">
+                                <button class="lock-btn" id="lockImageBtn">
                                     <i class="fas fa-unlock" id="lockImageIcon"></i>
                                     <span>写真</span>
                                 </button>
-                                <button class="lock-btn" id="lockCommentBtn" title="コメントの移動・サイズをロック">
+                                <button class="lock-btn" id="lockCommentBtn">
                                     <i class="fas fa-unlock" id="lockCommentIcon"></i>
                                     <span>コメント</span>
+                                </button>
+                                <button class="lock-btn" id="lockDateBtn">
+                                    <i class="fas fa-unlock" id="lockDateIcon"></i>
+                                    <span>日付</span>
                                 </button>
                             </div>
                             <p class="lock-hint" style="font-size: 0.75rem; color: #718096; margin-top: 8px;">
@@ -1795,7 +1945,7 @@
                         <div class="comment-input-group" id="commentInputGroup">
                             <label><i class="fas fa-comment"></i> コメント</label>
                             <input type="text" id="imageComment" placeholder="コメントを入力..." maxlength="50">
-                            <p class="comment-drag-hint"><i class="fas fa-arrows-alt"></i> プレビュー内でコメントをドラッグ、ピンチでサイズを調整できます</p>
+                            <p class="comment-drag-hint"><i class="fas fa-arrows-alt"></i> プレビュー内でコメント/日付をタップして選択、スライダーでサイズ・回転を調整</p>
                             
                             <!-- 個別コメント設定 -->
                             <div class="individual-style-options">
@@ -1806,8 +1956,17 @@
                                         <option value="Noto Sans JP">Noto Sans JP</option>
                                         <option value="serif">明朝体</option>
                                         <option value="sans-serif">ゴシック体</option>
-                                        <option value="cursive">筆記体</option>
                                         <option value="monospace">等幅</option>
+                                        <option value="Dancing Script">Dancing Script</option>
+                                        <option value="Pacifico">Pacifico</option>
+                                        <option value="Sacramento">Sacramento</option>
+                                        <option value="Satisfy">Satisfy</option>
+                                        <option value="Great Vibes">Great Vibes</option>
+                                        <option value="Caveat">Caveat</option>
+                                        <option value="Klee One">クレー One</option>
+                                        <option value="Zen Kurenaido">ZEN紅道</option>
+                                        <option value="Yomogi">よもぎ</option>
+                                        <option value="Yusei Magic">油性マジック</option>
                                     </select>
                                 </div>
                                 <div class="style-option-row">
@@ -1849,6 +2008,16 @@
                                         <option value="serif">明朝体</option>
                                         <option value="sans-serif">ゴシック体</option>
                                         <option value="monospace">等幅</option>
+                                        <option value="Dancing Script">Dancing Script</option>
+                                        <option value="Pacifico">Pacifico</option>
+                                        <option value="Sacramento">Sacramento</option>
+                                        <option value="Satisfy">Satisfy</option>
+                                        <option value="Great Vibes">Great Vibes</option>
+                                        <option value="Caveat">Caveat</option>
+                                        <option value="Klee One">クレー One</option>
+                                        <option value="Zen Kurenaido">ZEN紅道</option>
+                                        <option value="Yomogi">よもぎ</option>
+                                        <option value="Yusei Magic">油性マジック</option>
                                     </select>
                                 </div>
                                 <div class="style-option-row">
@@ -1883,66 +2052,10 @@
             </div>
         </div>
         
-        <!-- ヘルプモーダル -->
-        <div class="help-modal" id="helpModal">
-            <div class="help-modal-content">
-                <div class="help-modal-header">
-                    <h3><i class="fas fa-question-circle"></i> 使い方ガイド</h3>
-                    <button class="close-help-btn" id="closeHelp">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div class="help-modal-body">
-                    <div class="help-section">
-                        <h4><i class="fas fa-camera"></i> 写真の追加</h4>
-                        <p>「写真をアップロード」エリアをタップするか、写真をドラッグ＆ドロップして追加できます。複数選択も可能です。</p>
-                    </div>
-                    <div class="help-section">
-                        <h4><i class="fas fa-edit"></i> 写真の編集</h4>
-                        <ul>
-                            <li><strong>タップ</strong>：写真をタップすると編集画面が開きます</li>
-                            <li><strong>ドラッグ</strong>：写真を掴んで位置を移動できます</li>
-                            <li><strong>ズーム</strong>：スライダーまたはピンチで調整</li>
-                            <li><strong>回転</strong>：90度単位で回転</li>
-                        </ul>
-                    </div>
-                    <div class="help-section">
-                        <h4><i class="fas fa-lock"></i> ロック機能</h4>
-                        <p>各写真の編集画面から、写真やコメントの位置・サイズを誤って変更しないよう、ロックすることができます。</p>
-                    </div>
-                    <div class="help-section">
-                        <h4><i class="fas fa-comment"></i> コメント機能</h4>
-                        <p>各写真の編集画面からコメントを入力できます。コメントの位置はドラッグで、サイズはピンチで調整できます。フォント・サイズ・色も個別に設定可能です。</p>
-                    </div>
-                    <div class="help-section">
-                        <h4><i class="fas fa-save"></i> 保存・読み込み</h4>
-                        <p>編集中の状態を保存して、後で再開できます。データサイズが小さい場合は自動的にキャッシュにも保存されます。</p>
-                    </div>
-                    <div class="help-section">
-                        <h4><i class="fas fa-keyboard"></i> キーボードショートカット</h4>
-                        <ul>
-                            <li><kbd>Ctrl</kbd> + <kbd>S</kbd>：プロジェクト保存</li>
-                            <li><kbd>Ctrl</kbd> + <kbd>O</kbd>：プロジェクト読み込み</li>
-                            <li><kbd>Escape</kbd>：モーダルを閉じる</li>
-                        </ul>
-                    </div>
-                    <div class="help-section">
-                        <h4><i class="fas fa-print"></i> 印刷のコツ</h4>
-                        <ul>
-                            <li>PNG形式は高画質、JPEG形式はファイルサイズが小さい</li>
-                            <li>切り取り線を表示すると、切り取りの目安になります</li>
-                            <li>300dpiの高解像度で出力されます</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- Fabric.js -->
     <script src="https://cdn.jsdelivr.net/npm/fabric@5.3.0/dist/fabric.min.js"></script>
-    <!-- LZ-String for compression -->
-    <script src="https://cdn.jsdelivr.net/npm/lz-string@1.5.0/libs/lz-string.min.js"></script>
     <script>
     /**
      * プリクラ印刷レイアウトツール
@@ -2003,6 +2116,10 @@
         // ロック機能
         let isImageLocked = false;
         let isCommentLocked = false;
+        let isDateLocked = false;
+        
+        // 要素選択機能
+        let selectedElement = 'image'; // 'image', 'comment', 'date'
         
         // 描画セッションID（非同期描画の整合性用）
         let drawSessionId = 0;
@@ -2041,11 +2158,16 @@
             commentX: 0.5, // 0-1の範囲（相対位置）
             commentY: 0.9,  // 0-1の範囲（相対位置）
             commentScale: 1.0, // コメントサイズ倍率
+            commentRotation: 0, // コメント回転角度
             commentFont: '', // 個別フォント（空=デフォルト）
             commentFontSize: '', // 個別サイズ（空=デフォルト）
             commentColor: '', // 個別色（空=デフォルト）
             date: '', // 日付文字列
             exifDate: null, // EXIFから取得した日付
+            dateX: 0.75, // 日付のX位置（相対位置）- 印刷領域内に収まるよう調整
+            dateY: 0.9, // 日付のY位置（相対位置）
+            dateScale: 1.0, // 日付サイズ倍率
+            dateRotation: 0, // 日付回転角度
             dateFont: '', // 個別フォント（空=デフォルト）
             dateFontSize: '', // 個別サイズ（空=デフォルト）
             dateColor: '' // 個別色（空=デフォルト）
@@ -2069,49 +2191,11 @@
         // 初期化
         // =====================================================
         
-        document.addEventListener('DOMContentLoaded', async function() {
+        document.addEventListener('DOMContentLoaded', function() {
             initCanvas();
             initEventListeners();
             updatePaperSize(currentPaperSize);
             updateFrameCounts();
-            
-            // キャッシュからの復元を確認
-            const cached = localStorage.getItem(CACHE_KEY);
-            if (cached) {
-                const restore = confirm('前回の編集状態が見つかりました。\n復元しますか？');
-                if (restore) {
-                    const success = await loadFromCache();
-                    if (success) {
-                        console.log('キャッシュから復元しました');
-                    }
-                }
-            }
-        });
-        
-        // ページを離れる前に自動保存
-        window.addEventListener('beforeunload', function(e) {
-            if (allImages.length > 0) {
-                // 非同期保存は完了を待てないため、同期的に可能な範囲で保存を試みる
-                // ただし、大きなデータの場合は保存できない可能性がある
-                try {
-                    const simpleData = {
-                        version: '2.1',
-                        timestamp: Date.now(),
-                        paperSize: currentPaperSize,
-                        showCutLines: showCutLines,
-                        cutLineWidth: cutLineWidth,
-                        showComment: showComment,
-                        commentSettings: commentSettings,
-                        showDate: showDate,
-                        dateSettings: dateSettings,
-                        images: [] // 画像データは同期的に取得できないため空
-                    };
-                    // 設定のみ保存（警告表示用）
-                    localStorage.setItem(CACHE_KEY + '_settings', JSON.stringify(simpleData));
-                } catch (error) {
-                    // 保存失敗は無視
-                }
-            }
         });
         
         function initCanvas() {
@@ -2232,13 +2316,23 @@
             document.getElementById('imageComment').addEventListener('input', function() {
                 editState.comment = this.value;
                 drawEditPreview();
+                updateElementButtonStates();
             });
             
             // 日付トグル
             document.getElementById('dateToggle').addEventListener('change', function() {
                 showDate = this.checked;
                 document.getElementById('dateOptions').classList.toggle('show', this.checked);
+                // 編集モーダル内の日付入力欄の表示/非表示を更新
+                const dateInputGroup = document.getElementById('dateInputGroup');
+                if (dateInputGroup) {
+                    dateInputGroup.style.display = this.checked ? 'block' : 'none';
+                }
                 drawLayout();
+                // 編集モーダルが開いている場合、ボタン状態を更新
+                if (editCanvas) {
+                    updateElementButtonStates();
+                }
             });
             
             // 日付オプション
@@ -2277,12 +2371,14 @@
             document.getElementById('imageDate').addEventListener('change', function() {
                 editState.date = this.value;
                 drawEditPreview();
+                updateElementButtonStates();
             });
             
             document.getElementById('clearDateBtn').addEventListener('click', function() {
                 document.getElementById('imageDate').value = '';
                 editState.date = '';
                 drawEditPreview();
+                updateElementButtonStates();
             });
             
             // 個別コメントスタイル設定
@@ -2337,6 +2433,26 @@
                 drawEditPreview();
             });
             
+            // 一括スタイル適用機能
+            document.getElementById('batchColorPreset').addEventListener('change', function() {
+                document.getElementById('batchColor').value = this.value;
+            });
+            
+            document.getElementById('applyBatchStyle').addEventListener('click', applyBatchStyleToAll);
+            
+            // 適用対象トグルボタン
+            document.getElementById('batchApplyCommentBtn').addEventListener('click', function() {
+                const checkbox = document.getElementById('batchApplyComment');
+                checkbox.checked = !checkbox.checked;
+                this.classList.toggle('active', checkbox.checked);
+            });
+            
+            document.getElementById('batchApplyDateBtn').addEventListener('click', function() {
+                const checkbox = document.getElementById('batchApplyDate');
+                checkbox.checked = !checkbox.checked;
+                this.classList.toggle('active', checkbox.checked);
+            });
+            
             // 編集モーダル内のスクロールが背面に伝播しないようにする
             const editModalBody = document.querySelector('.edit-modal-body');
             if (editModalBody) {
@@ -2378,47 +2494,108 @@
                 document.getElementById('lockCommentIcon').className = isCommentLocked ? 'fas fa-lock' : 'fas fa-unlock';
             });
             
-            // 保存・読み込み機能
-            document.getElementById('saveProject').addEventListener('click', saveProject);
-            document.getElementById('loadProject').addEventListener('click', function() {
-                document.getElementById('loadProjectInput').click();
+            document.getElementById('lockDateBtn').addEventListener('click', function() {
+                isDateLocked = !isDateLocked;
+                this.classList.toggle('locked', isDateLocked);
+                document.getElementById('lockDateIcon').className = isDateLocked ? 'fas fa-lock' : 'fas fa-unlock';
             });
-            document.getElementById('loadProjectInput').addEventListener('change', loadProject);
             
-            // ヘルプモーダル
-            document.getElementById('helpBtn').addEventListener('click', function() {
-                document.getElementById('helpModal').classList.add('show');
+            // 要素選択ボタン
+            document.querySelectorAll('.element-select-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const element = this.dataset.element;
+                    selectElement(element);
+                });
             });
-            document.getElementById('closeHelp').addEventListener('click', function() {
-                document.getElementById('helpModal').classList.remove('show');
-            });
-            document.getElementById('helpModal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.classList.remove('show');
+            
+            // 要素サイズスライダー
+            document.getElementById('elementScaleSlider').addEventListener('input', function() {
+                // ロック状態をチェック
+                if (selectedElement === 'comment' && isCommentLocked) return;
+                if (selectedElement === 'date' && isDateLocked) return;
+                
+                const scale = parseInt(this.value) / 100;
+                document.getElementById('elementScaleValue').textContent = this.value + '%';
+                
+                if (selectedElement === 'comment') {
+                    editState.commentScale = scale;
+                } else if (selectedElement === 'date') {
+                    editState.dateScale = scale;
                 }
+                drawEditPreview();
+                updateRotationHandlePositions();
             });
             
-            // キーボードショートカット
-            document.addEventListener('keydown', function(e) {
-                // Ctrl+S: 保存
-                if ((e.ctrlKey || e.metaKey) && e.key === 's') {
-                    e.preventDefault();
-                    if (allImages.length > 0) {
-                        saveProject();
+            // 要素回転スライダー
+            document.getElementById('elementRotationSlider').addEventListener('input', function() {
+                // ロック状態をチェック
+                if (selectedElement === 'comment' && isCommentLocked) return;
+                if (selectedElement === 'date' && isDateLocked) return;
+                
+                let rotation = parseInt(this.value);
+                
+                // 90度単位にスナップ（±5度以内）
+                const snapAngles = [-180, -90, 0, 90, 180];
+                for (const snapAngle of snapAngles) {
+                    if (Math.abs(rotation - snapAngle) <= 5) {
+                        rotation = snapAngle === 180 ? -180 : snapAngle;
+                        this.value = rotation;
+                        break;
                     }
                 }
                 
-                // Ctrl+O: 読み込み
-                if ((e.ctrlKey || e.metaKey) && e.key === 'o') {
-                    e.preventDefault();
-                    document.getElementById('loadProjectInput').click();
+                document.getElementById('elementRotationValue').textContent = rotation + '°';
+                
+                if (selectedElement === 'comment') {
+                    editState.commentRotation = rotation;
+                } else if (selectedElement === 'date') {
+                    editState.dateRotation = rotation;
+                }
+                drawEditPreview();
+                updateRotationHandlePositions();
+            });
+            
+            // 90度スナップボタン
+            document.getElementById('snapRotationBtn').addEventListener('click', function() {
+                // ロック状態をチェック
+                if (selectedElement === 'comment' && isCommentLocked) return;
+                if (selectedElement === 'date' && isDateLocked) return;
+                
+                let currentRotation;
+                if (selectedElement === 'comment') {
+                    currentRotation = editState.commentRotation || 0;
+                } else if (selectedElement === 'date') {
+                    currentRotation = editState.dateRotation || 0;
+                } else {
+                    return;
                 }
                 
+                // 最も近い90度単位にスナップ
+                const snappedRotation = Math.round(currentRotation / 90) * 90;
+                const normalizedRotation = snappedRotation > 180 ? snappedRotation - 360 : 
+                                          (snappedRotation < -180 ? snappedRotation + 360 : snappedRotation);
+                
+                if (selectedElement === 'comment') {
+                    editState.commentRotation = normalizedRotation;
+                } else if (selectedElement === 'date') {
+                    editState.dateRotation = normalizedRotation;
+                }
+                
+                document.getElementById('elementRotationSlider').value = normalizedRotation;
+                document.getElementById('elementRotationValue').textContent = normalizedRotation + '°';
+                drawEditPreview();
+                updateRotationHandlePositions();
+            });
+            
+            // 回転ハンドルのドラッグ設定（回転ハンドルは削除されたためコメントアウト）
+            // setupRotationHandleDrag('commentRotationHandle', 'comment');
+            // setupRotationHandleDrag('dateRotationHandle', 'date');
+            
+            // キーボードショートカット
+            document.addEventListener('keydown', function(e) {
                 // Escape: モーダルを閉じる
                 if (e.key === 'Escape') {
-                    if (document.getElementById('helpModal').classList.contains('show')) {
-                        document.getElementById('helpModal').classList.remove('show');
-                    } else if (document.getElementById('editModal').classList.contains('show')) {
+                    if (document.getElementById('editModal').classList.contains('show')) {
                         closeEditModal();
                     } else if (document.getElementById('sizePreviewModal').classList.contains('show')) {
                         closeSizePreviewModal();
@@ -2431,389 +2608,6 @@
         function updateLockStatus() {
             // 必要に応じて追加の表示更新
             drawLayout();
-        }
-        
-        // =====================================================
-        // 編集状態の保存・読み込み
-        // =====================================================
-        
-        // 画像を圧縮してBase64エンコード（16枚以上対応）
-        function compressImageForSave(fabricImage, maxSize = 400) {
-            return new Promise((resolve) => {
-                const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-                const img = fabricImage.getElement();
-                
-                let width = img.width;
-                let height = img.height;
-                
-                // 保存用にサイズを縮小
-                if (width > height) {
-                    if (width > maxSize) {
-                        height = Math.round(height * maxSize / width);
-                        width = maxSize;
-                    }
-                } else {
-                    if (height > maxSize) {
-                        width = Math.round(width * maxSize / height);
-                        height = maxSize;
-                    }
-                }
-                
-                canvas.width = width;
-                canvas.height = height;
-                ctx.drawImage(img, 0, 0, width, height);
-                
-                // JPEG 品質を調整（枚数に応じて動的に調整）
-                const quality = allImages.length > 20 ? 0.5 : (allImages.length > 10 ? 0.6 : 0.7);
-                resolve(canvas.toDataURL('image/jpeg', quality));
-            });
-        }
-        
-        // キャッシュ保存用の定数
-        const CACHE_KEY = 'purikura_project_cache';
-        const CACHE_MAX_SIZE = 5 * 1024 * 1024; // 5MB
-        
-        // プロジェクトデータを作成する共通関数
-        async function createProjectData() {
-            const imageDataPromises = allImages.map(async (imgData, index) => {
-                const compressedImage = await compressImageForSave(imgData.fabricImage);
-                return {
-                    imageData: compressedImage,
-                    zoom: imgData.zoom || 100,
-                    rotation: imgData.rotation || 0,
-                    panX: imgData.panX || 0,
-                    panY: imgData.panY || 0,
-                    comment: imgData.comment || '',
-                    commentX: imgData.commentX !== undefined ? imgData.commentX : 0.5,
-                    commentY: imgData.commentY !== undefined ? imgData.commentY : 0.9,
-                    commentScale: imgData.commentScale || 1.0,
-                    commentFont: imgData.commentFont || '',
-                    commentFontSize: imgData.commentFontSize || '',
-                    commentColor: imgData.commentColor || '',
-                    date: imgData.date || '',
-                    exifDate: imgData.exifDate || null,
-                    dateFont: imgData.dateFont || '',
-                    dateFontSize: imgData.dateFontSize || '',
-                    dateColor: imgData.dateColor || ''
-                };
-            });
-            
-            const compressedImages = await Promise.all(imageDataPromises);
-            
-            return {
-                version: '2.1',
-                timestamp: Date.now(),
-                paperSize: currentPaperSize,
-                showCutLines: showCutLines,
-                cutLineWidth: cutLineWidth,
-                showComment: showComment,
-                commentSettings: commentSettings,
-                showDate: showDate,
-                dateSettings: dateSettings,
-                images: compressedImages
-            };
-        }
-        
-        // キャッシュに自動保存（小さいサイズの場合）
-        async function autoSaveToCache() {
-            if (allImages.length === 0) return;
-            
-            try {
-                const saveData = await createProjectData();
-                const jsonStr = JSON.stringify(saveData);
-                
-                // サイズチェック
-                if (jsonStr.length <= CACHE_MAX_SIZE) {
-                    const compressed = LZString.compressToBase64(jsonStr);
-                    localStorage.setItem(CACHE_KEY, compressed);
-                    console.log('プロジェクトをキャッシュに自動保存しました');
-                } else {
-                    console.log('データサイズが大きいためキャッシュ保存をスキップ');
-                }
-            } catch (error) {
-                console.log('キャッシュ保存エラー:', error);
-            }
-        }
-        
-        // キャッシュからの復元
-        async function loadFromCache() {
-            try {
-                const compressed = localStorage.getItem(CACHE_KEY);
-                if (!compressed) return false;
-                
-                const jsonStr = LZString.decompressFromBase64(compressed);
-                if (!jsonStr) return false;
-                
-                const saveData = JSON.parse(jsonStr);
-                if (!saveData || !saveData.images || !Array.isArray(saveData.images)) {
-                    return false;
-                }
-                
-                await restoreProjectData(saveData);
-                return true;
-            } catch (error) {
-                console.log('キャッシュ復元エラー:', error);
-                return false;
-            }
-        }
-        
-        // キャッシュをクリア
-        function clearCache() {
-            try {
-                localStorage.removeItem(CACHE_KEY);
-            } catch (error) {
-                console.log('キャッシュクリアエラー:', error);
-            }
-        }
-        
-        // プロジェクト保存（ファイルダウンロード）
-        async function saveProject() {
-            if (allImages.length === 0) {
-                alert('保存する画像がありません。');
-                return;
-            }
-            
-            try {
-                // プログレス表示
-                const saveBtn = document.getElementById('saveProject');
-                const originalText = saveBtn.innerHTML;
-                saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 保存中...';
-                saveBtn.disabled = true;
-                
-                const saveData = await createProjectData();
-                
-                // JSONに変換
-                const jsonStr = JSON.stringify(saveData);
-                
-                // サイズに応じて保存方法を選択
-                let blob;
-                let filename;
-                const now = new Date();
-                const dateStr = now.getFullYear() + 
-                    String(now.getMonth() + 1).padStart(2, '0') + 
-                    String(now.getDate()).padStart(2, '0') + '_' +
-                    String(now.getHours()).padStart(2, '0') +
-                    String(now.getMinutes()).padStart(2, '0');
-                
-                // Base64圧縮を使用（より互換性が高い）
-                const compressed = LZString.compressToBase64(jsonStr);
-                blob = new Blob([compressed], { type: 'text/plain;charset=utf-8' });
-                filename = `purikura_project_${dateStr}.pklayout`;
-                
-                // キャッシュにも保存を試みる
-                if (jsonStr.length <= CACHE_MAX_SIZE) {
-                    localStorage.setItem(CACHE_KEY, compressed);
-                }
-                
-                // ダウンロード
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.download = filename;
-                link.href = url;
-                link.click();
-                
-                setTimeout(() => {
-                    URL.revokeObjectURL(url);
-                }, 1000);
-                
-                saveBtn.innerHTML = originalText;
-                saveBtn.disabled = false;
-                
-                alert(`${allImages.length}枚の画像を含むプロジェクトを保存しました。`);
-                
-            } catch (error) {
-                console.error('Save error:', error);
-                alert('保存中にエラーが発生しました。');
-                document.getElementById('saveProject').innerHTML = '<i class="fas fa-save"></i> 保存';
-                document.getElementById('saveProject').disabled = false;
-            }
-        }
-        
-        // プロジェクト読み込み
-        function loadProject(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            
-            const loadBtn = document.getElementById('loadProject');
-            const originalText = loadBtn.innerHTML;
-            loadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 読込中...';
-            loadBtn.disabled = true;
-            
-            // 複数の読み込み方法を試みる
-            tryLoadFile(file, loadBtn, originalText);
-            e.target.value = ''; // リセット
-        }
-        
-        async function tryLoadFile(file, loadBtn, originalText) {
-            let saveData = null;
-            
-            // 方法1: 通常のテキストとして読み込み（Base64形式用）
-            try {
-                const textContent = await readFileAsText(file);
-                
-                // Base64圧縮データとして解凍を試みる
-                try {
-                    const decompressed = LZString.decompressFromBase64(textContent.trim());
-                    if (decompressed) {
-                        saveData = JSON.parse(decompressed);
-                    }
-                } catch (e) {
-                    console.log('Base64解凍失敗');
-                }
-                
-                // 通常のJSONとしてパース
-                if (!saveData) {
-                    try {
-                        saveData = JSON.parse(textContent);
-                    } catch (e) {
-                        console.log('JSON直接パース失敗');
-                    }
-                }
-            } catch (e) {
-                console.log('テキスト読み込み失敗');
-            }
-            
-            // 方法2: UTF-16として読み込み（旧形式用）
-            if (!saveData) {
-                try {
-                    const textContent = await readFileAsText(file, 'UTF-16LE');
-                    const decompressed = LZString.decompressFromUTF16(textContent);
-                    if (decompressed) {
-                        saveData = JSON.parse(decompressed);
-                    }
-                } catch (e) {
-                    console.log('UTF-16LE解凍失敗');
-                }
-            }
-            
-            // 方法3: UTF-16BEとして読み込み
-            if (!saveData) {
-                try {
-                    const textContent = await readFileAsText(file, 'UTF-16BE');
-                    const decompressed = LZString.decompressFromUTF16(textContent);
-                    if (decompressed) {
-                        saveData = JSON.parse(decompressed);
-                    }
-                } catch (e) {
-                    console.log('UTF-16BE解凍失敗');
-                }
-            }
-            
-            // 結果を処理
-            if (saveData && saveData.images && Array.isArray(saveData.images)) {
-                try {
-                    await restoreProjectData(saveData);
-                    loadBtn.innerHTML = originalText;
-                    loadBtn.disabled = false;
-                    alert(`${allImages.length}枚の画像を含むプロジェクトを読み込みました。`);
-                } catch (error) {
-                    console.error('Restore error:', error);
-                    loadBtn.innerHTML = originalText;
-                    loadBtn.disabled = false;
-                    alert('プロジェクトの復元に失敗しました。');
-                }
-            } else {
-                loadBtn.innerHTML = originalText;
-                loadBtn.disabled = false;
-                alert('ファイルの読み込みに失敗しました。\n有効なプロジェクトファイル(.pklayout)を選択してください。');
-            }
-        }
-        
-        // Promiseを返すファイル読み込み関数
-        function readFileAsText(file, encoding = 'UTF-8') {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = (e) => resolve(e.target.result);
-                reader.onerror = (e) => reject(e);
-                reader.readAsText(file, encoding);
-            });
-        }
-        
-        // プロジェクトデータの復元（共通処理）
-        async function restoreProjectData(saveData) {
-            // 既存のデータをクリア
-            allImages = [];
-            placedImages = [];
-            frames.forEach(frame => {
-                frame.occupied = false;
-                frame.imageIndex = -1;
-            });
-            
-            // 設定を復元
-            if (saveData.paperSize) {
-                currentPaperSize = saveData.paperSize;
-                document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
-                document.querySelector(`[data-size="${currentPaperSize}"]`)?.classList.add('active');
-            }
-            
-            showCutLines = saveData.showCutLines || false;
-            document.getElementById('cutLineToggle').checked = showCutLines;
-            document.getElementById('cutLineOptions').style.display = showCutLines ? 'block' : 'none';
-            
-            cutLineWidth = saveData.cutLineWidth || 0.5;
-            document.getElementById('cutLineWidthSlider').value = cutLineWidth;
-            document.getElementById('cutLineWidthValue').textContent = cutLineWidth.toFixed(1) + 'px';
-            
-            // コメント設定（常に有効、個別設定を復元）
-            showComment = true;
-            if (saveData.commentSettings) {
-                commentSettings = saveData.commentSettings;
-            }
-            
-            showDate = saveData.showDate || false;
-            document.getElementById('dateToggle').checked = showDate;
-            document.getElementById('dateOptions').classList.toggle('show', showDate);
-            
-            if (saveData.dateSettings) {
-                dateSettings = saveData.dateSettings;
-                document.getElementById('datePosition').value = dateSettings.position;
-                document.getElementById('dateFont').value = dateSettings.font;
-                document.getElementById('dateFontSize').value = dateSettings.fontSize;
-                document.getElementById('dateFormat').value = dateSettings.format;
-                document.getElementById('dateColor').value = dateSettings.color;
-            }
-            
-            // 画像を読み込み
-            const loadImagePromises = saveData.images.map((imgInfo, index) => {
-                return new Promise((resolve) => {
-                    fabric.Image.fromURL(imgInfo.imageData, function(img) {
-                        const newImageData = {
-                            fabricImage: img,
-                            zoom: imgInfo.zoom || 100,
-                            rotation: imgInfo.rotation || 0,
-                            panX: imgInfo.panX || 0,
-                            panY: imgInfo.panY || 0,
-                            comment: imgInfo.comment || '',
-                            commentX: imgInfo.commentX !== undefined ? imgInfo.commentX : 0.5,
-                            commentY: imgInfo.commentY !== undefined ? imgInfo.commentY : 0.9,
-                            commentScale: imgInfo.commentScale || 1.0,
-                            commentFont: imgInfo.commentFont || '',
-                            commentFontSize: imgInfo.commentFontSize || '',
-                            commentColor: imgInfo.commentColor || '',
-                            date: imgInfo.date || '',
-                            exifDate: imgInfo.exifDate || null,
-                            dateFont: imgInfo.dateFont || '',
-                            dateFontSize: imgInfo.dateFontSize || '',
-                            dateColor: imgInfo.dateColor || ''
-                        };
-                        resolve({ index, data: newImageData });
-                    }, { crossOrigin: 'anonymous' });
-                });
-            });
-            
-            const loadedImages = await Promise.all(loadImagePromises);
-            
-            // インデックス順にソート
-            loadedImages.sort((a, b) => a.index - b.index);
-            
-            // 画像を追加
-            loadedImages.forEach(item => {
-                allImages.push(item.data);
-            });
-            
-            // 用紙サイズを更新して枠を再計算
-            updatePaperSize(currentPaperSize);
         }
 
         // =====================================================
@@ -3412,6 +3206,7 @@
             const fontSize = baseFontSize * commentScale;
             const font = imgData.commentFont || commentSettings.font;
             const color = imgData.commentColor || commentSettings.color;
+            const rotation = imgData.commentRotation || 0;
             
             // 相対位置から絶対位置を計算
             const commentX = imgData.commentX !== undefined ? imgData.commentX : 0.5;
@@ -3429,6 +3224,7 @@
                 fontFamily: font,
                 originX: 'center',
                 originY: 'center',
+                angle: rotation,
                 selectable: false,
                 evented: false
             });
@@ -3443,6 +3239,7 @@
                 fontFamily: font,
                 originX: 'center',
                 originY: 'center',
+                angle: rotation,
                 selectable: false,
                 evented: false
             });
@@ -3534,22 +3331,37 @@
             const dateText = formatDate(imgData.date);
             if (!dateText) return;
             
+            const x = frame.x * previewScale;
+            const y = frame.y * previewScale;
+            const width = frame.width * previewScale;
+            const height = frame.height * previewScale;
+            
             // 個別設定があればそちらを優先
             const fontSizeKey = imgData.dateFontSize || dateSettings.fontSize;
-            const fontSize = getFontSize(fontSizeKey, previewScale);
+            const baseFontSize = getFontSize(fontSizeKey, previewScale);
+            const dateScale = imgData.dateScale || 1.0;
+            const fontSize = baseFontSize * dateScale;
             const font = imgData.dateFont || dateSettings.font;
             const color = imgData.dateColor || dateSettings.color;
-            const pos = getDatePosition(frame, frame.width, frame.height, previewScale);
+            const rotation = imgData.dateRotation || 0;
+            
+            // 相対位置から絶対位置を計算
+            const dateX = imgData.dateX !== undefined ? imgData.dateX : 0.75;
+            const dateY = imgData.dateY !== undefined ? imgData.dateY : 0.9;
+            
+            const textX = x + width * dateX;
+            const textY = y + height * dateY;
             
             // 影
             const shadow = new fabric.Text(dateText, {
-                left: pos.textX + 1,
-                top: pos.textY + 1,
+                left: textX + 1,
+                top: textY + 1,
                 fontSize: fontSize,
                 fill: 'rgba(0,0,0,0.5)',
                 fontFamily: font,
-                originX: pos.originX,
-                originY: pos.originY,
+                originX: 'center',
+                originY: 'center',
+                angle: rotation,
                 selectable: false,
                 evented: false
             });
@@ -3557,13 +3369,14 @@
             
             // 日付テキスト
             const text = new fabric.Text(dateText, {
-                left: pos.textX,
-                top: pos.textY,
+                left: textX,
+                top: textY,
                 fontSize: fontSize,
                 fill: color,
                 fontFamily: font,
-                originX: pos.originX,
-                originY: pos.originY,
+                originX: 'center',
+                originY: 'center',
+                angle: rotation,
                 selectable: false,
                 evented: false
             });
@@ -3765,11 +3578,16 @@
                 commentX: 0.5,
                 commentY: 0.9,
                 commentScale: 1.0,
+                commentRotation: 0,
                 commentFont: '',
                 commentFontSize: '',
                 commentColor: '',
                 date: exifDate || '', // EXIFから取得できれば自動設定
                 exifDate: exifDate,
+                dateX: 0.75, // 印刷領域内に収まるよう調整
+                dateY: 0.9,
+                dateScale: 1.0,
+                dateRotation: 0,
                 dateFont: '',
                 dateFontSize: '',
                 dateColor: ''
@@ -3865,11 +3683,16 @@
                 commentX: imgData.commentX !== undefined ? imgData.commentX : 0.5,
                 commentY: imgData.commentY !== undefined ? imgData.commentY : 0.9,
                 commentScale: imgData.commentScale || 1.0,
+                commentRotation: imgData.commentRotation || 0,
                 commentFont: imgData.commentFont || '',
                 commentFontSize: imgData.commentFontSize || '',
                 commentColor: imgData.commentColor || '',
                 date: imgData.date || '',
                 exifDate: imgData.exifDate || null,
+                dateX: imgData.dateX !== undefined ? imgData.dateX : 0.75,
+                dateY: imgData.dateY !== undefined ? imgData.dateY : 0.9,
+                dateScale: imgData.dateScale || 1.0,
+                dateRotation: imgData.dateRotation || 0,
                 dateFont: imgData.dateFont || '',
                 dateFontSize: imgData.dateFontSize || '',
                 dateColor: imgData.dateColor || ''
@@ -3903,6 +3726,11 @@
             document.getElementById('lockImageIcon').className = isImageLocked ? 'fas fa-lock' : 'fas fa-unlock';
             document.getElementById('lockCommentBtn').classList.toggle('locked', isCommentLocked);
             document.getElementById('lockCommentIcon').className = isCommentLocked ? 'fas fa-lock' : 'fas fa-unlock';
+            document.getElementById('lockDateBtn').classList.toggle('locked', isDateLocked);
+            document.getElementById('lockDateIcon').className = isDateLocked ? 'fas fa-lock' : 'fas fa-unlock';
+            
+            // 要素選択を写真にリセット（updateElementButtonStatesでロックボタンの状態も更新される）
+            selectElement('image');
             
             // 背面スクロール防止
             scrollPosition = window.pageYOffset;
@@ -3938,13 +3766,18 @@
             const containerWidth = container.clientWidth - 32;
             
             const aspectRatio = PURIKURA_WIDTH / PURIKURA_HEIGHT;
-            let canvasWidth, canvasHeight;
+            let printAreaWidth, printAreaHeight;
             
-            // プレビューサイズを控えめに設定（最大180px幅）
-            canvasWidth = Math.min(containerWidth, 160);
-            canvasHeight = canvasWidth / aspectRatio;
+            // プレビューサイズを控えめに設定（最大160px幅）
+            printAreaWidth = Math.min(containerWidth, 160);
+            printAreaHeight = printAreaWidth / aspectRatio;
             
-            const editScale = canvasWidth / PURIKURA_WIDTH;
+            // はみ出し部分を表示するための余白（両側に40px）
+            const overflowMargin = 40;
+            const canvasWidth = printAreaWidth + overflowMargin * 2;
+            const canvasHeight = printAreaHeight + overflowMargin * 2;
+            
+            const editScale = printAreaWidth / PURIKURA_WIDTH;
             
             if (editCanvas) {
                 editCanvas.dispose();
@@ -3957,46 +3790,162 @@
             });
             
             editCanvas.editScale = editScale;
+            editCanvas.printAreaWidth = printAreaWidth;
+            editCanvas.printAreaHeight = printAreaHeight;
+            editCanvas.overflowMargin = overflowMargin;
             
             drawEditPreview();
             
             let isPanning = false;
             let isDraggingComment = false;
+            let isDraggingDate = false;
             let lastPosX, lastPosY;
+            let lastClickTime = 0;
+            let lastClickTarget = null;
             
-            editCanvas.on('mouse:down', function(e) {
-                const pointer = editCanvas.getPointer(e.e);
-                lastPosX = pointer.x;
-                lastPosY = pointer.y;
+            // ダブルクリック/ダブルタップでテキスト編集
+            function handleDoubleClick(pointer) {
+                const overflowMargin = editCanvas.overflowMargin;
+                const printAreaWidth = editCanvas.printAreaWidth;
+                const printAreaHeight = editCanvas.printAreaHeight;
                 
-                // コメントがある場合、コメント領域のクリックかどうかを判定
+                // コメントエリアのダブルクリック
+                if (showComment && editState.comment) {
+                    const commentX = overflowMargin + editState.commentX * printAreaWidth;
+                    const commentY = overflowMargin + editState.commentY * printAreaHeight;
+                    const hitRadius = 40;
+                    
+                    if (Math.abs(pointer.x - commentX) < hitRadius && 
+                        Math.abs(pointer.y - commentY) < hitRadius) {
+                        const newComment = prompt('コメントを編集:', editState.comment);
+                        if (newComment !== null) {
+                            editState.comment = newComment;
+                            document.getElementById('imageComment').value = newComment;
+                            drawEditPreview();
+                        }
+                        return true;
+                    }
+                }
+                
+                // 日付エリアのダブルクリック
+                if (showDate && editState.date) {
+                    const dateX = overflowMargin + editState.dateX * printAreaWidth;
+                    const dateY = overflowMargin + editState.dateY * printAreaHeight;
+                    const hitRadius = 40;
+                    
+                    if (Math.abs(pointer.x - dateX) < hitRadius && 
+                        Math.abs(pointer.y - dateY) < hitRadius) {
+                        // 日付入力欄にフォーカス
+                        document.getElementById('imageDate').focus();
+                        return true;
+                    }
+                }
+                
+                return false;
+            }
+            
+            // ターゲットエリアを判定
+            function getTargetArea(pointer) {
+                const overflowMargin = editCanvas.overflowMargin;
+                const printAreaWidth = editCanvas.printAreaWidth;
+                const printAreaHeight = editCanvas.printAreaHeight;
+                
+                // コメントエリアのチェック
                 if (showComment && editState.comment && !isCommentLocked) {
-                    const commentX = editState.commentX * editCanvas.width;
-                    const commentY = editState.commentY * editCanvas.height;
+                    const commentX = overflowMargin + editState.commentX * printAreaWidth;
+                    const commentY = overflowMargin + editState.commentY * printAreaHeight;
                     const hitRadius = 30;
                     
                     if (Math.abs(pointer.x - commentX) < hitRadius && 
                         Math.abs(pointer.y - commentY) < hitRadius) {
-                        isDraggingComment = true;
-                        isPanning = false;
+                        return 'comment';
+                    }
+                }
+                
+                // 日付エリアのチェック
+                if (showDate && editState.date && !isCommentLocked) {
+                    const dateX = overflowMargin + editState.dateX * printAreaWidth;
+                    const dateY = overflowMargin + editState.dateY * printAreaHeight;
+                    const hitRadius = 30;
+                    
+                    if (Math.abs(pointer.x - dateX) < hitRadius && 
+                        Math.abs(pointer.y - dateY) < hitRadius) {
+                        return 'date';
+                    }
+                }
+                
+                return 'image';
+            }
+            
+            editCanvas.on('mouse:down', function(e) {
+                const pointer = editCanvas.getPointer(e.e);
+                const currentTime = Date.now();
+                const target = getTargetArea(pointer);
+                
+                // ダブルクリック判定（300ms以内）
+                if (currentTime - lastClickTime < 300 && lastClickTarget === target) {
+                    if (handleDoubleClick(pointer)) {
+                        lastClickTime = 0;
                         return;
                     }
                 }
+                lastClickTime = currentTime;
+                lastClickTarget = target;
+                
+                lastPosX = pointer.x;
+                lastPosY = pointer.y;
+                
+                if (target === 'comment') {
+                    // コメントをクリックした場合、選択状態に変更
+                    selectElement('comment');
+                    isDraggingComment = !isCommentLocked; // ロック中はドラッグ不可
+                    isPanning = false;
+                    isDraggingDate = false;
+                    return;
+                }
+                
+                if (target === 'date') {
+                    // 日付をクリックした場合、選択状態に変更
+                    selectElement('date');
+                    isDraggingDate = !isDateLocked; // ロック中はドラッグ不可
+                    isPanning = false;
+                    isDraggingComment = false;
+                    return;
+                }
+                
+                // 写真エリアをクリックした場合、写真を選択状態に
+                selectElement('image');
                 
                 // 写真がロックされている場合はパンしない
                 if (!isImageLocked) {
                     isPanning = true;
                 }
                 isDraggingComment = false;
+                isDraggingDate = false;
             });
             
             editCanvas.on('mouse:move', function(e) {
                 const pointer = editCanvas.getPointer(e.e);
+                const overflowMargin = editCanvas.overflowMargin;
+                const printAreaWidth = editCanvas.printAreaWidth;
+                const printAreaHeight = editCanvas.printAreaHeight;
                 
                 if (isDraggingComment && !isCommentLocked) {
-                    // コメントの位置を更新（相対位置で保存）
-                    editState.commentX = Math.max(0.1, Math.min(0.9, pointer.x / editCanvas.width));
-                    editState.commentY = Math.max(0.1, Math.min(0.9, pointer.y / editCanvas.height));
+                    // コメントの位置を更新（印刷範囲に対する相対位置で保存）
+                    const relX = (pointer.x - overflowMargin) / printAreaWidth;
+                    const relY = (pointer.y - overflowMargin) / printAreaHeight;
+                    editState.commentX = Math.max(0.05, Math.min(0.95, relX));
+                    editState.commentY = Math.max(0.05, Math.min(0.95, relY));
+                    drawEditPreview();
+                    return;
+                }
+                
+                if (isDraggingDate && !isDateLocked) {
+                    // 日付の位置を更新（印刷範囲に対する相対位置で保存）
+                    const relX = (pointer.x - overflowMargin) / printAreaWidth;
+                    const relY = (pointer.y - overflowMargin) / printAreaHeight;
+                    editState.dateX = Math.max(0.05, Math.min(0.95, relX));
+                    editState.dateY = Math.max(0.05, Math.min(0.95, relY));
                     drawEditPreview();
                     return;
                 }
@@ -4018,46 +3967,119 @@
             editCanvas.on('mouse:up', function() {
                 isPanning = false;
                 isDraggingComment = false;
+                isDraggingDate = false;
             });
             
             // タッチイベント
             const canvasElement = editCanvas.upperCanvasEl;
             let initialPinchDistance = 0;
+            let initialPinchAngle = 0;
             let isPinchingComment = false;
+            let isPinchingDate = false;
             let initialCommentScale = 1.0;
+            let initialCommentRotation = 0;
+            let initialDateScale = 1.0;
+            let initialDateRotation = 0;
+            let lastTouchTime = 0;
+            let lastTouchTarget = null;
+            
+            // タッチのターゲットを判定
+            function getTouchTarget(touchX, touchY) {
+                // コメントエリアのチェック
+                if (showComment && editState.comment && !isCommentLocked) {
+                    const commentX = editState.commentX * editCanvas.width;
+                    const commentY = editState.commentY * editCanvas.height;
+                    const hitRadius = 40;
+                    
+                    if (Math.abs(touchX - commentX) < hitRadius && 
+                        Math.abs(touchY - commentY) < hitRadius) {
+                        return 'comment';
+                    }
+                }
+                
+                // 日付エリアのチェック
+                if (showDate && editState.date && !isCommentLocked) {
+                    const dateX = editState.dateX * editCanvas.width;
+                    const dateY = editState.dateY * editCanvas.height;
+                    const hitRadius = 40;
+                    
+                    if (Math.abs(touchX - dateX) < hitRadius && 
+                        Math.abs(touchY - dateY) < hitRadius) {
+                        return 'date';
+                    }
+                }
+                
+                return 'image';
+            }
             
             canvasElement.addEventListener('touchstart', function(e) {
                 if (e.touches.length === 1) {
                     const rect = canvasElement.getBoundingClientRect();
                     const touchX = e.touches[0].clientX - rect.left;
                     const touchY = e.touches[0].clientY - rect.top;
-                    lastPosX = touchX;
-                    lastPosY = touchY;
+                    const currentTime = Date.now();
+                    const target = getTouchTarget(touchX, touchY);
                     
-                    // コメントドラッグ判定（ロックされていない場合のみ）
-                    if (showComment && editState.comment && !isCommentLocked) {
-                        const commentX = editState.commentX * editCanvas.width;
-                        const commentY = editState.commentY * editCanvas.height;
-                        const hitRadius = 40;
-                        
-                        if (Math.abs(touchX - commentX) < hitRadius && 
-                            Math.abs(touchY - commentY) < hitRadius) {
-                            isDraggingComment = true;
-                            isPanning = false;
+                    // ダブルタップ判定（300ms以内）
+                    if (currentTime - lastTouchTime < 300 && lastTouchTarget === target) {
+                        if (target === 'comment') {
+                            const newComment = prompt('コメントを編集:', editState.comment);
+                            if (newComment !== null) {
+                                editState.comment = newComment;
+                                document.getElementById('imageComment').value = newComment;
+                                drawEditPreview();
+                            }
+                            lastTouchTime = 0;
+                            e.preventDefault();
+                            return;
+                        } else if (target === 'date') {
+                            document.getElementById('imageDate').focus();
+                            lastTouchTime = 0;
                             e.preventDefault();
                             return;
                         }
                     }
+                    lastTouchTime = currentTime;
+                    lastTouchTarget = target;
+                    
+                    lastPosX = touchX;
+                    lastPosY = touchY;
+                    
+                    if (target === 'comment') {
+                        // コメントをタップした場合、選択状態に変更
+                        selectElement('comment');
+                        isDraggingComment = true;
+                        isPanning = false;
+                        isDraggingDate = false;
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    if (target === 'date') {
+                        // 日付をタップした場合、選択状態に変更
+                        selectElement('date');
+                        isDraggingDate = true;
+                        isPanning = false;
+                        isDraggingComment = false;
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    // 写真エリアをタップした場合、写真を選択状態に
+                    selectElement('image');
                     
                     // 写真がロックされていない場合のみパン
                     if (!isImageLocked) {
                         isPanning = true;
                     }
                     isDraggingComment = false;
+                    isDraggingDate = false;
                     e.preventDefault();
                 } else if (e.touches.length === 2) {
                     // ピンチ開始
                     isPanning = false;
+                    isDraggingComment = false;
+                    isDraggingDate = false;
                     const rect = canvasElement.getBoundingClientRect();
                     const touch1X = e.touches[0].clientX - rect.left;
                     const touch1Y = e.touches[0].clientY - rect.top;
@@ -4067,25 +4089,51 @@
                     initialPinchDistance = Math.sqrt(
                         Math.pow(touch2X - touch1X, 2) + Math.pow(touch2Y - touch1Y, 2)
                     );
+                    initialPinchAngle = Math.atan2(touch2Y - touch1Y, touch2X - touch1X) * 180 / Math.PI;
                     
-                    // コメント近くでピンチした場合はコメントサイズ変更（ロックされていない場合のみ）
+                    const pinchCenterX = (touch1X + touch2X) / 2;
+                    const pinchCenterY = (touch1Y + touch2Y) / 2;
+                    
+                    const overflowMargin = editCanvas.overflowMargin;
+                    const printAreaWidth = editCanvas.printAreaWidth;
+                    const printAreaHeight = editCanvas.printAreaHeight;
+                    
+                    // コメント近くでピンチした場合はコメントサイズ/回転変更
                     if (showComment && editState.comment && !isCommentLocked) {
-                        const pinchCenterX = (touch1X + touch2X) / 2;
-                        const pinchCenterY = (touch1Y + touch2Y) / 2;
-                        const commentX = editState.commentX * editCanvas.width;
-                        const commentY = editState.commentY * editCanvas.height;
+                        const commentX = overflowMargin + editState.commentX * printAreaWidth;
+                        const commentY = overflowMargin + editState.commentY * printAreaHeight;
                         const hitRadius = 80;
                         
                         if (Math.abs(pinchCenterX - commentX) < hitRadius && 
                             Math.abs(pinchCenterY - commentY) < hitRadius) {
                             isPinchingComment = true;
+                            isPinchingDate = false;
                             initialCommentScale = editState.commentScale;
+                            initialCommentRotation = editState.commentRotation;
+                            e.preventDefault();
+                            return;
+                        }
+                    }
+                    
+                    // 日付近くでピンチした場合は日付サイズ/回転変更
+                    if (showDate && editState.date && !isCommentLocked) {
+                        const dateX = overflowMargin + editState.dateX * printAreaWidth;
+                        const dateY = overflowMargin + editState.dateY * printAreaHeight;
+                        const hitRadius = 80;
+                        
+                        if (Math.abs(pinchCenterX - dateX) < hitRadius && 
+                            Math.abs(pinchCenterY - dateY) < hitRadius) {
+                            isPinchingDate = true;
+                            isPinchingComment = false;
+                            initialDateScale = editState.dateScale;
+                            initialDateRotation = editState.dateRotation;
                             e.preventDefault();
                             return;
                         }
                     }
                     
                     isPinchingComment = false;
+                    isPinchingDate = false;
                     e.preventDefault();
                 }
             }, { passive: false });
@@ -4102,11 +4150,24 @@
                     const currentDistance = Math.sqrt(
                         Math.pow(touch2X - touch1X, 2) + Math.pow(touch2Y - touch1Y, 2)
                     );
+                    const currentAngle = Math.atan2(touch2Y - touch1Y, touch2X - touch1X) * 180 / Math.PI;
                     
                     if (isPinchingComment && initialPinchDistance > 0 && !isCommentLocked) {
                         // コメントサイズをピンチで変更
                         const scale = currentDistance / initialPinchDistance;
                         editState.commentScale = Math.max(0.5, Math.min(2.0, initialCommentScale * scale));
+                        // コメントの回転
+                        const angleDiff = currentAngle - initialPinchAngle;
+                        editState.commentRotation = (initialCommentRotation + angleDiff + 360) % 360;
+                        drawEditPreview();
+                        e.preventDefault();
+                    } else if (isPinchingDate && initialPinchDistance > 0 && !isCommentLocked) {
+                        // 日付サイズをピンチで変更
+                        const scale = currentDistance / initialPinchDistance;
+                        editState.dateScale = Math.max(0.5, Math.min(2.0, initialDateScale * scale));
+                        // 日付の回転
+                        const angleDiff = currentAngle - initialPinchAngle;
+                        editState.dateRotation = (initialDateRotation + angleDiff + 360) % 360;
                         drawEditPreview();
                         e.preventDefault();
                     } else if (initialPinchDistance > 0 && !isImageLocked) {
@@ -4130,8 +4191,26 @@
                 const currentY = e.touches[0].clientY - rect.top;
                 
                 if (isDraggingComment && !isCommentLocked) {
-                    editState.commentX = Math.max(0.1, Math.min(0.9, currentX / editCanvas.width));
-                    editState.commentY = Math.max(0.1, Math.min(0.9, currentY / editCanvas.height));
+                    const overflowMargin = editCanvas.overflowMargin;
+                    const printAreaWidth = editCanvas.printAreaWidth;
+                    const printAreaHeight = editCanvas.printAreaHeight;
+                    const relX = (currentX - overflowMargin) / printAreaWidth;
+                    const relY = (currentY - overflowMargin) / printAreaHeight;
+                    editState.commentX = Math.max(0.05, Math.min(0.95, relX));
+                    editState.commentY = Math.max(0.05, Math.min(0.95, relY));
+                    drawEditPreview();
+                    e.preventDefault();
+                    return;
+                }
+                
+                if (isDraggingDate && !isCommentLocked) {
+                    const overflowMargin = editCanvas.overflowMargin;
+                    const printAreaWidth = editCanvas.printAreaWidth;
+                    const printAreaHeight = editCanvas.printAreaHeight;
+                    const relX = (currentX - overflowMargin) / printAreaWidth;
+                    const relY = (currentY - overflowMargin) / printAreaHeight;
+                    editState.dateX = Math.max(0.05, Math.min(0.95, relX));
+                    editState.dateY = Math.max(0.05, Math.min(0.95, relY));
                     drawEditPreview();
                     e.preventDefault();
                     return;
@@ -4155,8 +4234,10 @@
             canvasElement.addEventListener('touchend', function(e) {
                 isPanning = false;
                 isDraggingComment = false;
+                isDraggingDate = false;
                 if (e.touches.length < 2) {
                     isPinchingComment = false;
+                    isPinchingDate = false;
                     initialPinchDistance = 0;
                 }
             });
@@ -4176,6 +4257,9 @@
             
             const canvasWidth = editCanvas.width;
             const canvasHeight = editCanvas.height;
+            const printAreaWidth = editCanvas.printAreaWidth;
+            const printAreaHeight = editCanvas.printAreaHeight;
+            const overflowMargin = editCanvas.overflowMargin;
             
             const isRotated = (rotation % 180 !== 0);
             const imgW = isRotated ? img.height : img.width;
@@ -4188,32 +4272,36 @@
             const baseScale = Math.max(scaleX, scaleY);
             const finalScale = baseScale * zoom;
             
+            // 印刷範囲の中心座標
+            const centerX = canvasWidth / 2;
+            const centerY = canvasHeight / 2;
+            
             // 背景をグレーにして印刷範囲外を示す
-            editCanvas.backgroundColor = '#e8e8e8';
+            editCanvas.backgroundColor = '#d0d0d0';
             
             img.clone(function(clonedImg) {
-                // まず印刷範囲外に表示される部分を半透明で描画
+                // まず印刷範囲外に表示される部分を半透明で描画（キャンバス全体）
                 clonedImg.set({
-                    left: canvasWidth / 2 + panX,
-                    top: canvasHeight / 2 + panY,
+                    left: centerX + panX,
+                    top: centerY + panY,
                     originX: 'center',
                     originY: 'center',
                     scaleX: finalScale,
                     scaleY: finalScale,
                     angle: rotation,
-                    opacity: 0.3,
+                    opacity: 0.35,
                     selectable: false,
                     evented: false
                 });
                 
                 editCanvas.add(clonedImg);
                 
-                // 印刷範囲の白い背景
+                // 印刷範囲の白い背景（中央に配置）
                 const printAreaBg = new fabric.Rect({
-                    left: 0,
-                    top: 0,
-                    width: canvasWidth,
-                    height: canvasHeight,
+                    left: overflowMargin,
+                    top: overflowMargin,
+                    width: printAreaWidth,
+                    height: printAreaHeight,
                     fill: '#ffffff',
                     selectable: false,
                     evented: false
@@ -4223,16 +4311,16 @@
                 // 印刷範囲内の画像（クリッピング）
                 img.clone(function(clippedImg) {
                     const clipPath = new fabric.Rect({
-                        left: 0,
-                        top: 0,
-                        width: canvasWidth,
-                        height: canvasHeight,
+                        left: overflowMargin,
+                        top: overflowMargin,
+                        width: printAreaWidth,
+                        height: printAreaHeight,
                         absolutePositioned: true
                     });
                     
                     clippedImg.set({
-                        left: canvasWidth / 2 + panX,
-                        top: canvasHeight / 2 + panY,
+                        left: centerX + panX,
+                        top: centerY + panY,
                         originX: 'center',
                         originY: 'center',
                         scaleX: finalScale,
@@ -4244,6 +4332,20 @@
                     });
                     
                     editCanvas.add(clippedImg);
+                    
+                    // 印刷範囲の枠線を描画
+                    const printAreaBorder = new fabric.Rect({
+                        left: overflowMargin,
+                        top: overflowMargin,
+                        width: printAreaWidth,
+                        height: printAreaHeight,
+                        fill: 'transparent',
+                        stroke: 'rgba(102, 126, 234, 0.8)',
+                        strokeWidth: 2,
+                        selectable: false,
+                        evented: false
+                    });
+                    editCanvas.add(printAreaBorder);
                     
                     // コメントプレビューも表示
                     if (showComment && editState.comment) {
@@ -4259,21 +4361,263 @@
                     
                     // クロップラベルを更新
                     updateCropLabel();
+                    
+                    // 回転ハンドルの位置を更新
+                    updateRotationHandlePositions();
                 });
             });
         }
         
+        // 要素選択機能
+        function selectElement(element) {
+            selectedElement = element;
+            
+            // ボタンのスタイルを更新
+            document.querySelectorAll('.element-select-btn').forEach(btn => {
+                btn.classList.toggle('selected', btn.dataset.element === element);
+            });
+            
+            // コントロールパネルを更新
+            const titleEl = document.getElementById('selectedElementTitle');
+            const imageZoomControl = document.getElementById('imageZoomControl');
+            const imageRotationControl = document.getElementById('imageRotationControl');
+            const elementScaleControl = document.getElementById('elementScaleControl');
+            const elementRotationControl = document.getElementById('elementRotationControl');
+            
+            if (element === 'image') {
+                titleEl.innerHTML = '<i class="fas fa-image"></i> 写真の調整';
+                imageZoomControl.style.display = 'flex';
+                imageRotationControl.style.display = 'flex';
+                elementScaleControl.style.display = 'none';
+                elementRotationControl.style.display = 'none';
+            } else if (element === 'comment') {
+                titleEl.innerHTML = '<i class="fas fa-comment"></i> コメントの調整';
+                imageZoomControl.style.display = 'none';
+                imageRotationControl.style.display = 'none';
+                elementScaleControl.style.display = 'flex';
+                elementRotationControl.style.display = 'flex';
+                
+                // スライダーの値を更新
+                const scale = Math.round((editState.commentScale || 1.0) * 100);
+                document.getElementById('elementScaleSlider').value = scale;
+                document.getElementById('elementScaleValue').textContent = scale + '%';
+                
+                const rotation = editState.commentRotation || 0;
+                document.getElementById('elementRotationSlider').value = rotation;
+                document.getElementById('elementRotationValue').textContent = rotation + '°';
+            } else if (element === 'date') {
+                titleEl.innerHTML = '<i class="fas fa-calendar"></i> 日付の調整';
+                imageZoomControl.style.display = 'none';
+                imageRotationControl.style.display = 'none';
+                elementScaleControl.style.display = 'flex';
+                elementRotationControl.style.display = 'flex';
+                
+                // スライダーの値を更新
+                const scale = Math.round((editState.dateScale || 1.0) * 100);
+                document.getElementById('elementScaleSlider').value = scale;
+                document.getElementById('elementScaleValue').textContent = scale + '%';
+                
+                const rotation = editState.dateRotation || 0;
+                document.getElementById('elementRotationSlider').value = rotation;
+                document.getElementById('elementRotationValue').textContent = rotation + '°';
+            }
+            
+            // プレビューを再描画して選択状態を表示（editCanvasが存在する場合のみ）
+            if (editCanvas) {
+                drawEditPreview();
+            }
+            
+            // ボタンの非活性状態を更新
+            updateElementButtonStates();
+        }
+        
+        // コメント/日付ボタンの非活性状態を更新
+        function updateElementButtonStates() {
+            const commentBtn = document.getElementById('selectComment');
+            const dateBtn = document.getElementById('selectDate');
+            const lockCommentBtn = document.getElementById('lockCommentBtn');
+            const lockDateBtn = document.getElementById('lockDateBtn');
+            
+            // コメントが未入力の場合は非活性化
+            const hasComment = editState.comment && editState.comment.trim() !== '';
+            commentBtn.disabled = !hasComment;
+            lockCommentBtn.disabled = !hasComment;
+            if (!hasComment && selectedElement === 'comment') {
+                // コメントが空で選択中の場合は写真に切り替え
+                selectElement('image');
+            }
+            // コメントが未入力の場合はロックも解除
+            if (!hasComment && isCommentLocked) {
+                isCommentLocked = false;
+                lockCommentBtn.classList.remove('locked');
+                document.getElementById('lockCommentIcon').className = 'fas fa-unlock';
+            }
+            
+            // 日付が未入力または日付表示がオフの場合は非活性化
+            const hasDate = showDate && editState.date && editState.date.trim() !== '';
+            dateBtn.disabled = !hasDate;
+            lockDateBtn.disabled = !hasDate;
+            if (!hasDate && selectedElement === 'date') {
+                // 日付が空で選択中の場合は写真に切り替え
+                selectElement('image');
+            }
+            // 日付が未入力の場合はロックも解除
+            if (!hasDate && isDateLocked) {
+                isDateLocked = false;
+                lockDateBtn.classList.remove('locked');
+                document.getElementById('lockDateIcon').className = 'fas fa-unlock';
+            }
+        }
+        
+        // 回転ハンドルの位置を更新（回転ハンドルは削除されたため空実装）
+        function updateRotationHandlePositions() {
+            // 回転ハンドルは削除されたため、何もしない
+        }
+        
+        // 回転ハンドルのドラッグ設定
+        function setupRotationHandleDrag(handleId, elementType) {
+            const handle = document.getElementById(handleId);
+            if (!handle) return;
+            
+            let isDragging = false;
+            let lastDrawTime = 0;
+            const DRAW_THROTTLE = 50; // 50ms間隔でスロットリング
+            
+            function getCenter() {
+                if (elementType === 'comment') {
+                    return {
+                        x: editState.commentX * editCanvas.width,
+                        y: editState.commentY * editCanvas.height
+                    };
+                } else {
+                    return {
+                        x: editState.dateX * editCanvas.width,
+                        y: editState.dateY * editCanvas.height
+                    };
+                }
+            }
+            
+            function calculateAngle(clientX, clientY) {
+                const container = document.getElementById('editPreviewContainer');
+                const rect = container.getBoundingClientRect();
+                const x = clientX - rect.left;
+                const y = clientY - rect.top;
+                
+                const center = getCenter();
+                const angle = Math.atan2(y - center.y, x - center.x) * 180 / Math.PI + 90;
+                return angle;
+            }
+            
+            function snapToAngle(angle) {
+                // -180から180の範囲に正規化
+                while (angle > 180) angle -= 360;
+                while (angle < -180) angle += 360;
+                
+                // 90度単位にスナップ（±8度以内）
+                const snapAngles = [-180, -90, 0, 90, 180];
+                for (const snapAngle of snapAngles) {
+                    if (Math.abs(angle - snapAngle) <= 8) {
+                        return snapAngle === 180 ? -180 : snapAngle;
+                    }
+                }
+                return Math.round(angle);
+            }
+            
+            function updateHandlePosition(angle) {
+                const center = getCenter();
+                const handleOffset = 45;
+                const rotation = angle * Math.PI / 180;
+                const handleX = center.x + Math.cos(rotation - Math.PI / 2) * handleOffset;
+                const handleY = center.y + Math.sin(rotation - Math.PI / 2) * handleOffset;
+                
+                handle.style.left = (handleX - 14) + 'px';
+                handle.style.top = (handleY - 14) + 'px';
+            }
+            
+            function onDragStart(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                isDragging = true;
+                handle.style.cursor = 'grabbing';
+                
+                // タップ時に自動的に対応する要素を選択
+                selectElement(elementType);
+            }
+            
+            function onDragMove(e) {
+                if (!isDragging) return;
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // ロック状態をチェック
+                if (elementType === 'comment' && isCommentLocked) return;
+                if (elementType === 'date' && isDateLocked) return;
+                
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                
+                let angle = calculateAngle(clientX, clientY);
+                angle = snapToAngle(angle);
+                
+                if (elementType === 'comment') {
+                    editState.commentRotation = angle;
+                } else {
+                    editState.dateRotation = angle;
+                }
+                
+                document.getElementById('elementRotationSlider').value = angle;
+                document.getElementById('elementRotationValue').textContent = angle + '°';
+                
+                // ハンドル位置を直接更新（高速レスポンス）
+                updateHandlePosition(angle);
+                
+                // プレビューはスロットリングして更新
+                const now = Date.now();
+                if (now - lastDrawTime > DRAW_THROTTLE) {
+                    lastDrawTime = now;
+                    drawEditPreview();
+                }
+            }
+            
+            function onDragEnd() {
+                if (isDragging) {
+                    isDragging = false;
+                    handle.style.cursor = 'grab';
+                    // ドラッグ終了時に最終描画
+                    drawEditPreview();
+                }
+            }
+            
+            // マウスイベント
+            handle.addEventListener('mousedown', onDragStart);
+            document.addEventListener('mousemove', onDragMove);
+            document.addEventListener('mouseup', onDragEnd);
+            
+            // タッチイベント
+            handle.addEventListener('touchstart', onDragStart, { passive: false });
+            document.addEventListener('touchmove', onDragMove, { passive: false });
+            document.addEventListener('touchend', onDragEnd);
+        }
+        
         function updateCropLabel() {
             const cropLabel = document.getElementById('cropLabel');
-            if (cropLabel) {
+            if (cropLabel && editCanvas) {
                 const zoomPercent = editState.zoom;
                 cropLabel.textContent = `印刷範囲 (ズーム: ${zoomPercent}%)`;
+                
+                // crop-labelの位置を印刷範囲の下端に合わせる
+                const overflowMargin = editCanvas.overflowMargin;
+                const printAreaHeight = editCanvas.printAreaHeight;
+                const bottomOffset = overflowMargin + printAreaHeight + 8;
+                cropLabel.style.top = bottomOffset + 'px';
+                cropLabel.style.bottom = 'auto';
             }
         }
         
         function drawDatePreviewOnEditCanvas() {
-            const canvasWidth = editCanvas.width;
-            const canvasHeight = editCanvas.height;
+            const printAreaWidth = editCanvas.printAreaWidth;
+            const printAreaHeight = editCanvas.printAreaHeight;
+            const overflowMargin = editCanvas.overflowMargin;
             const scale = editCanvas.editScale;
             
             const dateText = formatDate(editState.date);
@@ -4281,53 +4625,16 @@
             
             // 個別設定があればそちらを優先
             const fontSizeKey = editState.dateFontSize || dateSettings.fontSize;
-            const fontSize = getFontSize(fontSizeKey, scale);
+            const baseFontSize = getFontSize(fontSizeKey, scale);
+            const dateScale = editState.dateScale || 1.0;
+            const fontSize = baseFontSize * dateScale;
             const font = editState.dateFont || dateSettings.font;
             const color = editState.dateColor || dateSettings.color;
+            const rotation = editState.dateRotation || 0;
             
-            // 位置を計算
-            const padding = 10 * scale;
-            let textX, textY, originX, originY;
-            
-            switch (dateSettings.position) {
-                case 'top-left':
-                    textX = padding;
-                    textY = padding;
-                    originX = 'left';
-                    originY = 'top';
-                    break;
-                case 'top-center':
-                    textX = canvasWidth / 2;
-                    textY = padding;
-                    originX = 'center';
-                    originY = 'top';
-                    break;
-                case 'top-right':
-                    textX = canvasWidth - padding;
-                    textY = padding;
-                    originX = 'right';
-                    originY = 'top';
-                    break;
-                case 'bottom-left':
-                    textX = padding;
-                    textY = canvasHeight - padding;
-                    originX = 'left';
-                    originY = 'bottom';
-                    break;
-                case 'bottom-center':
-                    textX = canvasWidth / 2;
-                    textY = canvasHeight - padding;
-                    originX = 'center';
-                    originY = 'bottom';
-                    break;
-                case 'bottom-right':
-                default:
-                    textX = canvasWidth - padding;
-                    textY = canvasHeight - padding;
-                    originX = 'right';
-                    originY = 'bottom';
-                    break;
-            }
+            // 位置を計算（印刷範囲に対する相対座標をキャンバス座標に変換）
+            const textX = overflowMargin + printAreaWidth * editState.dateX;
+            const textY = overflowMargin + printAreaHeight * editState.dateY;
             
             // 影
             const shadow = new fabric.Text(dateText, {
@@ -4336,8 +4643,9 @@
                 fontSize: fontSize,
                 fill: 'rgba(0,0,0,0.5)',
                 fontFamily: font,
-                originX: originX,
-                originY: originY,
+                originX: 'center',
+                originY: 'center',
+                angle: rotation,
                 selectable: false,
                 evented: false
             });
@@ -4350,17 +4658,55 @@
                 fontSize: fontSize,
                 fill: color,
                 fontFamily: font,
-                originX: originX,
-                originY: originY,
+                originX: 'center',
+                originY: 'center',
+                angle: rotation,
                 selectable: false,
                 evented: false
             });
             editCanvas.add(text);
+            
+            // ドラッグ＆ピンチ可能なことを示す枠を表示（選択中は強調）
+            const textWidth = Math.max(60, text.width + 20);
+            const textHeight = Math.max(30, text.height + 10);
+            const isSelected = selectedElement === 'date';
+            const hitBox = new fabric.Rect({
+                left: textX,
+                top: textY,
+                width: textWidth,
+                height: textHeight,
+                fill: isSelected ? 'rgba(72, 187, 120, 0.1)' : 'transparent',
+                stroke: '#48bb78',
+                strokeWidth: isSelected ? 2 : 1,
+                strokeDashArray: isSelected ? null : [3, 3],
+                originX: 'center',
+                originY: 'center',
+                angle: rotation,
+                selectable: false,
+                evented: false
+            });
+            editCanvas.add(hitBox);
+            
+            // サイズ・角度表示
+            const labelText = `${Math.round(dateScale * 100)}%` + (rotation !== 0 ? ` ${Math.round(rotation)}°` : '');
+            const scaleLabel = new fabric.Text(labelText, {
+                left: textX,
+                top: textY + textHeight / 2 + 10,
+                fontSize: 10,
+                fill: '#48bb78',
+                fontFamily: 'Noto Sans JP',
+                originX: 'center',
+                originY: 'top',
+                selectable: false,
+                evented: false
+            });
+            editCanvas.add(scaleLabel);
         }
         
         function drawCommentPreviewOnEditCanvas() {
-            const canvasWidth = editCanvas.width;
-            const canvasHeight = editCanvas.height;
+            const printAreaWidth = editCanvas.printAreaWidth;
+            const printAreaHeight = editCanvas.printAreaHeight;
+            const overflowMargin = editCanvas.overflowMargin;
             const scale = editCanvas.editScale;
             
             const commentText = editState.comment;
@@ -4372,9 +4718,11 @@
             const fontSize = baseFontSize * (editState.commentScale || 1.0);
             const font = editState.commentFont || commentSettings.font;
             const color = editState.commentColor || commentSettings.color;
+            const rotation = editState.commentRotation || 0;
             
-            const textX = canvasWidth * editState.commentX;
-            const textY = canvasHeight * editState.commentY;
+            // 位置を計算（印刷範囲に対する相対座標をキャンバス座標に変換）
+            const textX = overflowMargin + printAreaWidth * editState.commentX;
+            const textY = overflowMargin + printAreaHeight * editState.commentY;
             
             // 影
             const shadow = new fabric.Text(commentText, {
@@ -4385,6 +4733,7 @@
                 fontFamily: font,
                 originX: 'center',
                 originY: 'center',
+                angle: rotation,
                 selectable: false,
                 evented: false
             });
@@ -4399,32 +4748,36 @@
                 fontFamily: font,
                 originX: 'center',
                 originY: 'center',
+                angle: rotation,
                 selectable: false,
                 evented: false
             });
             editCanvas.add(text);
             
-            // ドラッグ＆ピンチ可能なことを示す枠を表示
+            // ドラッグ＆ピンチ可能なことを示す枠を表示（選択中は強調）
             const textWidth = Math.max(60, text.width + 20);
             const textHeight = Math.max(30, text.height + 10);
+            const isSelected = selectedElement === 'comment';
             const hitBox = new fabric.Rect({
                 left: textX,
                 top: textY,
                 width: textWidth,
                 height: textHeight,
-                fill: 'transparent',
+                fill: isSelected ? 'rgba(102, 126, 234, 0.1)' : 'transparent',
                 stroke: '#667eea',
-                strokeWidth: 1,
-                strokeDashArray: [3, 3],
+                strokeWidth: isSelected ? 2 : 1,
+                strokeDashArray: isSelected ? null : [3, 3],
                 originX: 'center',
                 originY: 'center',
+                angle: rotation,
                 selectable: false,
                 evented: false
             });
             editCanvas.add(hitBox);
             
-            // サイズ表示
-            const scaleLabel = new fabric.Text(`${Math.round(editState.commentScale * 100)}%`, {
+            // サイズ・角度表示
+            const labelText = `${Math.round(editState.commentScale * 100)}%` + (rotation !== 0 ? ` ${Math.round(rotation)}°` : '');
+            const scaleLabel = new fabric.Text(labelText, {
                 left: textX,
                 top: textY + textHeight / 2 + 10,
                 fontSize: 10,
@@ -4485,10 +4838,15 @@
             placedImages[editingImageIndex].commentX = editState.commentX;
             placedImages[editingImageIndex].commentY = editState.commentY;
             placedImages[editingImageIndex].commentScale = editState.commentScale;
+            placedImages[editingImageIndex].commentRotation = editState.commentRotation;
             placedImages[editingImageIndex].commentFont = editState.commentFont;
             placedImages[editingImageIndex].commentFontSize = editState.commentFontSize;
             placedImages[editingImageIndex].commentColor = editState.commentColor;
             placedImages[editingImageIndex].date = editState.date;
+            placedImages[editingImageIndex].dateX = editState.dateX;
+            placedImages[editingImageIndex].dateY = editState.dateY;
+            placedImages[editingImageIndex].dateScale = editState.dateScale;
+            placedImages[editingImageIndex].dateRotation = editState.dateRotation;
             placedImages[editingImageIndex].dateFont = editState.dateFont;
             placedImages[editingImageIndex].dateFontSize = editState.dateFontSize;
             placedImages[editingImageIndex].dateColor = editState.dateColor;
@@ -4502,16 +4860,96 @@
             allImages[editingImageIndex].commentX = editState.commentX;
             allImages[editingImageIndex].commentY = editState.commentY;
             allImages[editingImageIndex].commentScale = editState.commentScale;
+            allImages[editingImageIndex].commentRotation = editState.commentRotation;
             allImages[editingImageIndex].commentFont = editState.commentFont;
             allImages[editingImageIndex].commentFontSize = editState.commentFontSize;
             allImages[editingImageIndex].commentColor = editState.commentColor;
             allImages[editingImageIndex].date = editState.date;
+            allImages[editingImageIndex].dateX = editState.dateX;
+            allImages[editingImageIndex].dateY = editState.dateY;
+            allImages[editingImageIndex].dateScale = editState.dateScale;
+            allImages[editingImageIndex].dateRotation = editState.dateRotation;
             allImages[editingImageIndex].dateFont = editState.dateFont;
             allImages[editingImageIndex].dateFontSize = editState.dateFontSize;
             allImages[editingImageIndex].dateColor = editState.dateColor;
             
             closeEditModal();
             drawLayout();
+        }
+        
+        // 一括スタイル適用
+        function applyBatchStyleToAll() {
+            if (allImages.length === 0) {
+                alert('適用する写真がありません。');
+                return;
+            }
+            
+            const batchFont = document.getElementById('batchFont').value;
+            const batchSize = document.getElementById('batchSize').value;
+            const batchColor = document.getElementById('batchColor').value;
+            const applyToComment = document.getElementById('batchApplyComment').checked;
+            const applyToDate = document.getElementById('batchApplyDate').checked;
+            
+            if (!applyToComment && !applyToDate) {
+                alert('適用対象（コメント・日付）を選択してください。');
+                return;
+            }
+            
+            // 全画像に適用
+            allImages.forEach((imgData, index) => {
+                if (applyToComment) {
+                    imgData.commentFont = batchFont;
+                    imgData.commentFontSize = batchSize;
+                    imgData.commentColor = batchColor;
+                }
+                if (applyToDate) {
+                    imgData.dateFont = batchFont;
+                    imgData.dateFontSize = batchSize;
+                    imgData.dateColor = batchColor;
+                }
+            });
+            
+            // placedImagesも更新
+            placedImages.forEach((imgData, index) => {
+                if (applyToComment) {
+                    imgData.commentFont = batchFont;
+                    imgData.commentFontSize = batchSize;
+                    imgData.commentColor = batchColor;
+                }
+                if (applyToDate) {
+                    imgData.dateFont = batchFont;
+                    imgData.dateFontSize = batchSize;
+                    imgData.dateColor = batchColor;
+                }
+            });
+            
+            // デフォルト設定も更新
+            if (applyToComment) {
+                commentSettings.font = batchFont;
+                commentSettings.fontSize = batchSize;
+                commentSettings.color = batchColor;
+            }
+            if (applyToDate) {
+                dateSettings.font = batchFont;
+                dateSettings.fontSize = batchSize;
+                dateSettings.color = batchColor;
+                document.getElementById('dateFont').value = batchFont;
+                document.getElementById('dateFontSize').value = batchSize;
+                document.getElementById('dateColor').value = batchColor;
+            }
+            
+            drawLayout();
+            
+            let message = '全' + allImages.length + '枚の写真に';
+            if (applyToComment && applyToDate) {
+                message += 'コメントと日付の';
+            } else if (applyToComment) {
+                message += 'コメントの';
+            } else {
+                message += '日付の';
+            }
+            message += 'スタイルを適用しました。';
+            alert(message);
         }
 
         // =====================================================
@@ -4654,6 +5092,7 @@
             
             const font = imgData.commentFont || commentSettings.font;
             const color = imgData.commentColor || commentSettings.color;
+            const rotation = imgData.commentRotation || 0;
             
             const commentX = imgData.commentX !== undefined ? imgData.commentX : 0.5;
             const commentY = imgData.commentY !== undefined ? imgData.commentY : 0.9;
@@ -4670,13 +5109,17 @@
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             
+            // 回転
+            ctx.translate(textX, textY);
+            ctx.rotate(rotation * Math.PI / 180);
+            
             // 影
             ctx.fillStyle = 'rgba(0,0,0,0.5)';
-            ctx.fillText(commentText, textX + 1, textY + 1);
+            ctx.fillText(commentText, 1, 1);
             
             // テキスト
             ctx.fillStyle = color;
-            ctx.fillText(commentText, textX, textY);
+            ctx.fillText(commentText, 0, 0);
             
             ctx.restore();
         }
@@ -4692,52 +5135,19 @@
             };
             // 個別設定があればそちらを優先
             const fontSizeKey = imgData.dateFontSize || dateSettings.fontSize;
-            const fontSize = baseFontSize[fontSizeKey] || baseFontSize.medium;
+            const baseSize = baseFontSize[fontSizeKey] || baseFontSize.medium;
+            const dateScale = imgData.dateScale || 1.0;
+            const fontSize = baseSize * dateScale;
             const font = imgData.dateFont || dateSettings.font;
             const color = imgData.dateColor || dateSettings.color;
+            const rotation = imgData.dateRotation || 0;
             
-            const padding = 10;
-            let textX, textY, textAlign, textBaseline;
+            // 相対位置から絶対位置を計算
+            const dateX = imgData.dateX !== undefined ? imgData.dateX : 0.75;
+            const dateY = imgData.dateY !== undefined ? imgData.dateY : 0.9;
             
-            switch (dateSettings.position) {
-                case 'top-left':
-                    textX = frame.x + padding;
-                    textY = frame.y + padding;
-                    textAlign = 'left';
-                    textBaseline = 'top';
-                    break;
-                case 'top-center':
-                    textX = frame.x + frame.width / 2;
-                    textY = frame.y + padding;
-                    textAlign = 'center';
-                    textBaseline = 'top';
-                    break;
-                case 'top-right':
-                    textX = frame.x + frame.width - padding;
-                    textY = frame.y + padding;
-                    textAlign = 'right';
-                    textBaseline = 'top';
-                    break;
-                case 'bottom-left':
-                    textX = frame.x + padding;
-                    textY = frame.y + frame.height - padding;
-                    textAlign = 'left';
-                    textBaseline = 'bottom';
-                    break;
-                case 'bottom-center':
-                    textX = frame.x + frame.width / 2;
-                    textY = frame.y + frame.height - padding;
-                    textAlign = 'center';
-                    textBaseline = 'bottom';
-                    break;
-                case 'bottom-right':
-                default:
-                    textX = frame.x + frame.width - padding;
-                    textY = frame.y + frame.height - padding;
-                    textAlign = 'right';
-                    textBaseline = 'bottom';
-                    break;
-            }
+            const textX = frame.x + frame.width * dateX;
+            const textY = frame.y + frame.height * dateY;
             
             ctx.save();
             ctx.beginPath();
@@ -4745,16 +5155,20 @@
             ctx.clip();
             
             ctx.font = `${fontSize}px ${font}`;
-            ctx.textAlign = textAlign;
-            ctx.textBaseline = textBaseline;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            
+            // 回転
+            ctx.translate(textX, textY);
+            ctx.rotate(rotation * Math.PI / 180);
             
             // 影
             ctx.fillStyle = 'rgba(0,0,0,0.5)';
-            ctx.fillText(dateText, textX + 1, textY + 1);
+            ctx.fillText(dateText, 1, 1);
             
             // テキスト
             ctx.fillStyle = color;
-            ctx.fillText(dateText, textX, textY);
+            ctx.fillText(dateText, 0, 0);
             
             ctx.restore();
         }
