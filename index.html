@@ -1054,6 +1054,116 @@
             margin-right: 6px;
         }
 
+        /* 画像調整コントロール */
+        .image-adjustment-group {
+            margin-top: 16px;
+            padding: 16px;
+            background: #f7fafc;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .image-adjustment-group > label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #4a5568;
+            margin-bottom: 12px;
+        }
+
+        .image-adjustment-group > label i {
+            margin-right: 6px;
+            color: #667eea;
+        }
+
+        .adjustment-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .adjustment-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .adjustment-row label {
+            min-width: 90px;
+            font-size: 0.8rem;
+            color: #718096;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .adjustment-row label i {
+            color: #667eea;
+            width: 14px;
+            text-align: center;
+        }
+
+        .adjustment-row input[type="range"] {
+            flex: 1;
+            height: 6px;
+            border-radius: 3px;
+            background: #e2e8f0;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .adjustment-row input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+        }
+
+        .adjustment-row span {
+            min-width: 35px;
+            text-align: right;
+            font-size: 0.8rem;
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        .reset-adjustment-btn {
+            margin-top: 4px;
+            padding: 8px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            background: #fff;
+            color: #718096;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .reset-adjustment-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .reset-adjustment-btn i {
+            font-size: 0.75rem;
+        }
+
+        /* プレビュー表示ボタン */
+        .open-floating-panel-btn:hover {
+            background: linear-gradient(135deg, rgba(102,126,234,0.2) 0%, rgba(118,75,162,0.2) 100%);
+            transform: translateY(-1px);
+        }
+
+        .open-floating-panel-btn:active {
+            transform: translateY(0);
+        }
+
         /* コメント入力フィールド */
         .comment-input-group {
             margin-top: 16px;
@@ -1472,6 +1582,269 @@
         }
 
         /* =====================================================
+           フローティング画像調整パネル
+           ===================================================== */
+        .floating-panel-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent;
+            z-index: 1049;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s;
+            touch-action: none;
+        }
+
+        .floating-panel-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .floating-adjustment-panel {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+            z-index: 1050;
+            transform: translateY(100%);
+            transition: transform 0.3s ease-out;
+            max-height: 50vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .floating-adjustment-panel.show {
+            transform: translateY(0);
+        }
+
+        .floating-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #e2e8f0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .floating-panel-header h4 {
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .floating-panel-close {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .floating-panel-close:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .floating-panel-body {
+            padding: 16px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .floating-adjustment-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .floating-adjustment-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .floating-adjustment-row label {
+            min-width: 80px;
+            font-size: 0.8rem;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .floating-adjustment-row label i {
+            color: #667eea;
+            width: 14px;
+            text-align: center;
+        }
+
+        .floating-adjustment-row input[type="range"] {
+            flex: 1;
+            height: 8px;
+            border-radius: 4px;
+            background: #e2e8f0;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .floating-adjustment-row input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(102, 126, 234, 0.4);
+        }
+
+        .floating-adjustment-row span {
+            min-width: 35px;
+            text-align: right;
+            font-size: 0.85rem;
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        .floating-panel-actions {
+            display: flex;
+            gap: 10px;
+            padding: 12px 16px;
+            border-top: 1px solid #e2e8f0;
+            background: #f7fafc;
+            flex-shrink: 0;
+        }
+
+        .floating-action-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .floating-action-btn.reset {
+            background: #fff;
+            border: 2px solid #e2e8f0;
+            color: #718096;
+        }
+
+        .floating-action-btn.reset:hover {
+            border-color: #cbd5e0;
+            background: #f7fafc;
+        }
+
+        .floating-action-btn.done {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        .floating-action-btn.done:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        /* フローティングパネルのセクション */
+        .floating-section {
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .floating-section:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .floating-section-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .floating-section-title i {
+            color: #667eea;
+        }
+
+        .floating-reset-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 50%;
+            background: #f0f4f8;
+            color: #718096;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .floating-reset-btn:hover {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .floating-rotate-buttons {
+            display: flex;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .floating-rotate-btn {
+            flex: 1;
+            padding: 10px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            background: #fff;
+            color: #4a5568;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .floating-rotate-btn:hover {
+            border-color: #667eea;
+            background: rgba(102,126,234,0.05);
+            color: #667eea;
+        }
+
+        .floating-rotate-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* モーダル内のコントロールを非表示にするためのクラス */
+        .hide-for-floating {
+            display: none !important;
+        }
+
+        /* =====================================================
            レスポンシブ対応
            ===================================================== */
         @media (min-width: 768px) {
@@ -1859,7 +2232,7 @@
                             <canvas id="editCanvas"></canvas>
                             <div class="crop-label" id="cropLabel">印刷範囲</div>
                         </div>
-                        <p class="edit-preview-hint"><i class="fas fa-hand-pointer"></i> 要素をタップして選択、下のスライダーでサイズ・回転を調整</p>
+                        <p class="edit-preview-hint"><i class="fas fa-hand-pointer"></i> 要素をタップして選択。選択後はどこでもドラッグで移動可能</p>
                     </div>
                     <div class="edit-controls">
                         <!-- 要素選択ボタン -->
@@ -1875,47 +2248,13 @@
                             </button>
                         </div>
                         
-                        <!-- 選択要素用コントロールパネル -->
-                        <div class="selected-element-controls" id="selectedElementControls">
-                            <h4 id="selectedElementTitle"><i class="fas fa-image"></i> 写真の調整</h4>
-                            <div class="scale-rotation-controls">
-                                <!-- 写真用ズームコントロール -->
-                                <div class="scale-control-row" id="imageZoomControl">
-                                    <label>ズーム</label>
-                                    <input type="range" id="zoomSlider" min="50" max="300" value="100">
-                                    <span id="zoomValue">100%</span>
-                                    <button class="reset-zoom-btn" id="resetZoom">
-                                        <i class="fas fa-sync-alt"></i>
-                                    </button>
-                                </div>
-                                <!-- 写真用回転コントロール -->
-                                <div class="rotation-control-row" id="imageRotationControl">
-                                    <label>回転</label>
-                                    <div class="rotate-buttons" style="flex: 1;">
-                                        <button class="rotate-btn" id="rotateLeft">
-                                            <i class="fas fa-undo"></i> -90°
-                                        </button>
-                                        <button class="rotate-btn" id="rotateRight">
-                                            <i class="fas fa-redo"></i> +90°
-                                        </button>
-                                    </div>
-                                </div>
-                                <!-- コメント/日付用サイズコントロール -->
-                                <div class="scale-control-row" id="elementScaleControl" style="display: none;">
-                                    <label>サイズ</label>
-                                    <input type="range" id="elementScaleSlider" min="50" max="200" value="100">
-                                    <span id="elementScaleValue">100%</span>
-                                </div>
-                                <!-- コメント/日付用回転コントロール -->
-                                <div class="rotation-control-row" id="elementRotationControl" style="display: none;">
-                                    <label>回転</label>
-                                    <input type="range" id="elementRotationSlider" min="-180" max="180" value="0">
-                                    <span id="elementRotationValue">0°</span>
-                                    <button class="snap-btn" id="snapRotationBtn" title="90度単位にスナップ">
-                                        <i class="fas fa-magnet"></i>
-                                    </button>
-                                </div>
-                            </div>
+                        <!-- 画像調整（写真選択時のみ表示） -->
+                        <div class="control-group image-adjustment-group" id="imageAdjustmentGroup">
+                            <label><i class="fas fa-sliders-h"></i> 画像調整</label>
+                            <!-- プレビュー表示ボタン -->
+                            <button class="open-floating-panel-btn" id="openFloatingPanelBtn" style="width: 100%; padding: 12px; margin-bottom: 0; border: 2px solid #667eea; border-radius: 10px; background: linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%); color: #667eea; font-size: 0.9rem; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s;">
+                                <i class="fas fa-adjust"></i> 画像調整（明るさ・コントラスト）
+                            </button>
                         </div>
                         
                         <!-- ロック機能 -->
@@ -1945,7 +2284,7 @@
                         <div class="comment-input-group" id="commentInputGroup">
                             <label><i class="fas fa-comment"></i> コメント</label>
                             <input type="text" id="imageComment" placeholder="コメントを入力..." maxlength="50">
-                            <p class="comment-drag-hint"><i class="fas fa-arrows-alt"></i> プレビュー内でコメント/日付をタップして選択、スライダーでサイズ・回転を調整</p>
+                            <p class="comment-drag-hint"><i class="fas fa-arrows-alt"></i> タップで選択後、どこでもドラッグで移動可能</p>
                             
                             <!-- 個別コメント設定 -->
                             <div class="individual-style-options">
@@ -2052,6 +2391,48 @@
             </div>
         </div>
         
+        <!-- フローティングパネル用オーバーレイ -->
+        <div class="floating-panel-overlay" id="floatingPanelOverlay"></div>
+        
+        <!-- フローティング画像調整パネル -->
+        <div class="floating-adjustment-panel" id="floatingAdjustmentPanel">
+            <div class="floating-panel-header">
+                <h4><i class="fas fa-adjust"></i> 画像調整（明るさ・コントラスト）</h4>
+                <button class="floating-panel-close" id="closeFloatingPanel">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="floating-panel-body">
+                <!-- 画像調整セクション -->
+                <div class="floating-section">
+                    <div class="floating-section-title"><i class="fas fa-adjust"></i> 画像調整</div>
+                    <div class="floating-adjustment-row">
+                        <label><i class="fas fa-sun"></i> 明るさ</label>
+                        <input type="range" id="floatingBrightnessSlider" min="-100" max="100" value="0">
+                        <span id="floatingBrightnessValue">0</span>
+                    </div>
+                    <div class="floating-adjustment-row">
+                        <label><i class="fas fa-adjust"></i> コントラスト</label>
+                        <input type="range" id="floatingContrastSlider" min="-100" max="100" value="0">
+                        <span id="floatingContrastValue">0</span>
+                    </div>
+                    <div class="floating-adjustment-row">
+                        <label><i class="fas fa-palette"></i> 彩度</label>
+                        <input type="range" id="floatingSaturationSlider" min="-100" max="100" value="0">
+                        <span id="floatingSaturationValue">0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="floating-panel-actions">
+                <button class="floating-action-btn reset" id="floatingResetAdjustment">
+                    <i class="fas fa-undo"></i> 全てリセット
+                </button>
+                <button class="floating-action-btn done" id="floatingDoneAdjustment">
+                    <i class="fas fa-check"></i> 完了
+                </button>
+            </div>
+        </div>
+        
     </div>
 
     <!-- Fabric.js -->
@@ -2154,6 +2535,10 @@
             panX: 0,
             panY: 0,
             originalImage: null,
+            // 画像調整パラメータ
+            brightness: 0, // -100 to 100
+            contrast: 0, // -100 to 100
+            saturation: 0, // -100 to 100
             comment: '',
             commentX: 0.5, // 0-1の範囲（相対位置）
             commentY: 0.9,  // 0-1の範囲（相対位置）
@@ -2296,21 +2681,126 @@
             
             // 編集モーダル
             document.getElementById('closeModal').addEventListener('click', closeEditModal);
-            document.getElementById('zoomSlider').addEventListener('input', handleZoomChange);
-            document.getElementById('rotateLeft').addEventListener('click', () => handleRotate(-90));
-            document.getElementById('rotateRight').addEventListener('click', () => handleRotate(90));
             document.getElementById('deleteImage').addEventListener('click', deleteSelectedImage);
             document.getElementById('applyEdit').addEventListener('click', applyEdit);
             
-            // ズームリセットボタン
-            document.getElementById('resetZoom').addEventListener('click', function() {
-                editState.zoom = 100;
-                editState.panX = 0;
-                editState.panY = 0;
-                document.getElementById('zoomSlider').value = 100;
-                document.getElementById('zoomValue').textContent = '100%';
+            // =====================================================
+            // フローティング画像調整パネル
+            // =====================================================
+            const floatingPanel = document.getElementById('floatingAdjustmentPanel');
+            const openFloatingBtn = document.getElementById('openFloatingPanelBtn');
+            const closeFloatingBtn = document.getElementById('closeFloatingPanel');
+            const floatingBrightnessSlider = document.getElementById('floatingBrightnessSlider');
+            const floatingContrastSlider = document.getElementById('floatingContrastSlider');
+            const floatingSaturationSlider = document.getElementById('floatingSaturationSlider');
+            const floatingBrightnessValue = document.getElementById('floatingBrightnessValue');
+            const floatingContrastValue = document.getElementById('floatingContrastValue');
+            const floatingSaturationValue = document.getElementById('floatingSaturationValue');
+            const floatingResetBtn = document.getElementById('floatingResetAdjustment');
+            const floatingDoneBtn = document.getElementById('floatingDoneAdjustment');
+            
+            // フローティングパネルを開く
+            openFloatingBtn.addEventListener('click', function() {
+                // モーダルの現在値をフローティングパネルに同期
+                // 画像調整
+                floatingBrightnessSlider.value = editState.brightness;
+                floatingContrastSlider.value = editState.contrast;
+                floatingSaturationSlider.value = editState.saturation;
+                floatingBrightnessValue.textContent = editState.brightness;
+                floatingContrastValue.textContent = editState.contrast;
+                floatingSaturationValue.textContent = editState.saturation;
+                
+                // モーダルを一時的に透明にして背景表示
+                document.getElementById('editModal').style.background = 'transparent';
+                document.getElementById('editModal').style.pointerEvents = 'none';
+                
+                // オーバーレイとフローティングパネルを表示
+                const floatingOverlay = document.getElementById('floatingPanelOverlay');
+                floatingOverlay.classList.add('show');
+                floatingPanel.classList.add('show');
+                
+                // 画像編集画面（editModalBody）を1番上にスクロール
+                const editModalBody = document.querySelector('.edit-modal-body');
+                if (editModalBody) {
+                    setTimeout(() => {
+                        editModalBody.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    }, 100);
+                }
+            });
+            
+            // フローティングパネルを閉じる
+            function closeFloatingPanel() {
+                floatingPanel.classList.remove('show');
+                // オーバーレイを非表示
+                const floatingOverlay = document.getElementById('floatingPanelOverlay');
+                floatingOverlay.classList.remove('show');
+                // モーダルの背景を元に戻す
+                document.getElementById('editModal').style.background = '';
+                document.getElementById('editModal').style.pointerEvents = '';
+            }
+            
+            closeFloatingBtn.addEventListener('click', closeFloatingPanel);
+            
+            // オーバーレイのスクロールイベントをブロック
+            const floatingOverlay = document.getElementById('floatingPanelOverlay');
+            floatingOverlay.addEventListener('touchmove', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }, { passive: false });
+            
+            floatingOverlay.addEventListener('wheel', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }, { passive: false });
+            
+            // フローティングパネルの明るさスライダー
+            floatingBrightnessSlider.addEventListener('input', function() {
+                const value = parseInt(this.value);
+                editState.brightness = value;
+                floatingBrightnessValue.textContent = value;
                 drawEditPreview();
             });
+            
+            // フローティングパネルのコントラストスライダー
+            floatingContrastSlider.addEventListener('input', function() {
+                const value = parseInt(this.value);
+                editState.contrast = value;
+                floatingContrastValue.textContent = value;
+                drawEditPreview();
+            });
+            
+            // フローティングパネルの彩度スライダー
+            floatingSaturationSlider.addEventListener('input', function() {
+                const value = parseInt(this.value);
+                editState.saturation = value;
+                floatingSaturationValue.textContent = value;
+                drawEditPreview();
+            });
+            
+            // フローティングパネルのリセットボタン（全てリセット - 画像調整のみ）
+            floatingResetBtn.addEventListener('click', function() {
+                // 画像調整をリセット
+                editState.brightness = 0;
+                editState.contrast = 0;
+                editState.saturation = 0;
+                
+                // フローティングパネルのスライダーをリセット
+                floatingBrightnessSlider.value = 0;
+                floatingContrastSlider.value = 0;
+                floatingSaturationSlider.value = 0;
+                floatingBrightnessValue.textContent = '0';
+                floatingContrastValue.textContent = '0';
+                floatingSaturationValue.textContent = '0';
+                
+                drawEditPreview();
+                drawLayout();
+            });
+            
+            // フローティングパネルの完了ボタン
+            floatingDoneBtn.addEventListener('click', closeFloatingPanel);
             
             // コメント入力
             document.getElementById('imageComment').addEventListener('input', function() {
@@ -2508,89 +2998,6 @@
                 });
             });
             
-            // 要素サイズスライダー
-            document.getElementById('elementScaleSlider').addEventListener('input', function() {
-                // ロック状態をチェック
-                if (selectedElement === 'comment' && isCommentLocked) return;
-                if (selectedElement === 'date' && isDateLocked) return;
-                
-                const scale = parseInt(this.value) / 100;
-                document.getElementById('elementScaleValue').textContent = this.value + '%';
-                
-                if (selectedElement === 'comment') {
-                    editState.commentScale = scale;
-                } else if (selectedElement === 'date') {
-                    editState.dateScale = scale;
-                }
-                drawEditPreview();
-                updateRotationHandlePositions();
-            });
-            
-            // 要素回転スライダー
-            document.getElementById('elementRotationSlider').addEventListener('input', function() {
-                // ロック状態をチェック
-                if (selectedElement === 'comment' && isCommentLocked) return;
-                if (selectedElement === 'date' && isDateLocked) return;
-                
-                let rotation = parseInt(this.value);
-                
-                // 90度単位にスナップ（±5度以内）
-                const snapAngles = [-180, -90, 0, 90, 180];
-                for (const snapAngle of snapAngles) {
-                    if (Math.abs(rotation - snapAngle) <= 5) {
-                        rotation = snapAngle === 180 ? -180 : snapAngle;
-                        this.value = rotation;
-                        break;
-                    }
-                }
-                
-                document.getElementById('elementRotationValue').textContent = rotation + '°';
-                
-                if (selectedElement === 'comment') {
-                    editState.commentRotation = rotation;
-                } else if (selectedElement === 'date') {
-                    editState.dateRotation = rotation;
-                }
-                drawEditPreview();
-                updateRotationHandlePositions();
-            });
-            
-            // 90度スナップボタン
-            document.getElementById('snapRotationBtn').addEventListener('click', function() {
-                // ロック状態をチェック
-                if (selectedElement === 'comment' && isCommentLocked) return;
-                if (selectedElement === 'date' && isDateLocked) return;
-                
-                let currentRotation;
-                if (selectedElement === 'comment') {
-                    currentRotation = editState.commentRotation || 0;
-                } else if (selectedElement === 'date') {
-                    currentRotation = editState.dateRotation || 0;
-                } else {
-                    return;
-                }
-                
-                // 最も近い90度単位にスナップ
-                const snappedRotation = Math.round(currentRotation / 90) * 90;
-                const normalizedRotation = snappedRotation > 180 ? snappedRotation - 360 : 
-                                          (snappedRotation < -180 ? snappedRotation + 360 : snappedRotation);
-                
-                if (selectedElement === 'comment') {
-                    editState.commentRotation = normalizedRotation;
-                } else if (selectedElement === 'date') {
-                    editState.dateRotation = normalizedRotation;
-                }
-                
-                document.getElementById('elementRotationSlider').value = normalizedRotation;
-                document.getElementById('elementRotationValue').textContent = normalizedRotation + '°';
-                drawEditPreview();
-                updateRotationHandlePositions();
-            });
-            
-            // 回転ハンドルのドラッグ設定（回転ハンドルは削除されたためコメントアウト）
-            // setupRotationHandleDrag('commentRotationHandle', 'comment');
-            // setupRotationHandleDrag('dateRotationHandle', 'date');
-            
             // キーボードショートカット
             document.addEventListener('keydown', function(e) {
                 // Escape: モーダルを閉じる
@@ -2608,6 +3015,37 @@
         function updateLockStatus() {
             // 必要に応じて追加の表示更新
             drawLayout();
+        }
+        
+        // ロック解除確認ダイアログを表示
+        function showUnlockConfirmDialog(elementType) {
+            const elementNames = {
+                'image': '写真',
+                'comment': 'コメント',
+                'date': '日付'
+            };
+            const elementName = elementNames[elementType] || elementType;
+            
+            return new Promise((resolve) => {
+                const result = confirm(`「${elementName}」はロック中です。\nロックを解除しますか？`);
+                if (result) {
+                    // ロックを解除
+                    if (elementType === 'image') {
+                        isImageLocked = false;
+                        document.getElementById('lockImageBtn').classList.remove('locked');
+                        document.getElementById('lockImageIcon').className = 'fas fa-unlock';
+                    } else if (elementType === 'comment') {
+                        isCommentLocked = false;
+                        document.getElementById('lockCommentBtn').classList.remove('locked');
+                        document.getElementById('lockCommentIcon').className = 'fas fa-unlock';
+                    } else if (elementType === 'date') {
+                        isDateLocked = false;
+                        document.getElementById('lockDateBtn').classList.remove('locked');
+                        document.getElementById('lockDateIcon').className = 'fas fa-unlock';
+                    }
+                }
+                resolve(result);
+            });
         }
 
         // =====================================================
@@ -3112,6 +3550,27 @@
                     if (sessionId !== drawSessionId) {
                         resolve();
                         return;
+                    }
+                    
+                    // 画像調整フィルターを適用
+                    clonedImg.filters = [];
+                    if (imgData.brightness && imgData.brightness !== 0) {
+                        clonedImg.filters.push(new fabric.Image.filters.Brightness({
+                            brightness: imgData.brightness / 100
+                        }));
+                    }
+                    if (imgData.contrast && imgData.contrast !== 0) {
+                        clonedImg.filters.push(new fabric.Image.filters.Contrast({
+                            contrast: imgData.contrast / 100
+                        }));
+                    }
+                    if (imgData.saturation && imgData.saturation !== 0) {
+                        clonedImg.filters.push(new fabric.Image.filters.Saturation({
+                            saturation: imgData.saturation / 100
+                        }));
+                    }
+                    if (clonedImg.filters.length > 0) {
+                        clonedImg.applyFilters();
                     }
                     
                     clonedImg.set({
@@ -3673,12 +4132,19 @@
             editingImageIndex = imageIndex;
             const imgData = placedImages[imageIndex];
             
+            // プレビューキャッシュをクリア（新しい画像用に）
+            clearEditPreviewCache();
+            
             editState = {
                 zoom: imgData.zoom || 100,
                 rotation: imgData.rotation || 0,
                 panX: imgData.panX || 0,
                 panY: imgData.panY || 0,
                 originalImage: imgData.fabricImage,
+                // 画像調整パラメータ
+                brightness: imgData.brightness || 0,
+                contrast: imgData.contrast || 0,
+                saturation: imgData.saturation || 0,
                 comment: imgData.comment || '',
                 commentX: imgData.commentX !== undefined ? imgData.commentX : 0.5,
                 commentY: imgData.commentY !== undefined ? imgData.commentY : 0.9,
@@ -3698,10 +4164,28 @@
                 dateColor: imgData.dateColor || ''
             };
             
-            document.getElementById('zoomSlider').value = editState.zoom;
-            document.getElementById('zoomValue').textContent = editState.zoom + '%';
+            // フローティングパネルのズームスライダーの値を更新
+            const floatingZoomSliderEl = document.getElementById('floatingZoomSlider');
+            const floatingZoomValueEl = document.getElementById('floatingZoomValue');
+            if (floatingZoomSliderEl) floatingZoomSliderEl.value = editState.zoom;
+            if (floatingZoomValueEl) floatingZoomValueEl.textContent = editState.zoom + '%';
+            
             document.getElementById('imageComment').value = editState.comment;
             document.getElementById('imageDate').value = editState.date;
+            
+            // フローティングパネルの画像調整スライダーの復元
+            const floatingBrightness = document.getElementById('floatingBrightnessSlider');
+            const floatingContrast = document.getElementById('floatingContrastSlider');
+            const floatingSaturation = document.getElementById('floatingSaturationSlider');
+            const floatingBrightnessVal = document.getElementById('floatingBrightnessValue');
+            const floatingContrastVal = document.getElementById('floatingContrastValue');
+            const floatingSaturationVal = document.getElementById('floatingSaturationValue');
+            if (floatingBrightness) floatingBrightness.value = editState.brightness;
+            if (floatingBrightnessVal) floatingBrightnessVal.textContent = editState.brightness;
+            if (floatingContrast) floatingContrast.value = editState.contrast;
+            if (floatingContrastVal) floatingContrastVal.textContent = editState.contrast;
+            if (floatingSaturation) floatingSaturation.value = editState.saturation;
+            if (floatingSaturationVal) floatingSaturationVal.textContent = editState.saturation;
             
             // 個別コメントスタイルの復元
             document.getElementById('imageCommentFont').value = editState.commentFont;
@@ -3745,13 +4229,23 @@
         }
         
         function closeEditModal() {
+            // フローティングパネルも閉じる
+            const floatingPanel = document.getElementById('floatingAdjustmentPanel');
+            if (floatingPanel) {
+                floatingPanel.classList.remove('show');
+            }
+            
             document.getElementById('editModal').classList.remove('show');
+            document.getElementById('editModal').style.background = '';
             editingImageIndex = -1;
             
             // 背面スクロール復元
             document.body.classList.remove('modal-open');
             document.body.style.top = '';
             window.scrollTo(0, scrollPosition);
+            
+            // プレビューキャッシュをクリア
+            clearEditPreviewCache();
             
             if (editCanvas) {
                 editCanvas.dispose();
@@ -3802,6 +4296,20 @@
             let lastPosX, lastPosY;
             let lastClickTime = 0;
             let lastClickTarget = null;
+            // ドラッグ開始時のオフセット（相対位置移動用）
+            let dragOffsetX = 0;
+            let dragOffsetY = 0;
+            // ドラッグ中の描画スロットリング用
+            let editPreviewPending = false;
+            // マウス操作のタップ/ドラッグ判定用
+            let mouseStartX = 0;
+            let mouseStartY = 0;
+            let mouseStartTarget = null;
+            let mouseHasMoved = false;
+            const MOUSE_MOVE_THRESHOLD = 5; // ドラッグと判定する移動距離の閾値（px）
+            // タッチ操作によるマウスイベント抑制用（タッチデバイスでのシミュレートイベント対策）
+            let isTouchActive = false;
+            let hasPinched = false;
             
             // ダブルクリック/ダブルタップでテキスト編集
             function handleDoubleClick(pointer) {
@@ -3844,14 +4352,14 @@
                 return false;
             }
             
-            // ターゲットエリアを判定
+            // ターゲットエリアを判定（ロック状態に関係なく検出）
             function getTargetArea(pointer) {
                 const overflowMargin = editCanvas.overflowMargin;
                 const printAreaWidth = editCanvas.printAreaWidth;
                 const printAreaHeight = editCanvas.printAreaHeight;
                 
-                // コメントエリアのチェック
-                if (showComment && editState.comment && !isCommentLocked) {
+                // コメントエリアのチェック（ロック状態に関係なく検出）
+                if (showComment && editState.comment) {
                     const commentX = overflowMargin + editState.commentX * printAreaWidth;
                     const commentY = overflowMargin + editState.commentY * printAreaHeight;
                     const hitRadius = 30;
@@ -3862,8 +4370,8 @@
                     }
                 }
                 
-                // 日付エリアのチェック
-                if (showDate && editState.date && !isCommentLocked) {
+                // 日付エリアのチェック（ロック状態に関係なく検出）
+                if (showDate && editState.date) {
                     const dateX = overflowMargin + editState.dateX * printAreaWidth;
                     const dateY = overflowMargin + editState.dateY * printAreaHeight;
                     const hitRadius = 30;
@@ -3877,7 +4385,10 @@
                 return 'image';
             }
             
-            editCanvas.on('mouse:down', function(e) {
+            editCanvas.on('mouse:down', async function(e) {
+                // タッチ操作中はマウスイベントを無視（タッチデバイスでのシミュレートイベント対策）
+                if (isTouchActive) return;
+                
                 const pointer = editCanvas.getPointer(e.e);
                 const currentTime = Date.now();
                 const target = getTargetArea(pointer);
@@ -3895,58 +4406,120 @@
                 lastPosX = pointer.x;
                 lastPosY = pointer.y;
                 
-                if (target === 'comment') {
-                    // コメントをクリックした場合、選択状態に変更
-                    selectElement('comment');
-                    isDraggingComment = !isCommentLocked; // ロック中はドラッグ不可
+                // マウス開始位置を記録（クリック/ドラッグ判定用）
+                mouseStartX = pointer.x;
+                mouseStartY = pointer.y;
+                mouseStartTarget = target;
+                mouseHasMoved = false;
+                
+                // ドラッグ開始時のオフセット計算用ヘルパー
+                const overflowMargin = editCanvas.overflowMargin;
+                const printAreaWidth = editCanvas.printAreaWidth;
+                const printAreaHeight = editCanvas.printAreaHeight;
+                
+                // ====== 新しいロジック: 現在選択中の要素を優先してドラッグ開始 ======
+                // クリックした場所に関係なく、現在選択中の要素のドラッグを準備
+                // 選択の切り替えはmouse:upでドラッグしなかった場合のみ行う
+                
+                if (selectedElement === 'comment' && showComment && editState.comment) {
+                    // コメントが選択中の場合
+                    if (isCommentLocked) {
+                        const unlocked = await showUnlockConfirmDialog('comment');
+                        if (!unlocked) {
+                            return;
+                        }
+                    }
+                    isDraggingComment = true;
                     isPanning = false;
                     isDraggingDate = false;
+                    // オフセット計算（クリック位置とコメント位置の差）
+                    const commentAbsX = overflowMargin + editState.commentX * printAreaWidth;
+                    const commentAbsY = overflowMargin + editState.commentY * printAreaHeight;
+                    dragOffsetX = pointer.x - commentAbsX;
+                    dragOffsetY = pointer.y - commentAbsY;
                     return;
                 }
                 
-                if (target === 'date') {
-                    // 日付をクリックした場合、選択状態に変更
-                    selectElement('date');
-                    isDraggingDate = !isDateLocked; // ロック中はドラッグ不可
+                if (selectedElement === 'date' && showDate && editState.date) {
+                    // 日付が選択中の場合
+                    if (isDateLocked) {
+                        const unlocked = await showUnlockConfirmDialog('date');
+                        if (!unlocked) {
+                            return;
+                        }
+                    }
+                    isDraggingDate = true;
                     isPanning = false;
                     isDraggingComment = false;
+                    // オフセット計算（クリック位置と日付位置の差）
+                    const dateAbsX = overflowMargin + editState.dateX * printAreaWidth;
+                    const dateAbsY = overflowMargin + editState.dateY * printAreaHeight;
+                    dragOffsetX = pointer.x - dateAbsX;
+                    dragOffsetY = pointer.y - dateAbsY;
                     return;
                 }
                 
-                // 写真エリアをクリックした場合、写真を選択状態に
-                selectElement('image');
-                
-                // 写真がロックされている場合はパンしない
-                if (!isImageLocked) {
-                    isPanning = true;
+                // 写真が選択中（またはデフォルト）の場合
+                if (isImageLocked) {
+                    const unlocked = await showUnlockConfirmDialog('image');
+                    if (!unlocked) {
+                        return;
+                    }
                 }
+                isPanning = true;
                 isDraggingComment = false;
                 isDraggingDate = false;
             });
             
             editCanvas.on('mouse:move', function(e) {
+                // タッチ操作中はマウスイベントを無視（タッチデバイスでのシミュレートイベント対策）
+                if (isTouchActive) return;
+                
                 const pointer = editCanvas.getPointer(e.e);
                 const overflowMargin = editCanvas.overflowMargin;
                 const printAreaWidth = editCanvas.printAreaWidth;
                 const printAreaHeight = editCanvas.printAreaHeight;
                 
+                // スロットリングされた描画更新（点滅防止）
+                function scheduleEditPreviewUpdate() {
+                    if (!editPreviewPending) {
+                        editPreviewPending = true;
+                        requestAnimationFrame(() => {
+                            editPreviewPending = false;
+                            drawEditPreview();
+                        });
+                    }
+                }
+                
+                // ドラッグ判定：移動距離が閾値を超えたらドラッグとみなす
+                const moveDistance = Math.sqrt(
+                    Math.pow(pointer.x - mouseStartX, 2) + Math.pow(pointer.y - mouseStartY, 2)
+                );
+                if (moveDistance > MOUSE_MOVE_THRESHOLD) {
+                    mouseHasMoved = true;
+                }
+                
                 if (isDraggingComment && !isCommentLocked) {
-                    // コメントの位置を更新（印刷範囲に対する相対位置で保存）
-                    const relX = (pointer.x - overflowMargin) / printAreaWidth;
-                    const relY = (pointer.y - overflowMargin) / printAreaHeight;
+                    // コメントの位置を更新（オフセットを考慮した相対位置移動）
+                    const adjustedX = pointer.x - dragOffsetX;
+                    const adjustedY = pointer.y - dragOffsetY;
+                    const relX = (adjustedX - overflowMargin) / printAreaWidth;
+                    const relY = (adjustedY - overflowMargin) / printAreaHeight;
                     editState.commentX = Math.max(0.05, Math.min(0.95, relX));
                     editState.commentY = Math.max(0.05, Math.min(0.95, relY));
-                    drawEditPreview();
+                    scheduleEditPreviewUpdate();
                     return;
                 }
                 
                 if (isDraggingDate && !isDateLocked) {
-                    // 日付の位置を更新（印刷範囲に対する相対位置で保存）
-                    const relX = (pointer.x - overflowMargin) / printAreaWidth;
-                    const relY = (pointer.y - overflowMargin) / printAreaHeight;
+                    // 日付の位置を更新（オフセットを考慮した相対位置移動）
+                    const adjustedX = pointer.x - dragOffsetX;
+                    const adjustedY = pointer.y - dragOffsetY;
+                    const relX = (adjustedX - overflowMargin) / printAreaWidth;
+                    const relY = (adjustedY - overflowMargin) / printAreaHeight;
                     editState.dateX = Math.max(0.05, Math.min(0.95, relX));
                     editState.dateY = Math.max(0.05, Math.min(0.95, relY));
-                    drawEditPreview();
+                    scheduleEditPreviewUpdate();
                     return;
                 }
                 
@@ -3961,13 +4534,28 @@
                 lastPosX = pointer.x;
                 lastPosY = pointer.y;
                 
-                drawEditPreview();
+                scheduleEditPreviewUpdate();
             });
             
             editCanvas.on('mouse:up', function() {
+                // タッチ操作中はマウスイベントを無視（タッチデバイスでのシミュレートイベント対策）
+                if (isTouchActive) return;
+                
+                // クリック判定：ドラッグしなかった場合は選択対象を切り替える
+                if (!mouseHasMoved && mouseStartTarget) {
+                    // クリックした要素に選択を切り替える
+                    if (mouseStartTarget !== selectedElement) {
+                        selectElement(mouseStartTarget);
+                        drawEditPreview();
+                    }
+                }
+                
+                // フラグをリセット
                 isPanning = false;
                 isDraggingComment = false;
                 isDraggingDate = false;
+                mouseHasMoved = false;
+                mouseStartTarget = null;
             });
             
             // タッチイベント
@@ -3976,19 +4564,45 @@
             let initialPinchAngle = 0;
             let isPinchingComment = false;
             let isPinchingDate = false;
+            let isPinchingImage = false;
             let initialCommentScale = 1.0;
             let initialCommentRotation = 0;
             let initialDateScale = 1.0;
             let initialDateRotation = 0;
+            let initialImageZoom = 100;
+            let initialImageRotation = 0;
             let lastTouchTime = 0;
             let lastTouchTarget = null;
             
-            // タッチのターゲットを判定
+            // タップとスライドの区別用
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let touchStartTarget = null; // タッチ開始時のターゲット
+            let hasMoved = false; // スライドしたかどうか
+            const TAP_THRESHOLD = 10; // タップと判定する移動距離の閾値（px）
+            
+            // 90度スナップ用の角度スナップ関数
+            function snapAngleTo90(angle, threshold = 8) {
+                const normalized = ((angle % 360) + 360) % 360;
+                const snapPoints = [0, 90, 180, 270, 360];
+                for (const snap of snapPoints) {
+                    if (Math.abs(normalized - snap) <= threshold) {
+                        return snap === 360 ? 0 : snap;
+                    }
+                }
+                return normalized;
+            }
+            
+            // タッチのターゲットを判定（ロック状態に関係なく検出）
             function getTouchTarget(touchX, touchY) {
-                // コメントエリアのチェック
-                if (showComment && editState.comment && !isCommentLocked) {
-                    const commentX = editState.commentX * editCanvas.width;
-                    const commentY = editState.commentY * editCanvas.height;
+                const overflowMargin = editCanvas.overflowMargin;
+                const printAreaWidth = editCanvas.printAreaWidth;
+                const printAreaHeight = editCanvas.printAreaHeight;
+                
+                // コメントエリアのチェック（ロック状態に関係なく検出）
+                if (showComment && editState.comment) {
+                    const commentX = overflowMargin + editState.commentX * printAreaWidth;
+                    const commentY = overflowMargin + editState.commentY * printAreaHeight;
                     const hitRadius = 40;
                     
                     if (Math.abs(touchX - commentX) < hitRadius && 
@@ -3997,10 +4611,10 @@
                     }
                 }
                 
-                // 日付エリアのチェック
-                if (showDate && editState.date && !isCommentLocked) {
-                    const dateX = editState.dateX * editCanvas.width;
-                    const dateY = editState.dateY * editCanvas.height;
+                // 日付エリアのチェック（ロック状態に関係なく検出）
+                if (showDate && editState.date) {
+                    const dateX = overflowMargin + editState.dateX * printAreaWidth;
+                    const dateY = overflowMargin + editState.dateY * printAreaHeight;
                     const hitRadius = 40;
                     
                     if (Math.abs(touchX - dateX) < hitRadius && 
@@ -4013,12 +4627,22 @@
             }
             
             canvasElement.addEventListener('touchstart', function(e) {
+                // タッチ操作開始
+                isTouchActive = true;
+                hasPinched = false;
+                
                 if (e.touches.length === 1) {
                     const rect = canvasElement.getBoundingClientRect();
                     const touchX = e.touches[0].clientX - rect.left;
                     const touchY = e.touches[0].clientY - rect.top;
                     const currentTime = Date.now();
                     const target = getTouchTarget(touchX, touchY);
+                    
+                    // タッチ開始位置を記録（タップ/スライド判定用）
+                    touchStartX = touchX;
+                    touchStartY = touchY;
+                    touchStartTarget = target;
+                    hasMoved = false;
                     
                     // ダブルタップ判定（300ms以内）
                     if (currentTime - lastTouchTime < 300 && lastTouchTarget === target) {
@@ -4045,33 +4669,78 @@
                     lastPosX = touchX;
                     lastPosY = touchY;
                     
-                    if (target === 'comment') {
-                        // コメントをタップした場合、選択状態に変更
-                        selectElement('comment');
+                    // オフセット計算用の値を取得
+                    const overflowMargin = editCanvas.overflowMargin;
+                    const printAreaWidth = editCanvas.printAreaWidth;
+                    const printAreaHeight = editCanvas.printAreaHeight;
+                    
+                    // ====== 新しいロジック: 現在選択中の要素を優先してドラッグ開始 ======
+                    // タップした場所に関係なく、現在選択中の要素のドラッグを準備
+                    // 選択の切り替えはtouchendでスライドしなかった場合のみ行う
+                    
+                    if (selectedElement === 'comment' && showComment && editState.comment) {
+                        // コメントが選択中の場合
+                        if (isCommentLocked) {
+                            const unlocked = confirm('「コメント」はロック中です。\nロックを解除しますか？');
+                            if (unlocked) {
+                                isCommentLocked = false;
+                                document.getElementById('lockCommentBtn').classList.remove('locked');
+                                document.getElementById('lockCommentIcon').className = 'fas fa-unlock';
+                            } else {
+                                e.preventDefault();
+                                return;
+                            }
+                        }
                         isDraggingComment = true;
                         isPanning = false;
                         isDraggingDate = false;
+                        // オフセット計算（タッチ位置とコメント位置の差）
+                        const commentAbsX = overflowMargin + editState.commentX * printAreaWidth;
+                        const commentAbsY = overflowMargin + editState.commentY * printAreaHeight;
+                        dragOffsetX = touchX - commentAbsX;
+                        dragOffsetY = touchY - commentAbsY;
                         e.preventDefault();
                         return;
                     }
                     
-                    if (target === 'date') {
-                        // 日付をタップした場合、選択状態に変更
-                        selectElement('date');
+                    if (selectedElement === 'date' && showDate && editState.date) {
+                        // 日付が選択中の場合
+                        if (isDateLocked) {
+                            const unlocked = confirm('「日付」はロック中です。\nロックを解除しますか？');
+                            if (unlocked) {
+                                isDateLocked = false;
+                                document.getElementById('lockDateBtn').classList.remove('locked');
+                                document.getElementById('lockDateIcon').className = 'fas fa-unlock';
+                            } else {
+                                e.preventDefault();
+                                return;
+                            }
+                        }
                         isDraggingDate = true;
                         isPanning = false;
                         isDraggingComment = false;
+                        // オフセット計算
+                        const dateAbsX = overflowMargin + editState.dateX * printAreaWidth;
+                        const dateAbsY = overflowMargin + editState.dateY * printAreaHeight;
+                        dragOffsetX = touchX - dateAbsX;
+                        dragOffsetY = touchY - dateAbsY;
                         e.preventDefault();
                         return;
                     }
                     
-                    // 写真エリアをタップした場合、写真を選択状態に
-                    selectElement('image');
-                    
-                    // 写真がロックされていない場合のみパン
-                    if (!isImageLocked) {
-                        isPanning = true;
+                    // 写真が選択中（またはデフォルト）の場合
+                    if (isImageLocked) {
+                        const unlocked = confirm('「写真」はロック中です。\nロックを解除しますか？');
+                        if (unlocked) {
+                            isImageLocked = false;
+                            document.getElementById('lockImageBtn').classList.remove('locked');
+                            document.getElementById('lockImageIcon').className = 'fas fa-unlock';
+                        } else {
+                            e.preventDefault();
+                            return;
+                        }
                     }
+                    isPanning = true;
                     isDraggingComment = false;
                     isDraggingDate = false;
                     e.preventDefault();
@@ -4099,13 +4768,25 @@
                     const printAreaHeight = editCanvas.printAreaHeight;
                     
                     // コメント近くでピンチした場合はコメントサイズ/回転変更
-                    if (showComment && editState.comment && !isCommentLocked) {
+                    if (showComment && editState.comment) {
                         const commentX = overflowMargin + editState.commentX * printAreaWidth;
                         const commentY = overflowMargin + editState.commentY * printAreaHeight;
                         const hitRadius = 80;
                         
                         if (Math.abs(pinchCenterX - commentX) < hitRadius && 
                             Math.abs(pinchCenterY - commentY) < hitRadius) {
+                            // ロック中の場合、確認ダイアログを表示
+                            if (isCommentLocked) {
+                                const unlocked = confirm('「コメント」はロック中です。\nロックを解除しますか？');
+                                if (unlocked) {
+                                    isCommentLocked = false;
+                                    document.getElementById('lockCommentBtn').classList.remove('locked');
+                                    document.getElementById('lockCommentIcon').className = 'fas fa-unlock';
+                                } else {
+                                    e.preventDefault();
+                                    return;
+                                }
+                            }
                             isPinchingComment = true;
                             isPinchingDate = false;
                             initialCommentScale = editState.commentScale;
@@ -4116,13 +4797,25 @@
                     }
                     
                     // 日付近くでピンチした場合は日付サイズ/回転変更
-                    if (showDate && editState.date && !isCommentLocked) {
+                    if (showDate && editState.date) {
                         const dateX = overflowMargin + editState.dateX * printAreaWidth;
                         const dateY = overflowMargin + editState.dateY * printAreaHeight;
                         const hitRadius = 80;
                         
                         if (Math.abs(pinchCenterX - dateX) < hitRadius && 
                             Math.abs(pinchCenterY - dateY) < hitRadius) {
+                            // ロック中の場合、確認ダイアログを表示
+                            if (isDateLocked) {
+                                const unlocked = confirm('「日付」はロック中です。\nロックを解除しますか？');
+                                if (unlocked) {
+                                    isDateLocked = false;
+                                    document.getElementById('lockDateBtn').classList.remove('locked');
+                                    document.getElementById('lockDateIcon').className = 'fas fa-unlock';
+                                } else {
+                                    e.preventDefault();
+                                    return;
+                                }
+                            }
                             isPinchingDate = true;
                             isPinchingComment = false;
                             initialDateScale = editState.dateScale;
@@ -4132,13 +4825,42 @@
                         }
                     }
                     
+                    // 写真のピンチ操作（画像ロック確認）
+                    if (isImageLocked) {
+                        const unlocked = confirm('「写真」はロック中です。\nロックを解除しますか？');
+                        if (unlocked) {
+                            isImageLocked = false;
+                            document.getElementById('lockImageBtn').classList.remove('locked');
+                            document.getElementById('lockImageIcon').className = 'fas fa-unlock';
+                        } else {
+                            e.preventDefault();
+                            return;
+                        }
+                    }
+                    
+                    // 写真のピンチ操作を開始
+                    isPinchingImage = true;
                     isPinchingComment = false;
                     isPinchingDate = false;
+                    initialImageZoom = editState.zoom;
+                    initialImageRotation = editState.rotation;
+                    hasPinched = true; // ピンチ操作フラグを設定
                     e.preventDefault();
                 }
             }, { passive: false });
             
             canvasElement.addEventListener('touchmove', function(e) {
+                // スロットリングされた描画更新（点滅防止）
+                function scheduleEditPreviewUpdateTouch() {
+                    if (!editPreviewPending) {
+                        editPreviewPending = true;
+                        requestAnimationFrame(() => {
+                            editPreviewPending = false;
+                            drawEditPreview();
+                        });
+                    }
+                }
+                
                 if (e.touches.length === 2) {
                     // ピンチ操作
                     const rect = canvasElement.getBoundingClientRect();
@@ -4152,33 +4874,38 @@
                     );
                     const currentAngle = Math.atan2(touch2Y - touch1Y, touch2X - touch1X) * 180 / Math.PI;
                     
-                    if (isPinchingComment && initialPinchDistance > 0 && !isCommentLocked) {
+                    if (isPinchingComment && initialPinchDistance > 0) {
                         // コメントサイズをピンチで変更
                         const scale = currentDistance / initialPinchDistance;
                         editState.commentScale = Math.max(0.5, Math.min(2.0, initialCommentScale * scale));
-                        // コメントの回転
+                        // コメントの回転（90度スナップ付き）
                         const angleDiff = currentAngle - initialPinchAngle;
-                        editState.commentRotation = (initialCommentRotation + angleDiff + 360) % 360;
-                        drawEditPreview();
+                        const rawRotation = (initialCommentRotation + angleDiff + 360) % 360;
+                        editState.commentRotation = snapAngleTo90(rawRotation);
+                        scheduleEditPreviewUpdateTouch();
                         e.preventDefault();
-                    } else if (isPinchingDate && initialPinchDistance > 0 && !isCommentLocked) {
+                    } else if (isPinchingDate && initialPinchDistance > 0) {
                         // 日付サイズをピンチで変更
                         const scale = currentDistance / initialPinchDistance;
                         editState.dateScale = Math.max(0.5, Math.min(2.0, initialDateScale * scale));
-                        // 日付の回転
+                        // 日付の回転（90度スナップ付き）
                         const angleDiff = currentAngle - initialPinchAngle;
-                        editState.dateRotation = (initialDateRotation + angleDiff + 360) % 360;
-                        drawEditPreview();
+                        const rawRotation = (initialDateRotation + angleDiff + 360) % 360;
+                        editState.dateRotation = snapAngleTo90(rawRotation);
+                        scheduleEditPreviewUpdateTouch();
                         e.preventDefault();
-                    } else if (initialPinchDistance > 0 && !isImageLocked) {
+                    } else if (isPinchingImage && initialPinchDistance > 0) {
                         // 画像のズームをピンチで変更
                         const scale = currentDistance / initialPinchDistance;
-                        const newZoom = Math.max(50, Math.min(300, editState.zoom * scale));
+                        const newZoom = Math.max(50, Math.min(300, initialImageZoom * scale));
                         editState.zoom = Math.round(newZoom);
-                        document.getElementById('zoomSlider').value = editState.zoom;
-                        document.getElementById('zoomValue').textContent = editState.zoom + '%';
-                        initialPinchDistance = currentDistance;
-                        drawEditPreview();
+                        
+                        // 画像の回転（90度スナップ付き）
+                        const angleDiff = currentAngle - initialPinchAngle;
+                        const rawRotation = (initialImageRotation + angleDiff + 360) % 360;
+                        editState.rotation = snapAngleTo90(rawRotation);
+                        
+                        scheduleEditPreviewUpdateTouch();
                         e.preventDefault();
                     }
                     return;
@@ -4190,28 +4917,42 @@
                 const currentX = e.touches[0].clientX - rect.left;
                 const currentY = e.touches[0].clientY - rect.top;
                 
+                // スライド判定：移動距離が閾値を超えたらスライドとみなす
+                const moveDistance = Math.sqrt(
+                    Math.pow(currentX - touchStartX, 2) + Math.pow(currentY - touchStartY, 2)
+                );
+                if (moveDistance > TAP_THRESHOLD) {
+                    hasMoved = true;
+                }
+                
                 if (isDraggingComment && !isCommentLocked) {
                     const overflowMargin = editCanvas.overflowMargin;
                     const printAreaWidth = editCanvas.printAreaWidth;
                     const printAreaHeight = editCanvas.printAreaHeight;
-                    const relX = (currentX - overflowMargin) / printAreaWidth;
-                    const relY = (currentY - overflowMargin) / printAreaHeight;
+                    // オフセットを考慮した相対位置移動
+                    const adjustedX = currentX - dragOffsetX;
+                    const adjustedY = currentY - dragOffsetY;
+                    const relX = (adjustedX - overflowMargin) / printAreaWidth;
+                    const relY = (adjustedY - overflowMargin) / printAreaHeight;
                     editState.commentX = Math.max(0.05, Math.min(0.95, relX));
                     editState.commentY = Math.max(0.05, Math.min(0.95, relY));
-                    drawEditPreview();
+                    scheduleEditPreviewUpdateTouch();
                     e.preventDefault();
                     return;
                 }
                 
-                if (isDraggingDate && !isCommentLocked) {
+                if (isDraggingDate && !isDateLocked) {
                     const overflowMargin = editCanvas.overflowMargin;
                     const printAreaWidth = editCanvas.printAreaWidth;
                     const printAreaHeight = editCanvas.printAreaHeight;
-                    const relX = (currentX - overflowMargin) / printAreaWidth;
-                    const relY = (currentY - overflowMargin) / printAreaHeight;
+                    // オフセットを考慮した相対位置移動
+                    const adjustedX = currentX - dragOffsetX;
+                    const adjustedY = currentY - dragOffsetY;
+                    const relX = (adjustedX - overflowMargin) / printAreaWidth;
+                    const relY = (adjustedY - overflowMargin) / printAreaHeight;
                     editState.dateX = Math.max(0.05, Math.min(0.95, relX));
                     editState.dateY = Math.max(0.05, Math.min(0.95, relY));
-                    drawEditPreview();
+                    scheduleEditPreviewUpdateTouch();
                     e.preventDefault();
                     return;
                 }
@@ -4227,26 +4968,63 @@
                 lastPosX = currentX;
                 lastPosY = currentY;
                 
-                drawEditPreview();
+                scheduleEditPreviewUpdateTouch();
                 e.preventDefault();
             }, { passive: false });
             
             canvasElement.addEventListener('touchend', function(e) {
+                // タップ判定：スライドもピンチもしなかった場合のみ選択対象を切り替える
+                // hasMoved: スライド操作をした場合はtrue
+                // hasPinched: ピンチ（回転/拡大縮小）操作をした場合はtrue
+                if (!hasMoved && !hasPinched && e.touches.length === 0) {
+                    // タップした位置にある要素を取得
+                    if (touchStartTarget && touchStartTarget !== selectedElement) {
+                        // タップした要素に選択を切り替える
+                        selectElement(touchStartTarget);
+                        drawEditPreview();
+                    }
+                }
+                
+                // フラグをリセット
                 isPanning = false;
                 isDraggingComment = false;
                 isDraggingDate = false;
+                hasMoved = false;
+                touchStartTarget = null;
+                
                 if (e.touches.length < 2) {
                     isPinchingComment = false;
                     isPinchingDate = false;
+                    isPinchingImage = false;
                     initialPinchDistance = 0;
                 }
+                
+                // タッチ操作終了フラグをリセット（少し遅延させてマウスイベントを抑制）
+                setTimeout(() => {
+                    isTouchActive = false;
+                    hasPinched = false;
+                }, 100);
             });
         }
+        
+        // 描画中のフラグとキューイング
+        let isDrawingEditPreview = false;
+        let editPreviewQueued = false;
+        // キャッシュされた画像クローン
+        let cachedOuterImg = null;
+        let cachedClippedImg = null;
+        let lastFilterState = { brightness: 0, contrast: 0, saturation: 0 };
         
         function drawEditPreview() {
             if (!editCanvas || !editState.originalImage) return;
             
-            editCanvas.clear();
+            // 描画中なら次の描画をキューに入れる
+            if (isDrawingEditPreview) {
+                editPreviewQueued = true;
+                return;
+            }
+            
+            isDrawingEditPreview = true;
             
             const img = editState.originalImage;
             const scale = editCanvas.editScale;
@@ -4261,6 +5039,10 @@
             const printAreaHeight = editCanvas.printAreaHeight;
             const overflowMargin = editCanvas.overflowMargin;
             
+            // 印刷範囲の中心座標
+            const centerX = canvasWidth / 2;
+            const centerY = canvasHeight / 2;
+            
             const isRotated = (rotation % 180 !== 0);
             const imgW = isRotated ? img.height : img.width;
             const imgH = isRotated ? img.width : img.height;
@@ -4272,14 +5054,187 @@
             const baseScale = Math.max(scaleX, scaleY);
             const finalScale = baseScale * zoom;
             
-            // 印刷範囲の中心座標
-            const centerX = canvasWidth / 2;
-            const centerY = canvasHeight / 2;
+            // フィルター状態が変わったかチェック
+            const filterChanged = 
+                lastFilterState.brightness !== editState.brightness ||
+                lastFilterState.contrast !== editState.contrast ||
+                lastFilterState.saturation !== editState.saturation;
             
-            // 背景をグレーにして印刷範囲外を示す
+            // フィルターを適用する関数
+            function applyImageFilters(fabricImg) {
+                fabricImg.filters = [];
+                
+                // 明るさ (-100 to 100 -> -1 to 1)
+                if (editState.brightness !== 0) {
+                    fabricImg.filters.push(new fabric.Image.filters.Brightness({
+                        brightness: editState.brightness / 100
+                    }));
+                }
+                
+                // コントラスト (-100 to 100 -> -1 to 1)
+                if (editState.contrast !== 0) {
+                    fabricImg.filters.push(new fabric.Image.filters.Contrast({
+                        contrast: editState.contrast / 100
+                    }));
+                }
+                
+                // 彩度 (-100 to 100 -> -1 to 1)
+                if (editState.saturation !== 0) {
+                    fabricImg.filters.push(new fabric.Image.filters.Saturation({
+                        saturation: editState.saturation / 100
+                    }));
+                }
+                
+                fabricImg.applyFilters();
+            }
+            
+            // 共通の描画完了処理
+            function finishDrawing() {
+                // コメントプレビューも表示
+                if (showComment && editState.comment) {
+                    drawCommentPreviewOnEditCanvas();
+                }
+                
+                // 日付プレビューも表示
+                if (showDate && editState.date) {
+                    drawDatePreviewOnEditCanvas();
+                }
+                
+                // 自動レンダリングを再度有効化し、一度だけレンダリング
+                editCanvas.renderOnAddRemove = true;
+                editCanvas.renderAll();
+                
+                // クロップラベルを更新
+                updateCropLabel();
+                
+                // 回転ハンドルの位置を更新
+                updateRotationHandlePositions();
+                
+                // 描画完了
+                isDrawingEditPreview = false;
+                
+                // キューがあれば次の描画を実行
+                if (editPreviewQueued) {
+                    editPreviewQueued = false;
+                    requestAnimationFrame(() => {
+                        drawEditPreview();
+                    });
+                }
+            }
+            
+            // キャッシュが有効で、フィルターも変わっていなければ高速パス
+            if (cachedOuterImg && cachedClippedImg && !filterChanged) {
+                // 自動レンダリングを無効化
+                editCanvas.renderOnAddRemove = false;
+                editCanvas.clear();
+                
+                // 背景
+                editCanvas.backgroundColor = '#d0d0d0';
+                
+                // 印刷範囲の白い背景（即座に追加）
+                const printAreaBgImmediate = new fabric.Rect({
+                    left: overflowMargin,
+                    top: overflowMargin,
+                    width: printAreaWidth,
+                    height: printAreaHeight,
+                    fill: '#ffffff',
+                    selectable: false,
+                    evented: false
+                });
+                editCanvas.add(printAreaBgImmediate);
+                
+                // キャッシュされた外側画像の位置を更新
+                cachedOuterImg.set({
+                    left: centerX + panX,
+                    top: centerY + panY,
+                    scaleX: finalScale,
+                    scaleY: finalScale,
+                    angle: rotation
+                });
+                editCanvas.add(cachedOuterImg);
+                
+                // 印刷範囲の白い背景
+                const printAreaBg = new fabric.Rect({
+                    left: overflowMargin,
+                    top: overflowMargin,
+                    width: printAreaWidth,
+                    height: printAreaHeight,
+                    fill: '#ffffff',
+                    selectable: false,
+                    evented: false
+                });
+                editCanvas.add(printAreaBg);
+                
+                // キャッシュされたクリップ画像の位置を更新
+                cachedClippedImg.set({
+                    left: centerX + panX,
+                    top: centerY + panY,
+                    scaleX: finalScale,
+                    scaleY: finalScale,
+                    angle: rotation
+                });
+                cachedClippedImg.clipPath.set({
+                    left: overflowMargin,
+                    top: overflowMargin,
+                    width: printAreaWidth,
+                    height: printAreaHeight
+                });
+                editCanvas.add(cachedClippedImg);
+                
+                // 印刷範囲の枠線を描画
+                const printAreaBorder = new fabric.Rect({
+                    left: overflowMargin,
+                    top: overflowMargin,
+                    width: printAreaWidth,
+                    height: printAreaHeight,
+                    fill: 'transparent',
+                    stroke: 'rgba(102, 126, 234, 0.8)',
+                    strokeWidth: 2,
+                    selectable: false,
+                    evented: false
+                });
+                editCanvas.add(printAreaBorder);
+                
+                finishDrawing();
+                return;
+            }
+            
+            // フィルター状態を更新
+            lastFilterState = {
+                brightness: editState.brightness,
+                contrast: editState.contrast,
+                saturation: editState.saturation
+            };
+            
+            // 自動レンダリングを無効化して点滅を防止
+            editCanvas.renderOnAddRemove = false;
+            
+            // 背景色を先に設定してからクリア（点滅軽減）
             editCanvas.backgroundColor = '#d0d0d0';
+            editCanvas.clear();
+            
+            // 点滅防止：クリア直後に印刷領域の白い背景を即座に描画（レンダリングなし）
+            const printAreaBgImmediate = new fabric.Rect({
+                left: overflowMargin,
+                top: overflowMargin,
+                width: printAreaWidth,
+                height: printAreaHeight,
+                fill: '#ffffff',
+                selectable: false,
+                evented: false
+            });
+            editCanvas.add(printAreaBgImmediate);
             
             img.clone(function(clonedImg) {
+                // editCanvasがクリアされていたら終了
+                if (!editCanvas) {
+                    isDrawingEditPreview = false;
+                    return;
+                }
+                
+                // フィルターを適用
+                applyImageFilters(clonedImg);
+                
                 // まず印刷範囲外に表示される部分を半透明で描画（キャンバス全体）
                 clonedImg.set({
                     left: centerX + panX,
@@ -4293,6 +5248,9 @@
                     selectable: false,
                     evented: false
                 });
+                
+                // キャッシュに保存
+                cachedOuterImg = clonedImg;
                 
                 editCanvas.add(clonedImg);
                 
@@ -4310,6 +5268,15 @@
                 
                 // 印刷範囲内の画像（クリッピング）
                 img.clone(function(clippedImg) {
+                    // editCanvasがクリアされていたら終了
+                    if (!editCanvas) {
+                        isDrawingEditPreview = false;
+                        return;
+                    }
+                    
+                    // フィルターを適用
+                    applyImageFilters(clippedImg);
+                    
                     const clipPath = new fabric.Rect({
                         left: overflowMargin,
                         top: overflowMargin,
@@ -4331,6 +5298,9 @@
                         evented: false
                     });
                     
+                    // キャッシュに保存
+                    cachedClippedImg = clippedImg;
+                    
                     editCanvas.add(clippedImg);
                     
                     // 印刷範囲の枠線を描画
@@ -4347,25 +5317,16 @@
                     });
                     editCanvas.add(printAreaBorder);
                     
-                    // コメントプレビューも表示
-                    if (showComment && editState.comment) {
-                        drawCommentPreviewOnEditCanvas();
-                    }
-                    
-                    // 日付プレビューも表示
-                    if (showDate && editState.date) {
-                        drawDatePreviewOnEditCanvas();
-                    }
-                    
-                    editCanvas.renderAll();
-                    
-                    // クロップラベルを更新
-                    updateCropLabel();
-                    
-                    // 回転ハンドルの位置を更新
-                    updateRotationHandlePositions();
+                    finishDrawing();
                 });
             });
+        }
+        
+        // キャッシュをクリアする関数（モーダルを閉じたとき、画像を変更したときなど）
+        function clearEditPreviewCache() {
+            cachedOuterImg = null;
+            cachedClippedImg = null;
+            lastFilterState = { brightness: 0, contrast: 0, saturation: 0 };
         }
         
         // 要素選択機能
@@ -4377,49 +5338,18 @@
                 btn.classList.toggle('selected', btn.dataset.element === element);
             });
             
-            // コントロールパネルを更新
-            const titleEl = document.getElementById('selectedElementTitle');
-            const imageZoomControl = document.getElementById('imageZoomControl');
-            const imageRotationControl = document.getElementById('imageRotationControl');
-            const elementScaleControl = document.getElementById('elementScaleControl');
-            const elementRotationControl = document.getElementById('elementRotationControl');
+            // 画像調整グループの表示制御
+            const imageAdjustmentGroup = document.getElementById('imageAdjustmentGroup');
             
             if (element === 'image') {
-                titleEl.innerHTML = '<i class="fas fa-image"></i> 写真の調整';
-                imageZoomControl.style.display = 'flex';
-                imageRotationControl.style.display = 'flex';
-                elementScaleControl.style.display = 'none';
-                elementRotationControl.style.display = 'none';
+                // 画像調整は写真選択時のみ表示
+                if (imageAdjustmentGroup) imageAdjustmentGroup.style.display = 'block';
             } else if (element === 'comment') {
-                titleEl.innerHTML = '<i class="fas fa-comment"></i> コメントの調整';
-                imageZoomControl.style.display = 'none';
-                imageRotationControl.style.display = 'none';
-                elementScaleControl.style.display = 'flex';
-                elementRotationControl.style.display = 'flex';
-                
-                // スライダーの値を更新
-                const scale = Math.round((editState.commentScale || 1.0) * 100);
-                document.getElementById('elementScaleSlider').value = scale;
-                document.getElementById('elementScaleValue').textContent = scale + '%';
-                
-                const rotation = editState.commentRotation || 0;
-                document.getElementById('elementRotationSlider').value = rotation;
-                document.getElementById('elementRotationValue').textContent = rotation + '°';
+                // 画像調整はコメント選択時は非表示
+                if (imageAdjustmentGroup) imageAdjustmentGroup.style.display = 'none';
             } else if (element === 'date') {
-                titleEl.innerHTML = '<i class="fas fa-calendar"></i> 日付の調整';
-                imageZoomControl.style.display = 'none';
-                imageRotationControl.style.display = 'none';
-                elementScaleControl.style.display = 'flex';
-                elementRotationControl.style.display = 'flex';
-                
-                // スライダーの値を更新
-                const scale = Math.round((editState.dateScale || 1.0) * 100);
-                document.getElementById('elementScaleSlider').value = scale;
-                document.getElementById('elementScaleValue').textContent = scale + '%';
-                
-                const rotation = editState.dateRotation || 0;
-                document.getElementById('elementRotationSlider').value = rotation;
-                document.getElementById('elementRotationValue').textContent = rotation + '°';
+                // 画像調整は日付選択時は非表示
+                if (imageAdjustmentGroup) imageAdjustmentGroup.style.display = 'none';
             }
             
             // プレビューを再描画して選択状態を表示（editCanvasが存在する場合のみ）
@@ -4564,9 +5494,6 @@
                 } else {
                     editState.dateRotation = angle;
                 }
-                
-                document.getElementById('elementRotationSlider').value = angle;
-                document.getElementById('elementRotationValue').textContent = angle + '°';
                 
                 // ハンドル位置を直接更新（高速レスポンス）
                 updateHandlePosition(angle);
@@ -4793,7 +5720,9 @@
         
         function handleZoomChange(e) {
             editState.zoom = parseInt(e.target.value);
-            document.getElementById('zoomValue').textContent = editState.zoom + '%';
+            // フローティングパネルのズーム値を更新
+            const fzValue = document.getElementById('floatingZoomValue');
+            if (fzValue) fzValue.textContent = editState.zoom + '%';
             drawEditPreview();
         }
         
@@ -4834,6 +5763,10 @@
             placedImages[editingImageIndex].rotation = editState.rotation;
             placedImages[editingImageIndex].panX = editState.panX;
             placedImages[editingImageIndex].panY = editState.panY;
+            // 画像調整パラメータ
+            placedImages[editingImageIndex].brightness = editState.brightness;
+            placedImages[editingImageIndex].contrast = editState.contrast;
+            placedImages[editingImageIndex].saturation = editState.saturation;
             placedImages[editingImageIndex].comment = editState.comment;
             placedImages[editingImageIndex].commentX = editState.commentX;
             placedImages[editingImageIndex].commentY = editState.commentY;
@@ -4856,6 +5789,10 @@
             allImages[editingImageIndex].rotation = editState.rotation;
             allImages[editingImageIndex].panX = editState.panX;
             allImages[editingImageIndex].panY = editState.panY;
+            // 画像調整パラメータ
+            allImages[editingImageIndex].brightness = editState.brightness;
+            allImages[editingImageIndex].contrast = editState.contrast;
+            allImages[editingImageIndex].saturation = editState.saturation;
             allImages[editingImageIndex].comment = editState.comment;
             allImages[editingImageIndex].commentX = editState.commentX;
             allImages[editingImageIndex].commentY = editState.commentY;
@@ -4995,6 +5932,35 @@
                     const centerX = frame.x + frame.width / 2 + panX;
                     const centerY = frame.y + frame.height / 2 + panY;
                     
+                    // 画像調整が必要な場合はオフスクリーンキャンバスで処理
+                    let imgElement = img.getElement();
+                    const brightness = imgData.brightness || 0;
+                    const contrast = imgData.contrast || 0;
+                    const saturation = imgData.saturation || 0;
+                    
+                    if (brightness !== 0 || contrast !== 0 || saturation !== 0) {
+                        // CSSフィルターを使用するためのオフスクリーンキャンバス
+                        const offscreen = document.createElement('canvas');
+                        offscreen.width = img.width;
+                        offscreen.height = img.height;
+                        const offCtx = offscreen.getContext('2d');
+                        
+                        // CSSフィルターを構築
+                        const filters = [];
+                        if (brightness !== 0) {
+                            filters.push(`brightness(${100 + brightness}%)`);
+                        }
+                        if (contrast !== 0) {
+                            filters.push(`contrast(${100 + contrast}%)`);
+                        }
+                        if (saturation !== 0) {
+                            filters.push(`saturate(${100 + saturation}%)`);
+                        }
+                        offCtx.filter = filters.join(' ');
+                        offCtx.drawImage(imgElement, 0, 0);
+                        imgElement = offscreen;
+                    }
+                    
                     ctx.save();
                     ctx.beginPath();
                     ctx.rect(frame.x, frame.y, frame.width, frame.height);
@@ -5004,7 +5970,6 @@
                     ctx.rotate(rotation * Math.PI / 180);
                     ctx.scale(finalScale, finalScale);
                     
-                    const imgElement = img.getElement();
                     ctx.drawImage(
                         imgElement,
                         -img.width / 2,
