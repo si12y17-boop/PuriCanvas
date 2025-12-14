@@ -2024,33 +2024,6 @@
                         </select>
                     </div>
                     <div class="date-option-row">
-                        <label>フォント:</label>
-                        <select id="dateFont">
-                            <option value="Noto Sans JP">Noto Sans JP</option>
-                            <option value="serif">明朝体</option>
-                            <option value="sans-serif">ゴシック体</option>
-                            <option value="monospace">等幅</option>
-                            <option value="Dancing Script">Dancing Script</option>
-                            <option value="Pacifico">Pacifico</option>
-                            <option value="Sacramento">Sacramento</option>
-                            <option value="Satisfy">Satisfy</option>
-                            <option value="Great Vibes">Great Vibes</option>
-                            <option value="Caveat">Caveat</option>
-                            <option value="Klee One">クレー One</option>
-                            <option value="Zen Kurenaido">ZEN紅道</option>
-                            <option value="Yomogi">よもぎ</option>
-                            <option value="Yusei Magic">油性マジック</option>
-                        </select>
-                    </div>
-                    <div class="date-option-row">
-                        <label>サイズ:</label>
-                        <select id="dateFontSize">
-                            <option value="small">小</option>
-                            <option value="medium" selected>中</option>
-                            <option value="large">大</option>
-                        </select>
-                    </div>
-                    <div class="date-option-row">
                         <label>形式:</label>
                         <select id="dateFormat">
                             <option value="yyyy/mm/dd">2024/01/15</option>
@@ -2058,18 +2031,6 @@
                             <option value="yyyy.mm.dd">2024.01.15</option>
                             <option value="mm/dd/yyyy">01/15/2024</option>
                             <option value="dd.mm.yyyy">15.01.2024</option>
-                        </select>
-                    </div>
-                    <div class="date-option-row">
-                        <label>色:</label>
-                        <input type="color" id="dateColor" value="#ffffff">
-                        <select id="dateColorPreset">
-                            <option value="#ffffff">白</option>
-                            <option value="#000000">黒</option>
-                            <option value="#ffcc00">黄色</option>
-                            <option value="#ff6b6b">赤</option>
-                            <option value="#4ecdc4">水色</option>
-                            <option value="#ff9ff3">ピンク</option>
                         </select>
                     </div>
                     <div class="date-info">
@@ -2200,7 +2161,7 @@
                         </div>
                     </div>
                     <p style="font-size: 0.85rem; color: #718096; margin-bottom: 12px;">
-                        <i class="fas fa-info-circle"></i> チェックを付けた写真が印刷されます（最大<span id="maxSelectCount">0</span>枚）
+                        <i class="fas fa-info-circle"></i> チェックを付けた写真が印刷されます（最大<span id="maxSelectCount">0</span>枚）。
                     </p>
                     <div class="preview-thumbnails" id="previewThumbnails">
                         <!-- サムネイルがここに動的に生成されます -->
@@ -2232,7 +2193,7 @@
                             <canvas id="editCanvas"></canvas>
                             <div class="crop-label" id="cropLabel">印刷範囲</div>
                         </div>
-                        <p class="edit-preview-hint"><i class="fas fa-hand-pointer"></i> 要素をタップして選択。選択後はどこでもドラッグで移動可能</p>
+                        <p class="edit-preview-hint"><i class="fas fa-hand-pointer"></i> 要素をタップして選択。選択後はどこでもドラッグで移動可能。</p>
                     </div>
                     <div class="edit-controls">
                         <!-- 要素選択ボタン -->
@@ -2276,7 +2237,7 @@
                             </div>
                             <p class="lock-hint" style="font-size: 0.75rem; color: #718096; margin-top: 8px;">
                                 <i class="fas fa-info-circle" style="margin-right: 4px;"></i>
-                                ロック中は誤って変更するのを防止できます
+                                ロック中は誤って変更するのを防止できます。
                             </p>
                         </div>
                         
@@ -2284,7 +2245,7 @@
                         <div class="comment-input-group" id="commentInputGroup">
                             <label><i class="fas fa-comment"></i> コメント</label>
                             <input type="text" id="imageComment" placeholder="コメントを入力..." maxlength="50">
-                            <p class="comment-drag-hint"><i class="fas fa-arrows-alt"></i> タップで選択後、どこでもドラッグで移動可能</p>
+                            <p class="comment-drag-hint"><i class="fas fa-arrows-alt"></i> タップで選択後、どこでもドラッグで移動可能。</p>
                             
                             <!-- 個別コメント設定 -->
                             <div class="individual-style-options">
@@ -2335,7 +2296,7 @@
                                 <input type="date" id="imageDate" style="flex: 1;">
                                 <button type="button" id="clearDateBtn" style="padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 6px; background: #fff; cursor: pointer; font-size: 0.8rem; color: #718096;">クリア</button>
                             </div>
-                            <p class="comment-drag-hint"><i class="fas fa-info-circle"></i> 空欄の場合は日付非表示。撮影日が取得できれば自動入力されます</p>
+                            <p class="comment-drag-hint"><i class="fas fa-info-circle"></i> 空欄の場合は日付非表示。撮影日が取得できれば自動入力されます。</p>
                             
                             <!-- 個別日付設定 -->
                             <div class="individual-style-options">
@@ -2549,8 +2510,9 @@
             commentColor: '', // 個別色（空=デフォルト）
             date: '', // 日付文字列
             exifDate: null, // EXIFから取得した日付
-            dateX: 0.75, // 日付のX位置（相対位置）- 印刷領域内に収まるよう調整
+            dateX: 0.95, // 日付のX位置（相対位置）- 印刷領域内に収まるよう調整
             dateY: 0.9, // 日付のY位置（相対位置）
+            dateOriginX: 'right', // 日付のアンカーポイント（left, center, right）
             dateScale: 1.0, // 日付サイズ倍率
             dateRotation: 0, // 日付回転角度
             dateFont: '', // 個別フォント（空=デフォルト）
@@ -2571,6 +2533,42 @@
         // サイズ変更プレビュー用
         let pendingSizeChange = null;
         let selectedImagesForSizeChange = []; // サイズ変更時に選択された画像のインデックス
+        
+        // 日付位置選択からXY座標とアンカーポイントを取得するヘルパー関数
+        function getDatePositionCoords(position) {
+            switch (position) {
+                case 'top-left':
+                    return { x: 0.05, y: 0.1, originX: 'left' };
+                case 'top-center':
+                    return { x: 0.5, y: 0.1, originX: 'center' };
+                case 'top-right':
+                    return { x: 0.95, y: 0.1, originX: 'right' };
+                case 'bottom-left':
+                    return { x: 0.05, y: 0.9, originX: 'left' };
+                case 'bottom-center':
+                    return { x: 0.5, y: 0.9, originX: 'center' };
+                case 'bottom-right':
+                default:
+                    return { x: 0.95, y: 0.9, originX: 'right' };
+            }
+        }
+        
+        // 全画像の日付位置を更新する関数
+        function updateAllDatePositions(position) {
+            const coords = getDatePositionCoords(position);
+            // allImagesの日付位置を更新
+            allImages.forEach(imgData => {
+                imgData.dateX = coords.x;
+                imgData.dateY = coords.y;
+                imgData.dateOriginX = coords.originX;
+            });
+            // placedImagesの日付位置も更新
+            placedImages.forEach(imgData => {
+                imgData.dateX = coords.x;
+                imgData.dateY = coords.y;
+                imgData.dateOriginX = coords.originX;
+            });
+        }
 
         // =====================================================
         // 初期化
@@ -2828,16 +2826,8 @@
             // 日付オプション
             document.getElementById('datePosition').addEventListener('change', function() {
                 dateSettings.position = this.value;
-                drawLayout();
-            });
-            
-            document.getElementById('dateFont').addEventListener('change', function() {
-                dateSettings.font = this.value;
-                drawLayout();
-            });
-            
-            document.getElementById('dateFontSize').addEventListener('change', function() {
-                dateSettings.fontSize = this.value;
+                // 全画像の日付位置を更新
+                updateAllDatePositions(this.value);
                 drawLayout();
             });
             
@@ -2846,18 +2836,7 @@
                 drawLayout();
             });
             
-            document.getElementById('dateColor').addEventListener('input', function() {
-                dateSettings.color = this.value;
-                drawLayout();
-            });
-            
-            document.getElementById('dateColorPreset').addEventListener('change', function() {
-                dateSettings.color = this.value;
-                document.getElementById('dateColor').value = this.value;
-                drawLayout();
-            });
-            
-            // 日付入力（編集モーダル）
+// 日付入力（編集モーダル）
             document.getElementById('imageDate').addEventListener('change', function() {
                 editState.date = this.value;
                 drawEditPreview();
@@ -3333,7 +3312,15 @@
             }
         }
         
-        function drawLayout() {
+        // 描画完了コールバック用
+        let drawCompleteCallback = null;
+        
+        function drawLayout(onComplete = null) {
+            // コールバックが指定された場合は保存
+            if (onComplete) {
+                drawCompleteCallback = onComplete;
+            }
+            
             // 描画中の場合は、後で再描画をスケジュール
             if (isDrawing) {
                 pendingDraw = true;
@@ -3390,6 +3377,13 @@
                     if (pendingDraw) {
                         pendingDraw = false;
                         drawLayout();
+                    } else {
+                        // 描画完了コールバックを実行
+                        if (drawCompleteCallback) {
+                            const callback = drawCompleteCallback;
+                            drawCompleteCallback = null;
+                            callback();
+                        }
                     }
                 });
             });
@@ -3777,20 +3771,27 @@
             const rotation = imgData.dateRotation || 0;
             
             // 相対位置から絶対位置を計算
-            const dateX = imgData.dateX !== undefined ? imgData.dateX : 0.75;
-            const dateY = imgData.dateY !== undefined ? imgData.dateY : 0.9;
+            const defaultCoords = getDatePositionCoords(dateSettings.position);
+            const dateX = imgData.dateX !== undefined ? imgData.dateX : defaultCoords.x;
+            const dateY = imgData.dateY !== undefined ? imgData.dateY : defaultCoords.y;
+            const dateOriginX = imgData.dateOriginX !== undefined ? imgData.dateOriginX : defaultCoords.originX;
             
             const textX = x + width * dateX;
             const textY = y + height * dateY;
             
+            // 影のオフセットはoriginXに応じて調整
+            let shadowOffsetX = 1;
+            if (dateOriginX === 'left') shadowOffsetX = 1;
+            else if (dateOriginX === 'right') shadowOffsetX = -1;
+            
             // 影
             const shadow = new fabric.Text(dateText, {
-                left: textX + 1,
+                left: textX + shadowOffsetX,
                 top: textY + 1,
                 fontSize: fontSize,
                 fill: 'rgba(0,0,0,0.5)',
                 fontFamily: font,
-                originX: 'center',
+                originX: dateOriginX,
                 originY: 'center',
                 angle: rotation,
                 selectable: false,
@@ -3805,7 +3806,7 @@
                 fontSize: fontSize,
                 fill: color,
                 fontFamily: font,
-                originX: 'center',
+                originX: dateOriginX,
                 originY: 'center',
                 angle: rotation,
                 selectable: false,
@@ -4015,8 +4016,9 @@
                 commentColor: '',
                 date: exifDate || '', // EXIFから取得できれば自動設定
                 exifDate: exifDate,
-                dateX: 0.75, // 印刷領域内に収まるよう調整
-                dateY: 0.9,
+                dateX: getDatePositionCoords(dateSettings.position).x,
+                dateY: getDatePositionCoords(dateSettings.position).y,
+                dateOriginX: getDatePositionCoords(dateSettings.position).originX,
                 dateScale: 1.0,
                 dateRotation: 0,
                 dateFont: '',
@@ -4127,8 +4129,9 @@
                 commentColor: imgData.commentColor || '',
                 date: imgData.date || '',
                 exifDate: imgData.exifDate || null,
-                dateX: imgData.dateX !== undefined ? imgData.dateX : 0.75,
-                dateY: imgData.dateY !== undefined ? imgData.dateY : 0.9,
+                dateX: imgData.dateX !== undefined ? imgData.dateX : getDatePositionCoords(dateSettings.position).x,
+                dateY: imgData.dateY !== undefined ? imgData.dateY : getDatePositionCoords(dateSettings.position).y,
+                dateOriginX: imgData.dateOriginX !== undefined ? imgData.dateOriginX : getDatePositionCoords(dateSettings.position).originX,
                 dateScale: imgData.dateScale || 1.0,
                 dateRotation: imgData.dateRotation || 0,
                 dateFont: imgData.dateFont || '',
@@ -5599,18 +5602,27 @@
             const color = editState.dateColor || dateSettings.color;
             const rotation = editState.dateRotation || 0;
             
+            // originXを取得（デフォルト設定または個別設定）
+            const defaultCoords = getDatePositionCoords(dateSettings.position);
+            const dateOriginX = editState.dateOriginX !== undefined ? editState.dateOriginX : defaultCoords.originX;
+            
             // 位置を計算（印刷範囲に対する相対座標をキャンバス座標に変換）
             const textX = overflowMargin + printAreaWidth * editState.dateX;
             const textY = overflowMargin + printAreaHeight * editState.dateY;
             
+            // 影のオフセットはoriginXに応じて調整
+            let shadowOffsetX = 1;
+            if (dateOriginX === 'left') shadowOffsetX = 1;
+            else if (dateOriginX === 'right') shadowOffsetX = -1;
+            
             // 影
             const shadow = new fabric.Text(dateText, {
-                left: textX + 1,
+                left: textX + shadowOffsetX,
                 top: textY + 1,
                 fontSize: fontSize,
                 fill: 'rgba(0,0,0,0.5)',
                 fontFamily: font,
-                originX: 'center',
+                originX: dateOriginX,
                 originY: 'center',
                 angle: rotation,
                 selectable: false,
@@ -5625,7 +5637,7 @@
                 fontSize: fontSize,
                 fill: color,
                 fontFamily: font,
-                originX: 'center',
+                originX: dateOriginX,
                 originY: 'center',
                 angle: rotation,
                 selectable: false,
@@ -5637,8 +5649,17 @@
             const textWidth = Math.max(60, text.width + 20);
             const textHeight = Math.max(30, text.height + 10);
             const isSelected = selectedElement === 'date';
+            
+            // ヒットボックスの位置をoriginXに応じて調整
+            let hitBoxX = textX;
+            if (dateOriginX === 'left') {
+                hitBoxX = textX + textWidth / 2;
+            } else if (dateOriginX === 'right') {
+                hitBoxX = textX - textWidth / 2;
+            }
+            
             const hitBox = new fabric.Rect({
-                left: textX,
+                left: hitBoxX,
                 top: textY,
                 width: textWidth,
                 height: textHeight,
@@ -5657,7 +5678,7 @@
             // サイズ・角度表示
             const labelText = `${Math.round(dateScale * 100)}%` + (rotation !== 0 ? ` ${Math.round(rotation)}°` : '');
             const scaleLabel = new fabric.Text(labelText, {
-                left: textX,
+                left: hitBoxX,
                 top: textY + textHeight / 2 + 10,
                 fontSize: 10,
                 fill: '#48bb78',
@@ -5672,7 +5693,7 @@
             // ロック状態の場合、グレーオーバーレイを追加
             if (isDateLocked) {
                 const lockOverlay = new fabric.Rect({
-                    left: textX,
+                    left: hitBoxX,
                     top: textY,
                     width: textWidth + 10,
                     height: textHeight + 10,
@@ -5689,7 +5710,7 @@
                 
                 // ロックアイコンを表示
                 const lockIcon = new fabric.Text('🔒', {
-                    left: textX,
+                    left: hitBoxX,
                     top: textY,
                     fontSize: 16,
                     fill: '#fff',
@@ -5908,6 +5929,7 @@
             allImages[editingImageIndex].date = editState.date;
             allImages[editingImageIndex].dateX = editState.dateX;
             allImages[editingImageIndex].dateY = editState.dateY;
+            allImages[editingImageIndex].dateOriginX = editState.dateOriginX;
             allImages[editingImageIndex].dateScale = editState.dateScale;
             allImages[editingImageIndex].dateRotation = editState.dateRotation;
             allImages[editingImageIndex].dateFont = editState.dateFont;
@@ -5936,6 +5958,9 @@
                 return;
             }
             
+            // 適用数を先に記録
+            const appliedCount = allImages.length;
+            
             // 全画像に適用
             allImages.forEach((imgData, index) => {
                 if (applyToComment) {
@@ -5950,8 +5975,9 @@
                 }
             });
             
-            // placedImagesも更新
+            // placedImagesも更新（インデックスでallImagesと対応づけて同期）
             placedImages.forEach((imgData, index) => {
+                // placedImagesの各要素はallImages[index]に対応
                 if (applyToComment) {
                     imgData.commentFont = batchFont;
                     imgData.commentFontSize = batchSize;
@@ -5979,9 +6005,8 @@
                 document.getElementById('dateColor').value = batchColor;
             }
             
-            drawLayout();
-            
-            let message = '全' + allImages.length + '枚の写真に';
+            // メッセージを生成
+            let message = '全' + appliedCount + '枚の写真に';
             if (applyToComment && applyToDate) {
                 message += 'コメントと日付の';
             } else if (applyToComment) {
@@ -5990,7 +6015,45 @@
                 message += '日付の';
             }
             message += 'スタイルを適用しました。';
-            alert(message);
+            
+            // 即座に再描画を強制実行
+            // isDrawingフラグをリセットして確実に再描画
+            isDrawing = false;
+            pendingDraw = false;
+            drawCompleteCallback = null;
+            
+            // キャンバスをクリアして即座に再描画
+            mainCanvas.clear();
+            mainCanvas.backgroundColor = '#FFFFFF';
+            
+            // 枠を描画（空の枠のみ）
+            frames.forEach((frame, index) => {
+                if (!frame.occupied) {
+                    drawEmptyFrame(frame, index);
+                }
+            });
+            
+            // 画像を描画
+            const drawPromises = placedImages.map((imgData, index) => {
+                return drawPlacedImageAsync(imgData, index, drawSessionId);
+            });
+            
+            // すべての画像描画が完了したら切り取り線を描画してメッセージ表示
+            Promise.all(drawPromises).then(() => {
+                // 切り取り線を描画（最前面）
+                if (showCutLines) {
+                    frames.forEach(frame => {
+                        drawCutLine(frame);
+                    });
+                }
+                
+                mainCanvas.renderAll();
+                
+                // 少し遅延を入れて描画が視覚的に反映されてから表示
+                setTimeout(function() {
+                    alert(message);
+                }, 150);
+            });
         }
 
         // =====================================================
@@ -6212,8 +6275,10 @@
             const rotation = imgData.dateRotation || 0;
             
             // 相対位置から絶対位置を計算
-            const dateX = imgData.dateX !== undefined ? imgData.dateX : 0.75;
-            const dateY = imgData.dateY !== undefined ? imgData.dateY : 0.9;
+            const defaultCoords = getDatePositionCoords(dateSettings.position);
+            const dateX = imgData.dateX !== undefined ? imgData.dateX : defaultCoords.x;
+            const dateY = imgData.dateY !== undefined ? imgData.dateY : defaultCoords.y;
+            const dateOriginX = imgData.dateOriginX !== undefined ? imgData.dateOriginX : defaultCoords.originX;
             
             const textX = frame.x + frame.width * dateX;
             const textY = frame.y + frame.height * dateY;
@@ -6224,16 +6289,21 @@
             ctx.clip();
             
             ctx.font = `${fontSize}px ${font}`;
-            ctx.textAlign = 'center';
+            ctx.textAlign = dateOriginX; // originXをtextAlignに反映
             ctx.textBaseline = 'middle';
             
             // 回転
             ctx.translate(textX, textY);
             ctx.rotate(rotation * Math.PI / 180);
             
+            // 影のオフセットをtextAlignに応じて調整
+            let shadowOffsetX = 1;
+            if (dateOriginX === 'left') shadowOffsetX = 1;
+            else if (dateOriginX === 'right') shadowOffsetX = -1;
+            
             // 影
             ctx.fillStyle = 'rgba(0,0,0,0.5)';
-            ctx.fillText(dateText, 1, 1);
+            ctx.fillText(dateText, shadowOffsetX, 1);
             
             // テキスト
             ctx.fillStyle = color;
