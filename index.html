@@ -3017,36 +3017,8 @@
             drawLayout();
         }
         
-        // ロック解除確認ダイアログを表示
-        function showUnlockConfirmDialog(elementType) {
-            const elementNames = {
-                'image': '写真',
-                'comment': 'コメント',
-                'date': '日付'
-            };
-            const elementName = elementNames[elementType] || elementType;
-            
-            return new Promise((resolve) => {
-                const result = confirm(`「${elementName}」はロック中です。\nロックを解除しますか？`);
-                if (result) {
-                    // ロックを解除
-                    if (elementType === 'image') {
-                        isImageLocked = false;
-                        document.getElementById('lockImageBtn').classList.remove('locked');
-                        document.getElementById('lockImageIcon').className = 'fas fa-unlock';
-                    } else if (elementType === 'comment') {
-                        isCommentLocked = false;
-                        document.getElementById('lockCommentBtn').classList.remove('locked');
-                        document.getElementById('lockCommentIcon').className = 'fas fa-unlock';
-                    } else if (elementType === 'date') {
-                        isDateLocked = false;
-                        document.getElementById('lockDateBtn').classList.remove('locked');
-                        document.getElementById('lockDateIcon').className = 'fas fa-unlock';
-                    }
-                }
-                resolve(result);
-            });
-        }
+        // ロック解除確認ダイアログは削除（長押しでロック/解除する仕様に変更）
+        // 以前の関数は削除済み
 
         // =====================================================
         // 各用紙サイズの枠数を計算して表示
@@ -4424,10 +4396,8 @@
                 if (selectedElement === 'comment' && showComment && editState.comment) {
                     // コメントが選択中の場合
                     if (isCommentLocked) {
-                        const unlocked = await showUnlockConfirmDialog('comment');
-                        if (!unlocked) {
-                            return;
-                        }
+                        // ロック中は操作不可
+                        return;
                     }
                     isDraggingComment = true;
                     isPanning = false;
@@ -4443,10 +4413,8 @@
                 if (selectedElement === 'date' && showDate && editState.date) {
                     // 日付が選択中の場合
                     if (isDateLocked) {
-                        const unlocked = await showUnlockConfirmDialog('date');
-                        if (!unlocked) {
-                            return;
-                        }
+                        // ロック中は操作不可
+                        return;
                     }
                     isDraggingDate = true;
                     isPanning = false;
@@ -4461,10 +4429,8 @@
                 
                 // 写真が選択中（またはデフォルト）の場合
                 if (isImageLocked) {
-                    const unlocked = await showUnlockConfirmDialog('image');
-                    if (!unlocked) {
-                        return;
-                    }
+                    // ロック中は操作不可
+                    return;
                 }
                 isPanning = true;
                 isDraggingComment = false;
@@ -4581,6 +4547,29 @@
             let hasMoved = false; // スライドしたかどうか
             const TAP_THRESHOLD = 10; // タップと判定する移動距離の閾値（px）
             
+            // 長押しロック機能用
+            let longPressTimer = null;
+            const LONG_PRESS_DURATION = 500; // 長押しと判定する時間（ms）
+            let longPressTriggered = false; // 長押しが発動したかどうか
+            
+            // 長押しでロック/ロック解除をトグルする関数
+            function toggleLockByLongPress(elementType) {
+                if (elementType === 'image') {
+                    isImageLocked = !isImageLocked;
+                    document.getElementById('lockImageBtn').classList.toggle('locked', isImageLocked);
+                    document.getElementById('lockImageIcon').className = isImageLocked ? 'fas fa-lock' : 'fas fa-unlock';
+                } else if (elementType === 'comment') {
+                    isCommentLocked = !isCommentLocked;
+                    document.getElementById('lockCommentBtn').classList.toggle('locked', isCommentLocked);
+                    document.getElementById('lockCommentIcon').className = isCommentLocked ? 'fas fa-lock' : 'fas fa-unlock';
+                } else if (elementType === 'date') {
+                    isDateLocked = !isDateLocked;
+                    document.getElementById('lockDateBtn').classList.toggle('locked', isDateLocked);
+                    document.getElementById('lockDateIcon').className = isDateLocked ? 'fas fa-lock' : 'fas fa-unlock';
+                }
+                drawEditPreview();
+            }
+            
             // 90度スナップ用の角度スナップ関数
             function snapAngleTo90(angle, threshold = 8) {
                 const normalized = ((angle % 360) + 360) % 360;
@@ -4631,6 +4620,13 @@
                 isTouchActive = true;
                 hasPinched = false;
                 
+                // 長押しタイマーをクリア
+                if (longPressTimer) {
+                    clearTimeout(longPressTimer);
+                    longPressTimer = null;
+                }
+                longPressTriggered = false;
+                
                 if (e.touches.length === 1) {
                     const rect = canvasElement.getBoundingClientRect();
                     const touchX = e.touches[0].clientX - rect.left;
@@ -4643,6 +4639,16 @@
                     touchStartY = touchY;
                     touchStartTarget = target;
                     hasMoved = false;
+                    
+                    // 長押しタイマーを開始（タップしてから移動せずに一定時間経過したらロック/解除）
+                    longPressTimer = setTimeout(() => {
+                        // 移動していない場合のみロックをトグル
+                        if (!hasMoved && !hasPinched && touchStartTarget) {
+                            longPressTriggered = true;
+                            toggleLockByLongPress(touchStartTarget);
+                        }
+                        longPressTimer = null;
+                    }, LONG_PRESS_DURATION);
                     
                     // ダブルタップ判定（300ms以内）
                     if (currentTime - lastTouchTime < 300 && lastTouchTarget === target) {
@@ -4681,15 +4687,9 @@
                     if (selectedElement === 'comment' && showComment && editState.comment) {
                         // コメントが選択中の場合
                         if (isCommentLocked) {
-                            const unlocked = confirm('「コメント」はロック中です。\nロックを解除しますか？');
-                            if (unlocked) {
-                                isCommentLocked = false;
-                                document.getElementById('lockCommentBtn').classList.remove('locked');
-                                document.getElementById('lockCommentIcon').className = 'fas fa-unlock';
-                            } else {
-                                e.preventDefault();
-                                return;
-                            }
+                            // ロック中は操作不可
+                            e.preventDefault();
+                            return;
                         }
                         isDraggingComment = true;
                         isPanning = false;
@@ -4706,15 +4706,9 @@
                     if (selectedElement === 'date' && showDate && editState.date) {
                         // 日付が選択中の場合
                         if (isDateLocked) {
-                            const unlocked = confirm('「日付」はロック中です。\nロックを解除しますか？');
-                            if (unlocked) {
-                                isDateLocked = false;
-                                document.getElementById('lockDateBtn').classList.remove('locked');
-                                document.getElementById('lockDateIcon').className = 'fas fa-unlock';
-                            } else {
-                                e.preventDefault();
-                                return;
-                            }
+                            // ロック中は操作不可
+                            e.preventDefault();
+                            return;
                         }
                         isDraggingDate = true;
                         isPanning = false;
@@ -4730,21 +4724,21 @@
                     
                     // 写真が選択中（またはデフォルト）の場合
                     if (isImageLocked) {
-                        const unlocked = confirm('「写真」はロック中です。\nロックを解除しますか？');
-                        if (unlocked) {
-                            isImageLocked = false;
-                            document.getElementById('lockImageBtn').classList.remove('locked');
-                            document.getElementById('lockImageIcon').className = 'fas fa-unlock';
-                        } else {
-                            e.preventDefault();
-                            return;
-                        }
+                        // ロック中は操作不可
+                        e.preventDefault();
+                        return;
                     }
                     isPanning = true;
                     isDraggingComment = false;
                     isDraggingDate = false;
                     e.preventDefault();
                 } else if (e.touches.length === 2) {
+                    // ピンチ開始時に長押しタイマーをキャンセル
+                    if (longPressTimer) {
+                        clearTimeout(longPressTimer);
+                        longPressTimer = null;
+                    }
+                    
                     // ピンチ開始
                     isPanning = false;
                     isDraggingComment = false;
@@ -4775,17 +4769,10 @@
                         
                         if (Math.abs(pinchCenterX - commentX) < hitRadius && 
                             Math.abs(pinchCenterY - commentY) < hitRadius) {
-                            // ロック中の場合、確認ダイアログを表示
+                            // ロック中は操作不可
                             if (isCommentLocked) {
-                                const unlocked = confirm('「コメント」はロック中です。\nロックを解除しますか？');
-                                if (unlocked) {
-                                    isCommentLocked = false;
-                                    document.getElementById('lockCommentBtn').classList.remove('locked');
-                                    document.getElementById('lockCommentIcon').className = 'fas fa-unlock';
-                                } else {
-                                    e.preventDefault();
-                                    return;
-                                }
+                                e.preventDefault();
+                                return;
                             }
                             isPinchingComment = true;
                             isPinchingDate = false;
@@ -4804,17 +4791,10 @@
                         
                         if (Math.abs(pinchCenterX - dateX) < hitRadius && 
                             Math.abs(pinchCenterY - dateY) < hitRadius) {
-                            // ロック中の場合、確認ダイアログを表示
+                            // ロック中は操作不可
                             if (isDateLocked) {
-                                const unlocked = confirm('「日付」はロック中です。\nロックを解除しますか？');
-                                if (unlocked) {
-                                    isDateLocked = false;
-                                    document.getElementById('lockDateBtn').classList.remove('locked');
-                                    document.getElementById('lockDateIcon').className = 'fas fa-unlock';
-                                } else {
-                                    e.preventDefault();
-                                    return;
-                                }
+                                e.preventDefault();
+                                return;
                             }
                             isPinchingDate = true;
                             isPinchingComment = false;
@@ -4827,15 +4807,9 @@
                     
                     // 写真のピンチ操作（画像ロック確認）
                     if (isImageLocked) {
-                        const unlocked = confirm('「写真」はロック中です。\nロックを解除しますか？');
-                        if (unlocked) {
-                            isImageLocked = false;
-                            document.getElementById('lockImageBtn').classList.remove('locked');
-                            document.getElementById('lockImageIcon').className = 'fas fa-unlock';
-                        } else {
-                            e.preventDefault();
-                            return;
-                        }
+                        // ロック中は操作不可
+                        e.preventDefault();
+                        return;
                     }
                     
                     // 写真のピンチ操作を開始
@@ -4862,6 +4836,12 @@
                 }
                 
                 if (e.touches.length === 2) {
+                    // ピンチ操作開始時に長押しタイマーをキャンセル
+                    if (longPressTimer) {
+                        clearTimeout(longPressTimer);
+                        longPressTimer = null;
+                    }
+                    
                     // ピンチ操作
                     const rect = canvasElement.getBoundingClientRect();
                     const touch1X = e.touches[0].clientX - rect.left;
@@ -4923,6 +4903,11 @@
                 );
                 if (moveDistance > TAP_THRESHOLD) {
                     hasMoved = true;
+                    // 移動した場合は長押しタイマーをキャンセル（ロックしない）
+                    if (longPressTimer) {
+                        clearTimeout(longPressTimer);
+                        longPressTimer = null;
+                    }
                 }
                 
                 if (isDraggingComment && !isCommentLocked) {
@@ -4973,6 +4958,34 @@
             }, { passive: false });
             
             canvasElement.addEventListener('touchend', function(e) {
+                // 長押しタイマーをクリア
+                if (longPressTimer) {
+                    clearTimeout(longPressTimer);
+                    longPressTimer = null;
+                }
+                
+                // 長押しが発動した場合は何もしない（選択切り替えもしない）
+                if (longPressTriggered) {
+                    longPressTriggered = false;
+                    // フラグをリセット
+                    isPanning = false;
+                    isDraggingComment = false;
+                    isDraggingDate = false;
+                    hasMoved = false;
+                    touchStartTarget = null;
+                    if (e.touches.length < 2) {
+                        isPinchingComment = false;
+                        isPinchingDate = false;
+                        isPinchingImage = false;
+                        initialPinchDistance = 0;
+                    }
+                    setTimeout(() => {
+                        isTouchActive = false;
+                        hasPinched = false;
+                    }, 100);
+                    return;
+                }
+                
                 // タップ判定：スライドもピンチもしなかった場合のみ選択対象を切り替える
                 // hasMoved: スライド操作をした場合はtrue
                 // hasPinched: ピンチ（回転/拡大縮小）操作をした場合はtrue
@@ -5098,6 +5111,33 @@
                 // 日付プレビューも表示
                 if (showDate && editState.date) {
                     drawDatePreviewOnEditCanvas();
+                }
+                
+                // 写真がロック状態の場合、グレーオーバーレイを追加
+                if (isImageLocked) {
+                    const lockOverlay = new fabric.Rect({
+                        left: overflowMargin,
+                        top: overflowMargin,
+                        width: printAreaWidth,
+                        height: printAreaHeight,
+                        fill: 'rgba(128, 128, 128, 0.4)',
+                        selectable: false,
+                        evented: false
+                    });
+                    editCanvas.add(lockOverlay);
+                    
+                    // ロックアイコンを中央に表示
+                    const lockIcon = new fabric.Text('🔒', {
+                        left: overflowMargin + printAreaWidth / 2,
+                        top: overflowMargin + printAreaHeight / 2,
+                        fontSize: 40,
+                        fill: '#fff',
+                        originX: 'center',
+                        originY: 'center',
+                        selectable: false,
+                        evented: false
+                    });
+                    editCanvas.add(lockIcon);
                 }
                 
                 // 自動レンダリングを再度有効化し、一度だけレンダリング
@@ -5628,6 +5668,38 @@
                 evented: false
             });
             editCanvas.add(scaleLabel);
+            
+            // ロック状態の場合、グレーオーバーレイを追加
+            if (isDateLocked) {
+                const lockOverlay = new fabric.Rect({
+                    left: textX,
+                    top: textY,
+                    width: textWidth + 10,
+                    height: textHeight + 10,
+                    fill: 'rgba(128, 128, 128, 0.5)',
+                    stroke: '#666',
+                    strokeWidth: 1,
+                    originX: 'center',
+                    originY: 'center',
+                    angle: rotation,
+                    selectable: false,
+                    evented: false
+                });
+                editCanvas.add(lockOverlay);
+                
+                // ロックアイコンを表示
+                const lockIcon = new fabric.Text('🔒', {
+                    left: textX,
+                    top: textY,
+                    fontSize: 16,
+                    fill: '#fff',
+                    originX: 'center',
+                    originY: 'center',
+                    selectable: false,
+                    evented: false
+                });
+                editCanvas.add(lockIcon);
+            }
         }
         
         function drawCommentPreviewOnEditCanvas() {
@@ -5716,6 +5788,38 @@
                 evented: false
             });
             editCanvas.add(scaleLabel);
+            
+            // ロック状態の場合、グレーオーバーレイを追加
+            if (isCommentLocked) {
+                const lockOverlay = new fabric.Rect({
+                    left: textX,
+                    top: textY,
+                    width: textWidth + 10,
+                    height: textHeight + 10,
+                    fill: 'rgba(128, 128, 128, 0.5)',
+                    stroke: '#666',
+                    strokeWidth: 1,
+                    originX: 'center',
+                    originY: 'center',
+                    angle: rotation,
+                    selectable: false,
+                    evented: false
+                });
+                editCanvas.add(lockOverlay);
+                
+                // ロックアイコンを表示
+                const lockIcon = new fabric.Text('🔒', {
+                    left: textX,
+                    top: textY,
+                    fontSize: 16,
+                    fill: '#fff',
+                    originX: 'center',
+                    originY: 'center',
+                    selectable: false,
+                    evented: false
+                });
+                editCanvas.add(lockIcon);
+            }
         }
         
         function handleZoomChange(e) {
